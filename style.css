@@ -5,11 +5,11 @@
    ========================================================================== */
 
 :root {
-  /* Curated Typography */
-  --font-display: 'Amiri', serif;
-  --font-calligraphy: 'Aref Ruqaa', serif;
-  --font-kufi: 'Reem Kufi', sans-serif;
-  --font-body: 'Tajawal', sans-serif;
+  /* Curated Typography with System Fallbacks */
+  --font-display: 'Amiri', 'Traditional Arabic', 'Geeza Pro', serif;
+  --font-calligraphy: 'Aref Ruqaa', 'Amiri', 'Traditional Arabic', serif;
+  --font-kufi: 'Reem Kufi', 'Tajawal', sans-serif;
+  --font-body: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
 
   /* Nocturnal Sanctuary Palette */
   --obsidian-deep: #04090d;
@@ -30,7 +30,7 @@
   --gold-antique: #aa8222;
   --gold-bronze: #785810;
   --gold-gradient: linear-gradient(135deg, #9b7220 0%, #d4af37 25%, #fff1b8 50%, #c99e32 75%, #8a6214 100%);
-  --gold-glow: rgba(212, 175, 55, 0.32);
+  --gold-glow: rgba(212, 175, 55, 0.35);
 
   /* Imperial Crimson Wax */
   --crimson-royal: #80111d;
@@ -54,15 +54,14 @@ body {
   font-family: var(--font-body);
   background-color: var(--obsidian-deep);
   color: var(--ink-royal);
-  min-height: 100vh;
+  min-height: 490px;
   overflow-x: hidden;
   position: relative;
   line-height: 1.8;
 }
 
 body.is-locked {
-  overflow: hidden;
-  height: 100vh;
+  overflow-x: hidden;
 }
 
 /* Hidden SVG Definitions */
@@ -74,12 +73,12 @@ body.is-locked {
   pointer-events: none;
 }
 
-/* Three.js Celestial Canvas & Ambient Vignette */
-#bg-canvas {
+/* Native 60fps Celestial Canvas & Ambient Vignette */
+#celestial-canvas {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 0;
   pointer-events: none;
 }
@@ -97,9 +96,9 @@ body.is-locked {
    ========================================================================== */
 .floating-controls {
   position: fixed;
-  top: 20px;
-  left: 20px;
-  right: 20px;
+  top: 14px;
+  left: 14px;
+  right: 14px;
   z-index: 200;
   display: flex;
   justify-content: space-between;
@@ -111,19 +110,19 @@ body.is-locked {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 18px;
+  padding: 8px 15px;
   border-radius: 40px;
-  background: rgba(8, 19, 27, 0.82);
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(8, 19, 27, 0.86);
+  border: 1px solid rgba(212, 175, 55, 0.5);
   color: var(--gold-bright);
   font-family: var(--font-body);
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), inset 0 0 12px rgba(212, 175, 55, 0.12);
-  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55), inset 0 0 12px rgba(212, 175, 55, 0.12);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .ctrl-btn:hover {
@@ -132,9 +131,10 @@ body.is-locked {
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), 0 0 18px var(--gold-glow);
 }
 
-.ctrl-btn i {
-  font-size: 1rem;
-  color: var(--gold-metallic);
+.ctrl-svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
 }
 
 .hidden {
@@ -146,29 +146,38 @@ body.is-locked {
    ACT I: THE ROYAL ENVELOPE SANCTUARY (PRECISION LAYERED STAGE)
    ========================================================================== */
 .envelope-sanctuary {
-  position: fixed;
-  inset: 0;
+  position: relative;
   z-index: 50;
+  min-height: 485px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 4.2rem 1rem 2.2rem;
+  gap: 1rem;
+  padding: 1.5rem 1rem 1.4rem;
   overflow: hidden;
+}
+
+@media (min-height: 640px) {
+  .envelope-sanctuary {
+    min-height: 100vh;
+    padding: 3.2rem 1rem 2rem;
+  }
 }
 
 /* Sanctuary Top Header */
 .sanctuary-header {
   text-align: center;
   z-index: 10;
-  max-width: 540px;
+  max-width: 560px;
+  will-change: transform, opacity;
 }
 
 .crest-mini {
   color: var(--gold-metallic);
-  font-size: 1.25rem;
-  letter-spacing: 6px;
-  margin-bottom: 4px;
+  font-size: 1.1rem;
+  letter-spacing: 5px;
+  margin-bottom: 2px;
   opacity: 0.9;
 }
 
@@ -185,26 +194,27 @@ body.is-locked {
 
 .sanctuary-pre {
   font-family: var(--font-kufi);
-  font-size: 0.88rem;
-  color: rgba(250, 229, 150, 0.75);
-  letter-spacing: 1px;
-  margin-bottom: 4px;
+  font-size: 0.8rem;
+  color: rgba(250, 229, 150, 0.78);
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
 }
 
 .sanctuary-title {
   font-family: var(--font-calligraphy);
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-size: clamp(1.5rem, 3.6vw, 2.3rem);
   font-weight: 700;
   background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
+  line-height: 1.3;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
 }
 
 .sanctuary-subtitle {
-  font-size: clamp(0.92rem, 2.5vw, 1.05rem);
-  color: rgba(251, 247, 238, 0.85);
+  font-size: clamp(0.84rem, 2.1vw, 0.98rem);
+  color: rgba(251, 247, 238, 0.88);
   font-weight: 400;
 }
 
@@ -223,28 +233,35 @@ body.is-locked {
   flex: 1;
   perspective: 1400px;
   z-index: 15;
+  padding: 15px 0;
 }
 
 /* Envelope Assembly: Deterministic 2D Layering inside a 3D Tiltable Container */
 .envelope-assembly {
   position: relative;
-  width: min(88vw, 450px);
+  width: min(82vw, 355px);
   aspect-ratio: 460 / 300;
   cursor: pointer;
   user-select: none;
-  /* Crucial: keep transform-style flat here so z-index 1..5 never depth-fight! */
+  /* Keep transform-style flat here so z-index 1..5 are 100% deterministic! */
   transform-style: flat;
   will-change: transform;
 }
 
+@media (min-height: 640px) and (min-width: 500px) {
+  .envelope-assembly {
+    width: min(86vw, 430px);
+  }
+}
+
 .envelope-aura {
   position: absolute;
-  inset: -35px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.22) 0%, transparent 70%);
+  inset: -40px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
   border-radius: 50%;
   z-index: 0;
   pointer-events: none;
-  filter: blur(18px);
+  filter: blur(20px);
 }
 
 .env-svg-full {
@@ -261,19 +278,20 @@ body.is-locked {
   z-index: 1;
   border-radius: 12px;
   box-shadow: 
-    0 35px 70px -15px rgba(0, 0, 0, 0.9),
-    0 0 40px rgba(212, 175, 55, 0.15);
+    0 35px 70px -15px rgba(0, 0, 0, 0.92),
+    0 0 40px rgba(212, 175, 55, 0.18);
+  will-change: transform, opacity;
 }
 
 /* LAYER 2: THE INVITATION LETTER RESTING INSIDE THE POCKET */
 .env-layer-letter {
   position: absolute;
-  left: 5.5%;
-  width: 89%;
+  left: 5%;
+  width: 90%;
   bottom: 4.5%;
-  height: 85%;
-  z-index: 2; /* Strictly behind Layer 3 (.env-layer-pocket)! */
-  will-change: transform;
+  height: 86%;
+  z-index: 2; /* Strictly behind Layer 3 (.env-layer-pocket)! Never swaps! */
+  will-change: transform, opacity;
   transform-origin: center center;
 }
 
@@ -282,11 +300,11 @@ body.is-locked {
   height: 100%;
   background: linear-gradient(165deg, #fdfbf6 0%, #f5ecdc 100%);
   border-radius: 8px;
-  padding: 10px;
+  padding: 9px;
   box-shadow: 
-    0 -4px 16px rgba(0, 0, 0, 0.35),
-    inset 0 0 25px rgba(201, 158, 50, 0.12);
-  border: 1px solid rgba(201, 158, 50, 0.55);
+    0 -5px 20px rgba(0, 0, 0, 0.4),
+    inset 0 0 25px rgba(201, 158, 50, 0.15);
+  border: 1px solid rgba(201, 158, 50, 0.65);
 }
 
 .letter-gold-frame {
@@ -299,9 +317,9 @@ body.is-locked {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 1rem;
+  padding: 0.6rem 0.9rem;
   text-align: center;
-  background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.08), transparent 70%);
+  background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.09), transparent 70%);
 }
 
 .letter-corner {
@@ -316,12 +334,18 @@ body.is-locked {
 .lc-bl { bottom: 3px; left: 3px; border-width: 0 0 2px 2px; }
 .lc-br { bottom: 3px; right: 3px; border-width: 0 2px 2px 0; }
 
+.letter-rosette {
+  font-size: 0.68rem;
+  color: var(--gold-antique);
+  letter-spacing: 3px;
+  margin-bottom: 2px;
+}
+
 .letter-Basmala {
   font-family: var(--font-display);
-  font-size: clamp(0.85rem, 2.4vw, 1.1rem);
+  font-size: clamp(0.85rem, 2.3vw, 1.08rem);
   color: var(--ink-royal);
   font-weight: 700;
-  margin-bottom: 4px;
 }
 
 .letter-divider {
@@ -329,9 +353,7 @@ body.is-locked {
   align-items: center;
   gap: 8px;
   width: 55%;
-  margin: 2px auto 6px;
-  color: var(--gold-antique);
-  font-size: 0.7rem;
+  margin: 2px auto 4px;
 }
 
 .letter-divider span {
@@ -342,38 +364,39 @@ body.is-locked {
 
 .letter-kicker {
   font-family: var(--font-kufi);
-  font-size: clamp(0.7rem, 1.9vw, 0.82rem);
+  font-size: clamp(0.68rem, 1.8vw, 0.8rem);
   color: var(--crimson-royal);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .letter-honoree {
   font-family: var(--font-calligraphy);
-  font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+  font-size: clamp(1.08rem, 3vw, 1.45rem);
   color: var(--ink-royal);
   font-weight: 700;
-  margin: 2px 0;
+  margin: 1px 0;
 }
 
 .letter-degree {
-  font-size: clamp(0.68rem, 1.8vw, 0.8rem);
+  font-size: clamp(0.66rem, 1.7vw, 0.78rem);
   color: var(--ink-muted);
   font-weight: 600;
 }
 
 .letter-seal-mark {
-  margin-top: 6px;
-  font-size: 0.68rem;
+  margin-top: 4px;
+  font-size: 0.64rem;
   color: var(--gold-bronze);
-  letter-spacing: 1px;
+  font-weight: 600;
 }
 
 /* LAYER 3: ENVELOPE FRONT POCKET (LEFT, RIGHT & BOTTOM FLAPS) */
 .env-layer-pocket {
   position: absolute;
   inset: 0;
-  z-index: 3; /* Always in front of .env-layer-letter while letter is inside pocket! */
+  z-index: 3; /* Strictly in front of .env-layer-letter at all times! */
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
 /* LAYER 4: TOP 3D HINGED FLAP */
@@ -383,9 +406,10 @@ body.is-locked {
   left: 0;
   width: 100%;
   height: 61.666%; /* 185 / 300 */
-  z-index: 4; /* Swaps to z-index: 1 at 90deg open via GSAP */
+  z-index: 4; /* Swaps to z-index: 1 at exact 90deg open midpoint! */
   perspective: 1500px;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
 .top-flap-3d {
@@ -411,7 +435,6 @@ body.is-locked {
 }
 
 .flap-face-back {
-  /* Pre-rotated 180deg around X so when .top-flap-3d rotates 180deg X, this face appears pointing upward */
   transform: rotateX(180deg);
 }
 
@@ -422,18 +445,15 @@ body.is-locked {
   overflow: visible;
 }
 
-/* LAYER 5: SCULPTED 3D ROYAL WAX SEAL */
+/* LAYER 5: SCULPTED TWO-PIECE SPLITTING WAX SEAL */
 .wax-seal-stage {
   position: absolute;
   top: 56%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(78px, 19vw, 96px);
-  height: clamp(78px, 19vw, 96px);
+  width: clamp(76px, 18vw, 94px);
+  height: clamp(76px, 18vw, 94px);
   z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
 }
 
@@ -441,8 +461,8 @@ body.is-locked {
   position: absolute;
   inset: -12px;
   border-radius: 50%;
-  border: 1.5px solid rgba(250, 229, 150, 0.45);
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+  border: 1.5px solid rgba(250, 229, 150, 0.5);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.45);
   animation: waxPulseRing 2.4s infinite ease-in-out;
   pointer-events: none;
 }
@@ -452,15 +472,21 @@ body.is-locked {
   50% { transform: scale(1.12); opacity: 0.95; }
 }
 
-.wax-seal-whole {
+.wax-half {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.75));
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.75));
+  will-change: transform, opacity;
+  transition: transform 0.3s ease;
 }
 
-.envelope-assembly:hover .wax-seal-whole {
-  transform: scale(1.07);
+.envelope-assembly:hover .wax-half-left {
+  transform: scale(1.05);
+}
+.envelope-assembly:hover .wax-half-right {
+  transform: scale(1.05);
 }
 
 .wax-svg {
@@ -470,10 +496,27 @@ body.is-locked {
   overflow: visible;
 }
 
+.wax-crack-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 6;
+  overflow: visible;
+}
+
+#wax-crack-path {
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+  filter: drop-shadow(0 0 8px #ffd700);
+}
+
 /* Sanctuary Bottom Touch Prompt */
 .sanctuary-prompt {
   z-index: 10;
   text-align: center;
+  will-change: transform, opacity;
 }
 
 .prompt-button {
@@ -481,12 +524,13 @@ body.is-locked {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 26px;
+  padding: 11px 24px;
   border-radius: 50px;
-  background: rgba(14, 31, 42, 0.85);
-  border: 1px solid rgba(212, 175, 55, 0.5);
+  background: rgba(14, 31, 42, 0.88);
+  border: 1px solid rgba(212, 175, 55, 0.55);
   color: var(--gold-bright);
-  font-size: 0.95rem;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
@@ -496,7 +540,7 @@ body.is-locked {
 .prompt-button:hover {
   border-color: var(--gold-bright);
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.25);
+  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.28);
 }
 
 .prompt-pulse {
@@ -520,15 +564,13 @@ body.is-locked {
 .royal-invitation {
   position: relative;
   z-index: 30;
-  min-height: 100vh;
-  padding: 4.5rem 1rem 5rem;
-  opacity: 0;
-  visibility: hidden;
+  min-height: 500px;
+  padding: 4.2rem 1rem 4.5rem;
+  display: none;
 }
 
 .royal-invitation.is-active {
-  opacity: 1;
-  visibility: visible;
+  display: block;
 }
 
 .scroll-container {
@@ -546,12 +588,13 @@ body.is-locked {
     radial-gradient(circle at 100% 50%, rgba(201, 158, 50, 0.08) 0%, transparent 45%),
     radial-gradient(circle at 50% 100%, rgba(212, 175, 55, 0.14) 0%, transparent 50%);
   border-radius: 24px;
-  padding: 3.5rem 1.6rem;
+  padding: 3.5rem 1.5rem;
   box-shadow: 
     0 40px 90px -15px rgba(0, 0, 0, 0.85),
     0 0 60px rgba(212, 175, 55, 0.2),
     inset 0 0 50px rgba(184, 138, 40, 0.12);
   overflow: hidden;
+  will-change: transform, opacity;
 }
 
 @media (min-width: 768px) {
@@ -642,8 +685,6 @@ body.is-locked {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gold-bright);
-  font-size: 1.35rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
@@ -799,10 +840,6 @@ body.is-locked {
   font-weight: 600;
 }
 
-.spec-icon {
-  color: var(--gold-bright);
-}
-
 
 /* ==========================================================================
    SECTION 3: CELEBRATORY BANQUET INVITATION
@@ -921,17 +958,15 @@ body.is-locked {
 }
 
 .committee-icon-medallion {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   margin: 0 auto 1rem;
   border-radius: 50%;
-  background: var(--parchment-warm);
+  background: linear-gradient(135deg, #102533 0%, #07121a 100%);
   border: 1.5px solid var(--gold-metallic);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gold-bronze);
-  font-size: 1.2rem;
 }
 
 .committee-tribute-text {
@@ -969,7 +1004,6 @@ body.is-locked {
 
 .mosul-arch-card {
   background: #ffffff;
-  /* Mosul pointed arch top inspiration */
   border-radius: 90px 90px 16px 16px;
   padding: 2.2rem 1.2rem 1.6rem;
   text-align: center;
@@ -1000,8 +1034,6 @@ body.is-locked {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gold-bright);
-  font-size: 1.3rem;
 }
 
 .arch-label {
@@ -1106,8 +1138,9 @@ body.is-locked {
 }
 
 .journey-connector {
-  color: var(--gold-metallic);
-  font-size: 0.9rem;
+  color: var(--gold-antique);
+  font-size: 1.4rem;
+  font-weight: bold;
   display: none;
 }
 
@@ -1188,7 +1221,7 @@ body.is-locked {
   stroke: url(#gold-foil);
   stroke-width: 4.5;
   stroke-linecap: round;
-  stroke-dasharray: 326.72; /* 2 * PI * 52 */
+  stroke-dasharray: 326.72;
   stroke-dashoffset: 60;
   transition: stroke-dashoffset 0.5s ease;
 }
@@ -1258,8 +1291,6 @@ body.is-locked {
 }
 
 .compass-pin {
-  font-size: 1.7rem;
-  color: var(--crimson-royal);
   position: relative;
   z-index: 2;
 }
@@ -1402,19 +1433,11 @@ body.is-locked {
   align-items: center;
 }
 
-.field-icon {
-  position: absolute;
-  right: 16px;
-  color: var(--gold-antique);
-  font-size: 1rem;
-  pointer-events: none;
-}
-
 .ledger-input {
   width: 100%;
   font-family: var(--font-body);
   font-size: 0.98rem;
-  padding: 13px 44px 13px 16px;
+  padding: 13px 16px;
   border-radius: 12px;
   border: 1.5px solid #e2d9c8;
   background: #fdfbf7;
@@ -1424,7 +1447,6 @@ body.is-locked {
 }
 
 .ledger-textarea {
-  padding: 13px 16px;
   resize: vertical;
 }
 
@@ -1498,6 +1520,7 @@ body.is-locked {
 .choice-check {
   color: #d1c7b7;
   font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .choice-card input[type="radio"]:checked + .choice-card-body {

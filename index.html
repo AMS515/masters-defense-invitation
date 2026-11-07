@@ -5,168 +5,206 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>دعوة ملكية خاصة | مأدبة تتويج الباحثة ابتسام محمود صالح - جامعة الموصل</title>
   
-  <meta name="description" content="دعوة خاصة لحضور مأدبة الغداء التكريمية بمناسبة نيل الباحثة ابتسام محمود صالح درجة الماجستير في إدارة الأعمال / أمن المعلومات - جامعة الموصل">
-  <meta property="og:title" content="دعوة خاصة | الباحثة ابتسام محمود صالح">
+  <meta name="description" content="دعوة ملكية خاصة لحضور مأدبة الغداء التكريمية بمناسبة نيل الباحثة ابتسام محمود صالح درجة الماجستير في إدارة الأعمال / أمن المعلومات - جامعة الموصل">
+  <meta property="og:title" content="دعوة ملكية خاصة | الباحثة ابتسام محمود صالح">
   <meta property="og:description" content="نتشرف بدعوتكم لحضور مأدبة الغداء التكريمية احتفاءً بنيل درجة الماجستير في أمن المعلومات - جامعة الموصل">
   <meta property="og:type" content="website">
 
-  <!-- Curated Arabic Typography: Amiri, Aref Ruqaa, Tajawal, Reem Kufi -->
+  <!-- Curated Arabic Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Icons & Animation Libraries -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="is-locked">
 
-  <!-- Global SVG Filters & Pattern Definitions -->
+  <!-- ==================================================================== -->
+  <!-- MASTER SVG DEFINITIONS: METALLIC GOLD FOIL, SILK LINING & WAX CLIPS  -->
+  <!-- ==================================================================== -->
   <svg class="svg-defs" aria-hidden="true">
     <defs>
-      <!-- Metallic 24K Gold Gradient -->
+      <!-- 24K Burnished Metallic Gold Foil -->
       <linearGradient id="gold-foil" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#9b7220" />
-        <stop offset="22%" stop-color="#d4af37" />
-        <stop offset="45%" stop-color="#fff1b8" />
-        <stop offset="65%" stop-color="#c99e32" />
-        <stop offset="85%" stop-color="#f5dc8c" />
-        <stop offset="100%" stop-color="#8a6214" />
+        <stop offset="0%" stop-color="#8f6818" />
+        <stop offset="20%" stop-color="#d4af37" />
+        <stop offset="42%" stop-color="#fff3be" />
+        <stop offset="62%" stop-color="#c5992d" />
+        <stop offset="82%" stop-color="#f7df92" />
+        <stop offset="100%" stop-color="#7d5810" />
       </linearGradient>
 
-      <linearGradient id="gold-foil-soft" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#b88a28" stop-opacity="0.3" />
-        <stop offset="50%" stop-color="#fae596" stop-opacity="0.9" />
-        <stop offset="100%" stop-color="#b88a28" stop-opacity="0.3" />
+      <linearGradient id="gold-vertical" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="#fae596" />
+        <stop offset="50%" stop-color="#d4af37" />
+        <stop offset="100%" stop-color="#8c6516" />
       </linearGradient>
 
-      <!-- Envelope Exterior Obsidian-Emerald Velvet Gradient -->
+      <!-- Envelope Exterior Obsidian-Emerald Velvet Gradients -->
       <linearGradient id="env-velvet-back" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#0b1922" />
-        <stop offset="50%" stop-color="#071118" />
-        <stop offset="100%" stop-color="#040a0e" />
+        <stop offset="0%" stop-color="#0d1f2b" />
+        <stop offset="50%" stop-color="#08141c" />
+        <stop offset="100%" stop-color="#040b10" />
       </linearGradient>
 
       <linearGradient id="env-velvet-left" x1="0%" y1="0%" x2="100%" y2="50%">
-        <stop offset="0%" stop-color="#112430" />
-        <stop offset="100%" stop-color="#09151d" />
-      </linearGradient>
-
-      <linearGradient id="env-velvet-right" x1="100%" y1="0%" x2="0%" y2="50%">
-        <stop offset="0%" stop-color="#0f202b" />
+        <stop offset="0%" stop-color="#142b3b" />
+        <stop offset="60%" stop-color="#0c1c27" />
         <stop offset="100%" stop-color="#071219" />
       </linearGradient>
 
+      <linearGradient id="env-velvet-right" x1="100%" y1="0%" x2="0%" y2="50%">
+        <stop offset="0%" stop-color="#122736" />
+        <stop offset="60%" stop-color="#0a1923" />
+        <stop offset="100%" stop-color="#061017" />
+      </linearGradient>
+
       <linearGradient id="env-velvet-bottom" x1="50%" y1="0%" x2="50%" y2="100%">
-        <stop offset="0%" stop-color="#142936" />
-        <stop offset="40%" stop-color="#0d1d27" />
-        <stop offset="100%" stop-color="#061016" />
+        <stop offset="0%" stop-color="#193547" />
+        <stop offset="35%" stop-color="#0f2330" />
+        <stop offset="100%" stop-color="#07121a" />
       </linearGradient>
 
       <linearGradient id="env-velvet-top" x1="50%" y1="0%" x2="50%" y2="100%">
-        <stop offset="0%" stop-color="#183040" />
-        <stop offset="60%" stop-color="#0e1f2a" />
-        <stop offset="100%" stop-color="#09151e" />
+        <stop offset="0%" stop-color="#1c3b4f" />
+        <stop offset="55%" stop-color="#102533" />
+        <stop offset="100%" stop-color="#091720" />
       </linearGradient>
 
-      <!-- Royal Arabesque Silk Lining Pattern -->
-      <pattern id="arabesque-lining" width="44" height="44" patternUnits="userSpaceOnUse">
-        <rect width="44" height="44" fill="#061217"/>
-        <path d="M22 0 L27 15 L44 22 L27 29 L22 44 L17 29 L0 22 L17 15 Z" fill="none" stroke="#c99e32" stroke-width="0.6" stroke-opacity="0.28"/>
-        <circle cx="22" cy="22" r="6" fill="none" stroke="#fae596" stroke-width="0.5" stroke-opacity="0.22"/>
-        <circle cx="0" cy="0" r="8" fill="none" stroke="#c99e32" stroke-width="0.5" stroke-opacity="0.18"/>
-        <circle cx="44" cy="0" r="8" fill="none" stroke="#c99e32" stroke-width="0.5" stroke-opacity="0.18"/>
-        <circle cx="0" cy="44" r="8" fill="none" stroke="#c99e32" stroke-width="0.5" stroke-opacity="0.18"/>
-        <circle cx="44" cy="44" r="8" fill="none" stroke="#c99e32" stroke-width="0.5" stroke-opacity="0.18"/>
+      <!-- Royal Mesopotamian / Islamic Arabesque Silk Lining Pattern -->
+      <pattern id="arabesque-lining" width="48" height="48" patternUnits="userSpaceOnUse">
+        <rect width="48" height="48" fill="#06131a"/>
+        <path d="M24 0 L30 18 L48 24 L30 30 L24 48 L18 30 L0 24 L18 18 Z" fill="none" stroke="#d4af37" stroke-width="0.65" stroke-opacity="0.32"/>
+        <polygon points="24,8 28,20 40,24 28,28 24,40 20,28 8,24 20,20" fill="none" stroke="#fae596" stroke-width="0.45" stroke-opacity="0.22"/>
+        <circle cx="24" cy="24" r="5" fill="none" stroke="#d4af37" stroke-width="0.55" stroke-opacity="0.28"/>
+        <circle cx="0" cy="0" r="9" fill="none" stroke="#d4af37" stroke-width="0.5" stroke-opacity="0.2"/>
+        <circle cx="48" cy="0" r="9" fill="none" stroke="#d4af37" stroke-width="0.5" stroke-opacity="0.2"/>
+        <circle cx="0" cy="48" r="9" fill="none" stroke="#d4af37" stroke-width="0.5" stroke-opacity="0.2"/>
+        <circle cx="48" cy="48" r="9" fill="none" stroke="#d4af37" stroke-width="0.5" stroke-opacity="0.2"/>
       </pattern>
 
-      <!-- Wax Seal Gradients -->
+      <!-- 3D Molten Crimson Wax Seal Gradients -->
       <radialGradient id="wax-outer-grad" cx="35%" cy="30%" r="70%">
-        <stop offset="0%" stop-color="#c92435" />
-        <stop offset="35%" stop-color="#8f111e" />
-        <stop offset="75%" stop-color="#5c0811" />
-        <stop offset="100%" stop-color="#2e0206" />
+        <stop offset="0%" stop-color="#d4283a" />
+        <stop offset="32%" stop-color="#961220" />
+        <stop offset="72%" stop-color="#5e0711" />
+        <stop offset="100%" stop-color="#2b0105" />
       </radialGradient>
 
-      <radialGradient id="wax-inner-grad" cx="60%" cy="65%" r="65%">
-        <stop offset="0%" stop-color="#7d0e1a" />
-        <stop offset="65%" stop-color="#4e060e" />
-        <stop offset="100%" stop-color="#290105" />
+      <radialGradient id="wax-inner-grad" cx="62%" cy="65%" r="65%">
+        <stop offset="0%" stop-color="#850f1c" />
+        <stop offset="65%" stop-color="#4f050d" />
+        <stop offset="100%" stop-color="#260104" />
       </radialGradient>
 
-      <!-- Drop Shadows for Envelope Folds -->
+      <!-- Jagged Fracture Clip Paths for Physical Two-Piece Wax Seal Split -->
+      <clipPath id="seal-clip-left">
+        <polygon points="0,0 60,0 55,32 64,52 53,74 62,95 57,120 0,120" />
+      </clipPath>
+      <clipPath id="seal-clip-right">
+        <polygon points="60,0 120,0 120,120 57,120 62,95 53,74 64,52 55,32" />
+      </clipPath>
+
+      <!-- Reusable Wax Seal Artwork Symbol -->
+      <g id="wax-seal-artwork">
+        <path d="M 60,6 C 72,5 81,11 91,17 C 101,23 111,32 113,44 C 115,56 112,68 108,79 C 104,90 96,101 85,107 C 74,113 61,115 49,112 C 37,109 24,104 16,94 C 8,84 6,70 7,57 C 8,44 12,31 21,21 C 30,11 48,7 60,6 Z" 
+              fill="url(#wax-outer-grad)" stroke="#3b0308" stroke-width="1.2"/>
+        <path d="M 58,10 C 70,9 80,14 88,20 C 97,26 106,34 108,45 C 110,56 107,67 103,77 C 99,87 92,97 82,102 C 72,107 60,109 49,106 C 38,103 27,98 20,89 C 13,80 11,68 12,56 C 13,44 17,33 25,24 C 33,15 46,11 58,10 Z" 
+              fill="none" stroke="#eb4d5f" stroke-width="0.9" stroke-opacity="0.45"/>
+        <circle cx="60" cy="60" r="39" fill="url(#wax-inner-grad)" stroke="url(#gold-foil)" stroke-width="1.7"/>
+        <circle cx="60" cy="60" r="34" fill="none" stroke="url(#gold-foil)" stroke-width="1.1" stroke-dasharray="3 2.5" opacity="0.88"/>
+        <!-- Olive Wreaths -->
+        <path d="M 42,82 C 30,72 30,48 44,37" fill="none" stroke="url(#gold-foil)" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M 78,82 C 90,72 90,48 76,37" fill="none" stroke="url(#gold-foil)" stroke-width="1.4" stroke-linecap="round"/>
+        <!-- Star Crown -->
+        <polygon points="60,28 62,33 67,33 63,36 64,41 60,38 56,41 57,36 53,33 58,33" fill="url(#gold-foil)"/>
+        <!-- Calligraphic Monogram -->
+        <text x="60" y="66" text-anchor="middle" fill="url(#gold-foil)" font-family="'Aref Ruqaa', 'Amiri', serif" font-size="21" font-weight="700">ابتسام</text>
+        <text x="60" y="83" text-anchor="middle" fill="#fae596" font-family="'Amiri', serif" font-size="8.5" opacity="0.9">جامعة الموصل</text>
+      </g>
+
+      <!-- Soft Elevation Filters for Envelope Folds -->
       <filter id="fold-shadow" x="-15%" y="-15%" width="130%" height="130%">
-        <feDropShadow dx="0" dy="-3" stdDeviation="5" flood-color="#000000" flood-opacity="0.65"/>
+        <feDropShadow dx="0" dy="-3" stdDeviation="5" flood-color="#000000" flood-opacity="0.7"/>
       </filter>
-      <filter id="flap-drop-shadow" x="-15%" y="-10%" width="130%" height="135%">
-        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000000" flood-opacity="0.7"/>
+      <filter id="flap-drop-shadow" x="-15%" y="-10%" width="130%" height="140%">
+        <feDropShadow dx="0" dy="7" stdDeviation="6" flood-color="#000000" flood-opacity="0.75"/>
       </filter>
     </defs>
   </svg>
 
-  <!-- Three.js Celestial Golden Ambience Canvas -->
-  <canvas id="bg-canvas"></canvas>
+  <!-- Celestial Golden Dust & Confetti Canvas (100% Native 60fps Engine) -->
+  <canvas id="celestial-canvas"></canvas>
 
-  <!-- Ambient Vignette & Subtle Grain Overlay -->
+  <!-- Ambient Vignette -->
   <div class="ambient-vignette"></div>
 
-  <!-- Top Navigation Floating Controls -->
+  <!-- Top Floating Controls -->
   <nav class="floating-controls" aria-label="أدوات التحكم">
     <button id="audio-toggle-btn" class="ctrl-btn" title="المؤثرات الصوتية والموسيقى">
-      <i class="fa-solid fa-volume-high" id="audio-icon"></i>
-      <span class="ctrl-label">الصوت</span>
+      <svg id="icon-vol-on" class="ctrl-svg" viewBox="0 0 24 24" fill="none" stroke="url(#gold-foil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="url(#gold-foil)" fill-opacity="0.25"/>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+      </svg>
+      <svg id="icon-vol-off" class="ctrl-svg hidden" viewBox="0 0 24 24" fill="none" stroke="url(#gold-foil)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="url(#gold-foil)" fill-opacity="0.15"/>
+        <line x1="23" y1="9" x2="17" y2="15"/>
+        <line x1="17" y1="9" x2="23" y2="15"/>
+      </svg>
+      <span class="ctrl-label">النغم الملكي</span>
     </button>
 
     <button id="replay-envelope-btn" class="ctrl-btn hidden" title="إعادة مشهد فتح الظرف الملكي">
-      <i class="fa-solid fa-envelope-open-text"></i>
-      <span class="ctrl-label">إعادة فتح الظرف</span>
+      <svg class="ctrl-svg" viewBox="0 0 24 24" fill="none" stroke="url(#gold-foil)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      <span class="ctrl-label">إعادة إغلاق الظرف</span>
     </button>
   </nav>
 
 
   <!-- ================================================================ -->
-  <!-- ACT I: THE ROYAL ENVELOPE SANCTUARY (PHYSICAL 3D STAGE)          -->
+  <!-- ACT I: THE ROYAL ENVELOPE SANCTUARY                              -->
   <!-- ================================================================ -->
   <section id="envelope-sanctuary" class="envelope-sanctuary">
     
-    <!-- Atmospheric Header above Envelope -->
+    <!-- Sanctuary Header -->
     <div class="sanctuary-header" id="sanctuary-header">
       <div class="crest-mini">
-        <span class="ornament-wing">༺</span>
+        <span>༺</span>
         <span class="crest-star">✦</span>
-        <span class="ornament-wing">༻</span>
+        <span>༻</span>
       </div>
-      <p class="sanctuary-pre">جامعة الموصل • كلية الإدارة والاقتصاد</p>
+      <p class="sanctuary-pre">جامعة الموصل • كلية الإدارة والاقتصاد • قسم إدارة الأعمال</p>
       <h2 class="sanctuary-title">دعوة ملكية خاصة</h2>
-      <p class="sanctuary-subtitle">مُهدى إلى مقامكم الكريم بمناسبة تتويج الباحثة <strong>ابتسام محمود صالح</strong></p>
+      <p class="sanctuary-subtitle">مُهداة إلى مقامكم الكريم بمناسبة تتويج الباحثة <strong>ابتسام محمود صالح</strong></p>
     </div>
 
-    <!-- The Interactive Envelope Stage -->
+    <!-- Center Stage with Generous Headroom for Unfolding Flap -->
     <div class="envelope-stage-center" id="envelope-tilt-zone">
       <div class="envelope-assembly" id="envelope-assembly" role="button" tabindex="0" aria-label="افتح ظرف الدعوة">
         
-        <!-- Ambient Golden Aura behind the envelope -->
-        <div class="envelope-aura"></div>
+        <!-- Warm Candlelight Golden Aura behind Envelope -->
+        <div class="envelope-aura" id="envelope-aura"></div>
 
-        <!-- LAYER 1 (z-index: 1): ENVELOPE BACK & ARABESQUE SILK LINING -->
-        <div class="env-layer-back">
+        <!-- ============================================================ -->
+        <!-- LAYER 1 (z-index: 1): ENVELOPE BACK & ARABESQUE SILK LINING  -->
+        <!-- ============================================================ -->
+        <div class="env-layer-back" id="env-back">
           <svg viewBox="0 0 460 300" class="env-svg-full" preserveAspectRatio="none">
-            <!-- Outer dark frame -->
-            <rect x="0" y="0" width="460" height="300" rx="12" fill="url(#env-velvet-back)" stroke="url(#gold-foil)" stroke-width="1.5"/>
-            <!-- Inner Arabesque Silk Lining -->
-            <rect x="8" y="8" width="444" height="284" rx="8" fill="url(#arabesque-lining)" stroke="#c99e32" stroke-width="0.6" stroke-opacity="0.4"/>
-            <!-- Inner Shadow Depth -->
-            <rect x="8" y="8" width="444" height="284" rx="8" fill="rgba(0,0,0,0.28)"/>
+            <rect x="0" y="0" width="460" height="300" rx="12" fill="url(#env-velvet-back)" stroke="url(#gold-foil)" stroke-width="1.8"/>
+            <rect x="7" y="7" width="446" height="286" rx="8" fill="url(#arabesque-lining)" stroke="#d4af37" stroke-width="0.7" stroke-opacity="0.45"/>
+            <rect x="7" y="7" width="446" height="286" rx="8" fill="rgba(0,0,0,0.22)"/>
           </svg>
         </div>
 
-        <!-- LAYER 2 (z-index: 2): THE INVITATION LETTER RESTING INSIDE THE POCKET -->
-        <!-- Strictly behind Layer 3 (Front Pocket) while inside! -->
+        <!-- ============================================================ -->
+        <!-- LAYER 2 (z-index: 2): THE ROYAL LETTER INSIDE THE POCKET     -->
+        <!-- Always z-index: 2 (< Pocket z-index: 3), so it NEVER floats  -->
+        <!-- over the front flaps! The pocket slides down off the letter! -->
+        <!-- ============================================================ -->
         <div class="env-layer-letter" id="env-letter">
           <div class="letter-paper">
             <div class="letter-gold-frame">
@@ -175,135 +213,118 @@
               <div class="letter-corner lc-bl"></div>
               <div class="letter-corner lc-br"></div>
 
+              <div class="letter-rosette">✦ ❖ ✦</div>
               <div class="letter-Basmala">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
               <div class="letter-divider">
-                <span></span><i class="fa-solid fa-crown"></i><span></span>
+                <span></span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="url(#gold-foil)">
+                  <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5v-2z"/>
+                </svg>
+                <span></span>
               </div>
               <div class="letter-kicker">دعوة مأدبة غداء تكريمية</div>
               <div class="letter-honoree">الباحثة ابتسام محمود صالح</div>
               <div class="letter-degree">ماجستير إدارة الأعمال • أمن المعلومات</div>
-              <div class="letter-seal-mark">جامعة الموصل • ٢٠٢٦</div>
+              <div class="letter-seal-mark">جامعة الموصل • ٢٩ تشرين الثاني ٢٠٢٦</div>
             </div>
           </div>
         </div>
 
-        <!-- LAYER 3 (z-index: 3): ENVELOPE FRONT POCKET (LEFT, RIGHT & BOTTOM FLAPS) -->
-        <!-- Physically masks the letter as it slides upwards out of the pocket! -->
-        <div class="env-layer-pocket">
+        <!-- ============================================================ -->
+        <!-- LAYER 3 (z-index: 3): ENVELOPE FRONT POCKET                  -->
+        <!-- Strictly in front of Layer 2 (.env-layer-letter) at all times -->
+        <!-- ============================================================ -->
+        <div class="env-layer-pocket" id="env-pocket">
           <svg viewBox="0 0 460 300" class="env-svg-full" preserveAspectRatio="none">
-            <!-- Left Folded Wing -->
-            <path d="M 0,10 L 215,155 L 0,292 Z" fill="url(#env-velvet-left)" filter="url(#fold-shadow)"/>
-            <path d="M 0,12 L 212,155 L 0,290" fill="none" stroke="url(#gold-foil)" stroke-width="1.2" stroke-opacity="0.75"/>
-            <path d="M 0,18 L 204,155 L 0,284" fill="none" stroke="url(#gold-foil)" stroke-width="0.5" stroke-opacity="0.4"/>
+            <!-- Left Wing Flap -->
+            <path d="M 0,10 L 218,158 L 0,292 Z" fill="url(#env-velvet-left)" filter="url(#fold-shadow)"/>
+            <path d="M 0,12 L 214,158 L 0,290" fill="none" stroke="url(#gold-foil)" stroke-width="1.3" stroke-opacity="0.8"/>
+            <path d="M 0,19 L 205,158 L 0,283" fill="none" stroke="url(#gold-foil)" stroke-width="0.55" stroke-opacity="0.45"/>
 
-            <!-- Right Folded Wing -->
-            <path d="M 460,10 L 245,155 L 460,292 Z" fill="url(#env-velvet-right)" filter="url(#fold-shadow)"/>
-            <path d="M 460,12 L 248,155 L 460,290" fill="none" stroke="url(#gold-foil)" stroke-width="1.2" stroke-opacity="0.75"/>
-            <path d="M 460,18 L 256,155 L 460,284" fill="none" stroke="url(#gold-foil)" stroke-width="0.5" stroke-opacity="0.4"/>
+            <!-- Right Wing Flap -->
+            <path d="M 460,10 L 242,158 L 460,292 Z" fill="url(#env-velvet-right)" filter="url(#fold-shadow)"/>
+            <path d="M 460,12 L 246,158 L 460,290" fill="none" stroke="url(#gold-foil)" stroke-width="1.3" stroke-opacity="0.8"/>
+            <path d="M 460,19 L 255,158 L 460,283" fill="none" stroke="url(#gold-foil)" stroke-width="0.55" stroke-opacity="0.45"/>
 
-            <!-- Bottom Pocket Flap (Overlaps Left & Right Wings with Tailored Curve) -->
-            <path d="M 0,300 L 0,288 L 194,134 Q 230,108 266,134 L 460,288 L 460,300 Z" fill="url(#env-velvet-bottom)" filter="url(#fold-shadow)"/>
-            <!-- Gold Foil Double Border on Bottom Flap -->
-            <path d="M 2,289 L 196,136 Q 230,111 264,136 L 458,289" fill="none" stroke="url(#gold-foil)" stroke-width="1.6"/>
-            <path d="M 8,294 L 200,142 Q 230,119 260,142 L 452,294" fill="none" stroke="url(#gold-foil)" stroke-width="0.6" stroke-opacity="0.6"/>
+            <!-- Bottom Pocket Flap -->
+            <path d="M 0,300 L 0,288 L 194,136 Q 230,110 266,136 L 460,288 L 460,300 Z" fill="url(#env-velvet-bottom)" filter="url(#fold-shadow)"/>
+            <path d="M 2,289 L 196,138 Q 230,113 264,138 L 458,289" fill="none" stroke="url(#gold-foil)" stroke-width="1.8"/>
+            <path d="M 9,294 L 200,144 Q 230,121 260,144 L 451,294" fill="none" stroke="url(#gold-foil)" stroke-width="0.65" stroke-opacity="0.65"/>
             
-            <!-- Bottom Center Gold Filigree Ornament -->
-            <g transform="translate(230, 255)" opacity="0.75">
-              <path d="M -35,0 L -8,0 M 8,0 L 35,0" stroke="url(#gold-foil)" stroke-width="1"/>
-              <polygon points="0,-6 6,0 0,6 -6,0" fill="url(#gold-foil)"/>
-              <circle cx="-14" cy="0" r="2" fill="#fae596"/>
-              <circle cx="14" cy="0" r="2" fill="#fae596"/>
+            <!-- Bottom Center Gold Emblem -->
+            <g transform="translate(230, 256)" opacity="0.85">
+              <path d="M -42,0 L -10,0 M 10,0 L 42,0" stroke="url(#gold-foil)" stroke-width="1.1"/>
+              <polygon points="0,-7 7,0 0,7 -7,0" fill="url(#gold-foil)"/>
+              <circle cx="-16" cy="0" r="2.2" fill="#fae596"/>
+              <circle cx="16" cy="0" r="2.2" fill="#fae596"/>
             </g>
 
-            <!-- Outer Pocket Perimeter Gold Frame -->
-            <rect x="0.75" y="0.75" width="458.5" height="298.5" rx="12" fill="none" stroke="url(#gold-foil)" stroke-width="1.5"/>
+            <!-- Outer Gold Perimeter -->
+            <rect x="0.9" y="0.9" width="458.2" height="298.2" rx="12" fill="none" stroke="url(#gold-foil)" stroke-width="1.8"/>
           </svg>
         </div>
 
-        <!-- LAYER 4 (z-index: 4 when closed, swaps to z-index: 1 at 90deg open): TOP 3D HINGED FLAP -->
+        <!-- ============================================================ -->
+        <!-- LAYER 4 (z-index: 4 closed -> z-index: 1 at 90deg open):     -->
+        <!-- TWO-SIDED 3D TOP HINGED FLAP                                 -->
+        <!-- ============================================================ -->
         <div class="env-layer-top-flap" id="env-top-flap-wrap">
           <div class="top-flap-3d" id="env-top-flap">
             
-            <!-- Front Face of Top Flap (Visible when closed) -->
+            <!-- Outer Face (Visible 0deg -> 90deg) -->
             <div class="flap-face flap-face-front">
               <svg viewBox="0 0 460 185" class="env-svg-flap" preserveAspectRatio="none">
                 <path d="M 0,0 L 460,0 L 460,14 L 262,164 Q 230,186 198,164 L 0,14 Z" fill="url(#env-velvet-top)" filter="url(#flap-drop-shadow)"/>
-                <!-- Outer Gold Foil Trim -->
-                <path d="M 2,1 L 458,1 L 458,13 L 260,162 Q 230,183 200,162 L 2,13 Z" fill="none" stroke="url(#gold-foil)" stroke-width="1.8"/>
-                <!-- Inner Delicate Filigree Line -->
-                <path d="M 12,8 L 448,8 L 448,16 L 255,155 Q 230,173 205,155 L 12,16 Z" fill="none" stroke="url(#gold-foil)" stroke-width="0.7" stroke-opacity="0.65" stroke-dasharray="4 2"/>
-                <!-- Royal Crest on Upper Flap -->
-                <g transform="translate(230, 58)">
-                  <circle cx="0" cy="0" r="18" fill="none" stroke="url(#gold-foil)" stroke-width="0.8" stroke-opacity="0.6"/>
-                  <path d="M -28,0 L -21,0 M 21,0 L 28,0" stroke="url(#gold-foil)" stroke-width="1"/>
-                  <text x="0" y="6" text-anchor="middle" fill="url(#gold-foil)" font-family="'Aref Ruqaa', serif" font-size="15">الموصل</text>
+                <path d="M 2,1 L 458,1 L 458,13 L 260,162 Q 230,183 200,162 L 2,13 Z" fill="none" stroke="url(#gold-foil)" stroke-width="1.9"/>
+                <path d="M 12,8 L 448,8 L 448,16 L 255,155 Q 230,173 205,155 L 12,16 Z" fill="none" stroke="url(#gold-foil)" stroke-width="0.75" stroke-opacity="0.65" stroke-dasharray="4 2.5"/>
+                <!-- Royal Medallion on Top Flap -->
+                <g transform="translate(230, 56)">
+                  <circle cx="0" cy="0" r="20" fill="rgba(4,11,16,0.45)" stroke="url(#gold-foil)" stroke-width="1"/>
+                  <path d="M -34,0 L -24,0 M 24,0 L 34,0" stroke="url(#gold-foil)" stroke-width="1"/>
+                  <text x="0" y="6" text-anchor="middle" fill="url(#gold-foil)" font-family="'Aref Ruqaa', 'Amiri', serif" font-size="14">الموصل</text>
                 </g>
               </svg>
-              <div class="flap-shimmer"></div>
             </div>
 
-            <!-- Back Face of Top Flap (Visible when opened 180deg upward - Shows Silk Lining!) -->
+            <!-- Inner Silk Lining Face (Visible 90deg -> 180deg) -->
             <div class="flap-face flap-face-back">
               <svg viewBox="0 0 460 185" class="env-svg-flap" preserveAspectRatio="none">
-                <!-- Flipped silhouette so when rotated 180deg X, the pointed tip is at the top! -->
-                <path d="M 0,185 L 460,185 L 460,171 L 262,21 Q 230,-1 198,21 L 0,171 Z" fill="url(#env-velvet-back)" stroke="url(#gold-foil)" stroke-width="1.5"/>
-                <path d="M 6,182 L 454,182 L 454,169 L 258,26 Q 230,7 202,26 L 6,169 Z" fill="url(#arabesque-lining)" stroke="#c99e32" stroke-width="0.8" stroke-opacity="0.5"/>
+                <path d="M 0,185 L 460,185 L 460,171 L 262,21 Q 230,-1 198,21 L 0,171 Z" fill="url(#env-velvet-back)" stroke="url(#gold-foil)" stroke-width="1.6"/>
+                <path d="M 7,182 L 453,182 L 453,169 L 258,26 Q 230,7 202,26 L 7,169 Z" fill="url(#arabesque-lining)" stroke="#d4af37" stroke-width="0.85" stroke-opacity="0.55"/>
               </svg>
             </div>
 
           </div>
         </div>
 
-        <!-- LAYER 5 (z-index: 5): SCULPTED 3D ROYAL WAX SEAL -->
+        <!-- ============================================================ -->
+        <!-- LAYER 5 (z-index: 5): SCULPTED TWO-PIECE SPLITTING WAX SEAL  -->
+        <!-- ============================================================ -->
         <div class="wax-seal-stage" id="wax-seal-stage">
-          <div class="wax-aura-ring"></div>
+          <div class="wax-aura-ring" id="wax-aura-ring"></div>
           
-          <!-- Left Half of Seal (for split fracture animation) -->
-          <div class="wax-seal-whole" id="wax-seal-whole">
+          <!-- Left Half of Wax Seal -->
+          <div class="wax-half wax-half-left" id="wax-half-left">
             <svg viewBox="0 0 120 120" class="wax-svg">
-              <!-- Realistic Organic Molten Wax Outer Edge -->
-              <path d="M 60,6 
-                       C 72,5 81,11 91,17 
-                       C 101,23 111,32 113,44 
-                       C 115,56 112,68 108,79 
-                       C 104,90 96,101 85,107 
-                       C 74,113 61,115 49,112 
-                       C 37,109 24,104 16,94 
-                       C 8,84 6,70 7,57 
-                       C 8,44 12,31 21,21 
-                       C 30,11 48,7 60,6 Z" 
-                    fill="url(#wax-outer-grad)" 
-                    stroke="#3b0308" 
-                    stroke-width="1.2"/>
-              
-              <!-- Molten Rim Highlight -->
-              <path d="M 58,10 C 70,9 80,14 88,20 C 97,26 106,34 108,45 C 110,56 107,67 103,77 C 99,87 92,97 82,102 C 72,107 60,109 49,106 C 38,103 27,98 20,89 C 13,80 11,68 12,56 C 13,44 17,33 25,24 C 33,15 46,11 58,10 Z" 
-                    fill="none" 
-                    stroke="#e34254" 
-                    stroke-width="0.8" 
-                    stroke-opacity="0.45"/>
-
-              <!-- Sunken Inner Stamp Well -->
-              <circle cx="60" cy="60" r="39" fill="url(#wax-inner-grad)" stroke="url(#gold-foil)" stroke-width="1.6"/>
-              
-              <!-- Embossed Golden Rope Ring -->
-              <circle cx="60" cy="60" r="34" fill="none" stroke="url(#gold-foil)" stroke-width="1.1" stroke-dasharray="3 2.5" opacity="0.85"/>
-
-              <!-- Left & Right Laurel Wreaths -->
-              <path d="M 42,82 C 31,72 31,48 44,37" fill="none" stroke="url(#gold-foil)" stroke-width="1.3" stroke-linecap="round"/>
-              <path d="M 78,82 C 89,72 89,48 76,37" fill="none" stroke="url(#gold-foil)" stroke-width="1.3" stroke-linecap="round"/>
-              
-              <!-- Crown / Star at Top of Seal -->
-              <polygon points="60,29 62,34 67,34 63,37 64,42 60,39 56,42 57,37 53,34 58,34" fill="url(#gold-foil)"/>
-
-              <!-- Calligraphic Monogram "ابتسام" -->
-              <text x="60" y="67" text-anchor="middle" fill="url(#gold-foil)" font-family="'Aref Ruqaa', 'Amiri', serif" font-size="22" font-weight="700" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.85));">ابتسام</text>
-              <text x="60" y="83" text-anchor="middle" fill="#fae596" font-family="'Amiri', serif" font-size="8.5" opacity="0.85">١٤٤٨ هـ • ٢٠٢٦ م</text>
-
-              <!-- Fracture Crack Line (Animates on click) -->
-              <path id="wax-crack-path" d="M 60,6 L 55,32 L 64,52 L 53,74 L 62,95 L 57,114" fill="none" stroke="#fff3c4" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="140" stroke-dashoffset="140" style="filter: drop-shadow(0 0 6px #ffd700);"/>
+              <g clip-path="url(#seal-clip-left)">
+                <use href="#wax-seal-artwork"/>
+              </g>
             </svg>
           </div>
+
+          <!-- Right Half of Wax Seal -->
+          <div class="wax-half wax-half-right" id="wax-half-right">
+            <svg viewBox="0 0 120 120" class="wax-svg">
+              <g clip-path="url(#seal-clip-right)">
+                <use href="#wax-seal-artwork"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Glowing Fracture Line Overlay -->
+          <svg viewBox="0 0 120 120" class="wax-crack-svg">
+            <path id="wax-crack-path" d="M 60,6 L 55,32 L 64,52 L 53,74 L 62,95 L 57,114" fill="none" stroke="#fff4c2" stroke-width="2.6" stroke-linecap="round"/>
+          </svg>
         </div>
 
       </div>
@@ -311,11 +332,13 @@
 
     <!-- Interactive Touch Prompt below Envelope -->
     <div class="sanctuary-prompt" id="sanctuary-prompt">
-      <div class="prompt-button" id="open-trigger-btn">
+      <button type="button" class="prompt-button" id="open-trigger-btn">
         <span class="prompt-pulse"></span>
-        <i class="fa-solid fa-hand-sparkles"></i>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="url(#gold-foil)">
+          <path d="M12 1L9 9l-8 3 8 3 3 8 3-8 8-3-8-3-3-8z"/>
+        </svg>
         <span>المس الختم الملكي لفضّ الظرف وفتح الدعوة</span>
-      </div>
+      </button>
     </div>
 
   </section>
@@ -328,7 +351,6 @@
     
     <div class="scroll-container">
       
-      <!-- Master Illuminated Manuscript Sheet -->
       <article class="manuscript-sheet" id="manuscript-sheet">
         
         <!-- Multi-layered Architectural Gold Borders -->
@@ -341,7 +363,6 @@
           <path d="M 10,85 L 10,26 Q 10,10 26,10 L 85,10" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
           <path d="M 2,45 Q 25,45 45,2" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
           <circle cx="22" cy="22" r="5" fill="url(#gold-foil)"/>
-          <polygon points="10,10 18,14 14,18" fill="url(#gold-foil)"/>
         </svg>
         <svg class="corner-arabesque ca-tr" viewBox="0 0 100 100">
           <path d="M 2,98 L 2,22 Q 2,2 22,2 L 98,2" fill="none" stroke="url(#gold-foil)" stroke-width="3"/>
@@ -366,14 +387,14 @@
         <!-- ======================================================== -->
         <!-- SECTION 1: THE ILLUMINATED SHAMSA & BASMALA PROLOGUE     -->
         <!-- ======================================================== -->
-        <header class="manuscript-header reveal-item">
+        <header class="manuscript-header reveal-section">
           
           <!-- Rotating Islamic Geometric Shamsa Rosette -->
           <div class="shamsa-medallion">
             <svg viewBox="0 0 200 200" class="shamsa-svg">
               <g transform="translate(100,100)">
-                <polygon points="0,-90 22,-22 90,0 22,22 0,90 -22,22 -90,0 -22,-22" fill="none" stroke="url(#gold-foil)" stroke-width="1.2" opacity="0.5"/>
-                <polygon points="0,-90 22,-22 90,0 22,22 0,90 -22,22 -90,0 -22,-22" fill="none" stroke="url(#gold-foil)" stroke-width="1.2" opacity="0.5" transform="rotate(45)"/>
+                <polygon points="0,-90 22,-22 90,0 22,22 0,90 -22,22 -90,0 -22,-22" fill="none" stroke="url(#gold-foil)" stroke-width="1.3" opacity="0.55"/>
+                <polygon points="0,-90 22,-22 90,0 22,22 0,90 -22,22 -90,0 -22,-22" fill="none" stroke="url(#gold-foil)" stroke-width="1.3" opacity="0.55" transform="rotate(45)"/>
                 <polygon points="0,-72 18,-18 72,0 18,18 0,72 -18,18 -72,0 -18,-18" fill="none" stroke="url(#gold-foil)" stroke-width="1" opacity="0.4" transform="rotate(22.5)"/>
                 <polygon points="0,-72 18,-18 72,0 18,18 0,72 -18,18 -72,0 -18,-18" fill="none" stroke="url(#gold-foil)" stroke-width="1" opacity="0.4" transform="rotate(67.5)"/>
                 <circle cx="0" cy="0" r="48" fill="none" stroke="url(#gold-foil)" stroke-width="1.5" stroke-dasharray="4 3"/>
@@ -381,7 +402,10 @@
               </g>
             </svg>
             <div class="shamsa-center-icon">
-              <i class="fa-solid fa-graduation-cap"></i>
+              <!-- Bespoke Gold Graduation Cap SVG -->
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="url(#gold-foil)">
+                <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 14.5l-7-3.82v3.72c0 2.1 3.13 3.6 7 3.6s7-1.5 7-3.6v-3.72l-7 3.82z"/>
+              </svg>
             </div>
           </div>
 
@@ -397,7 +421,6 @@
             <span class="div-line"></span>
           </div>
 
-          <!-- Academic Provenance -->
           <div class="academic-banner">
             <span class="univ-name">جَامِعَةُ المَوْصِل</span>
             <span class="univ-dot">•</span>
@@ -412,7 +435,7 @@
         <!-- ======================================================== -->
         <!-- SECTION 2: POETIC PRELUDE & HONOREE PROCLAMATION         -->
         <!-- ======================================================== -->
-        <section class="proclamation-section reveal-item">
+        <section class="proclamation-section reveal-section">
           
           <div class="poetic-prelude">
             <p>
@@ -433,7 +456,9 @@
             <h1 class="honoree-full-name">ابتسام محمود صالح</h1>
             
             <div class="specialization-badge">
-              <span class="spec-icon"><i class="fa-solid fa-shield-halved"></i></span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="url(#gold-foil)">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+              </svg>
               <span class="spec-text">تخصص أمن المعلومات • إدارة الأعمال</span>
             </div>
           </div>
@@ -444,7 +469,7 @@
         <!-- ======================================================== -->
         <!-- SECTION 3: THE CELEBRATORY BANQUET INVITATION            -->
         <!-- ======================================================== -->
-        <section class="banquet-sanctuary reveal-item">
+        <section class="banquet-sanctuary reveal-section">
           
           <div class="banquet-box">
             <div class="banquet-arch-top">
@@ -468,7 +493,7 @@
         <!-- ======================================================== -->
         <!-- SECTION 4: ESTEEMED DEFENSE COMMITTEE TRIBUTE            -->
         <!-- ======================================================== -->
-        <section class="committee-section reveal-item">
+        <section class="committee-section reveal-section">
           <div class="section-heading-lockup">
             <span class="heading-kicker">أهلُ العلمِ والفضل</span>
             <h2 class="heading-main">لجنة المناقشة والإشراف العلمي</h2>
@@ -477,7 +502,9 @@
 
           <div class="committee-scroll-card">
             <div class="committee-icon-medallion">
-              <i class="fa-solid fa-scale-balanced"></i>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="url(#gold-foil)">
+                <path d="M12 3c-1.1 0-2 .9-2 2H4v2h1.95L2 14c-.47 2 1 3.5 3.5 3.5S9.47 16 9 14L5.05 7h5.1c.41.85 1.19 1.48 2.15 1.65V19H6v2h12v-2h-5.7V8.65c.96-.17 1.74-.8 2.15-1.65h4.5L15 14c-.47 2 1 3.5 3.5 3.5S22.47 16 22 14l-3.95-7H20V5h-6c0-1.1-.9-2-2-2z"/>
+              </svg>
             </div>
             <p class="committee-tribute-text">
               خالصُ الامتنانِ وعظيمُ التقديرِ والاحترامِ إلى مقامِ السادةِ العلماءِ والأساتذةِ الأفاضل
@@ -492,7 +519,7 @@
         <!-- ======================================================== -->
         <!-- SECTION 5: ARCHITECTURAL ARCHES OF TIME & PLACE          -->
         <!-- ======================================================== -->
-        <section class="arches-section reveal-item">
+        <section class="arches-section reveal-section">
           <div class="section-heading-lockup">
             <span class="heading-kicker">تفاصيلُ الموعدِ والمكان</span>
             <h2 class="heading-main">مراسمُ يومِ التتويج</h2>
@@ -504,7 +531,12 @@
             <!-- Arch 1: Date -->
             <div class="mosul-arch-card">
               <div class="arch-dome">
-                <i class="fa-regular fa-calendar-check"></i>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#gold-foil)" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
               </div>
               <span class="arch-label">اليوم والتاريخ</span>
               <h3 class="arch-value">الأحد • ٢٩ تشرين الثاني</h3>
@@ -514,7 +546,10 @@
             <!-- Arch 2: Timing -->
             <div class="mosul-arch-card arch-featured">
               <div class="arch-dome">
-                <i class="fa-regular fa-clock"></i>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#gold-foil)" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
               </div>
               <span class="arch-label">توقيت مأدبة الغداء</span>
               <h3 class="arch-value">عقب انتهاء المناقشة</h3>
@@ -524,7 +559,11 @@
             <!-- Arch 3: Venue -->
             <div class="mosul-arch-card">
               <div class="arch-dome">
-                <i class="fa-solid fa-utensils"></i>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#gold-foil)" stroke-width="2">
+                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+                  <path d="M7 2v20"/>
+                  <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+                </svg>
               </div>
               <span class="arch-label">دار الضيافة والمطعم</span>
               <h3 class="arch-value">مدينة الموصل</h3>
@@ -542,7 +581,7 @@
                 <span>كلية الإدارة والاقتصاد - جامعة الموصل</span>
               </div>
             </div>
-            <div class="journey-connector"><i class="fa-solid fa-angles-left"></i></div>
+            <div class="journey-connector">«</div>
             <div class="journey-step">
               <span class="step-num">٢</span>
               <div class="step-info">
@@ -550,7 +589,7 @@
                 <span>تتويج الباحثة بدرجة الماجستير</span>
               </div>
             </div>
-            <div class="journey-connector"><i class="fa-solid fa-angles-left"></i></div>
+            <div class="journey-connector">«</div>
             <div class="journey-step step-highlight">
               <span class="step-num">٣</span>
               <div class="step-info">
@@ -566,7 +605,7 @@
         <!-- ======================================================== -->
         <!-- SECTION 6: CELESTIAL ASTROLABE COUNTDOWN                 -->
         <!-- ======================================================== -->
-        <section class="astrolabe-countdown-section reveal-item">
+        <section class="astrolabe-countdown-section reveal-section">
           <div class="astrolabe-panel">
             <h3 class="astrolabe-title">
               <span class="star-wing">✦</span>
@@ -632,11 +671,14 @@
         <!-- ======================================================== -->
         <!-- SECTION 7: VENUE COMPASS & INTERACTIVE MAP               -->
         <!-- ======================================================== -->
-        <section class="venue-compass-section reveal-item">
+        <section class="venue-compass-section reveal-section">
           <div class="compass-card">
             <div class="compass-rose-wrap">
               <div class="compass-pin-pulse"></div>
-              <i class="fa-solid fa-location-dot compass-pin"></i>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="#80111d" stroke="url(#gold-foil)" stroke-width="1.5" class="compass-pin">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3" fill="#fae596"/>
+              </svg>
             </div>
             <div class="compass-details">
               <span class="compass-tag">العنوان والموقع الجغرافي • نينوى</span>
@@ -645,7 +687,11 @@
             </div>
             <div class="compass-action">
               <a href="https://maps.google.com/?q=University+of+Mosul,Mosul,Iraq" target="_blank" rel="noopener noreferrer" class="royal-btn royal-btn-outline">
-                <i class="fa-solid fa-map-location-dot"></i>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                  <line x1="8" y1="2" x2="8" y2="18"/>
+                  <line x1="16" y1="6" x2="16" y2="22"/>
+                </svg>
                 <span>فتح الخريطة التفاعلية</span>
               </a>
             </div>
@@ -656,7 +702,7 @@
         <!-- ======================================================== -->
         <!-- SECTION 8: ROYAL GUESTBOOK & RSVP (تأكيد التشريف)        -->
         <!-- ======================================================== -->
-        <section class="rsvp-sanctuary reveal-item" id="rsvp-section">
+        <section class="rsvp-sanctuary reveal-section" id="rsvp-section">
           <div class="section-heading-lockup">
             <span class="heading-kicker">سجلُّ التشريفِ والضيافة</span>
             <h2 class="heading-main">تأكيد الحضور والتهنئة</h2>
@@ -671,7 +717,6 @@
               <div class="ledger-field">
                 <label for="guest-name">الاسم الكريم واللقب العلمي / الاجتماعي</label>
                 <div class="input-ornament-wrap">
-                  <i class="fa-solid fa-feather-pointed field-icon"></i>
                   <input type="text" id="guest-name" required placeholder="مثال: أ. د. محمد العبدالله / الأستاذ علي الطائي..." class="ledger-input">
                 </div>
               </div>
@@ -684,24 +729,24 @@
                   <label class="choice-card">
                     <input type="radio" name="attendance" value="attending" checked>
                     <div class="choice-card-body">
-                      <span class="choice-icon"><i class="fa-solid fa-champagne-glasses"></i></span>
+                      <span class="choice-icon">✦</span>
                       <div class="choice-text">
                         <strong>أتشرف بالحضور والمشاركة</strong>
                         <span>يسعدني التواجد في مأدبة الغداء</span>
                       </div>
-                      <span class="choice-check"><i class="fa-solid fa-circle-check"></i></span>
+                      <span class="choice-check">✓</span>
                     </div>
                   </label>
 
                   <label class="choice-card">
                     <input type="radio" name="attendance" value="declined">
                     <div class="choice-card-body">
-                      <span class="choice-icon"><i class="fa-solid fa-dove"></i></span>
+                      <span class="choice-icon">❖</span>
                       <div class="choice-text">
                         <strong>أعتذر لظرفٍ خاص</strong>
                         <span>مع خالص التهاني والدعوات بالتوفيق</span>
                       </div>
-                      <span class="choice-check"><i class="fa-solid fa-circle-check"></i></span>
+                      <span class="choice-check">✓</span>
                     </div>
                   </label>
 
@@ -712,7 +757,6 @@
               <div class="ledger-field" id="companions-field-wrap">
                 <label for="guest-count">عدد الحاضرين (شاملاً شخصكم الكريم)</label>
                 <div class="input-ornament-wrap">
-                  <i class="fa-solid fa-users field-icon"></i>
                   <select id="guest-count" class="ledger-input ledger-select">
                     <option value="شخص واحد">شخص واحد (١)</option>
                     <option value="شخصان">شخصان (٢)</option>
@@ -734,23 +778,21 @@
               <!-- Submit Actions -->
               <div class="ledger-actions">
                 <button type="submit" class="royal-btn royal-btn-gold">
-                  <i class="fa-solid fa-stamp"></i>
                   <span>اعتماد التأكيد وإصدار بطاقة التشريف</span>
                 </button>
 
                 <button type="button" id="whatsapp-direct-btn" class="royal-btn royal-btn-whatsapp">
-                  <i class="fa-brands fa-whatsapp"></i>
                   <span>إرسال التأكيد عبر واتساب</span>
                 </button>
               </div>
 
             </form>
 
-            <!-- GENERATED VIP ROYAL GUEST PASS (Appears upon RSVP submit) -->
+            <!-- GENERATED VIP ROYAL GUEST PASS -->
             <div id="vip-pass-container" class="vip-pass-container hidden">
               <div class="vip-pass-card">
                 <div class="vip-pass-header">
-                  <span class="vip-crest"><i class="fa-solid fa-crown"></i></span>
+                  <span class="vip-crest">👑</span>
                   <h4>بطاقة تشريف ملكية خاصة</h4>
                   <p>مأدبة تتويج الباحثة ابتسام محمود صالح • جامعة الموصل</p>
                 </div>
@@ -782,7 +824,7 @@
         <!-- ======================================================== -->
         <!-- SECTION 9: THE IMMORTAL SCROLL OF BLESSINGS (سجل التهاني) -->
         <!-- ======================================================== -->
-        <section class="blessings-wall-section reveal-item">
+        <section class="blessings-wall-section reveal-section">
           <div class="section-heading-lockup">
             <span class="heading-kicker">طيبُ الكَلِمِ وجميلُ الأثر</span>
             <h2 class="heading-main">الديوانُ الذهبيُّ للتهاني والتبريكات</h2>
@@ -820,17 +862,15 @@
         <!-- ======================================================== -->
         <!-- SECTION 10: SHARE & ROYAL COLOPHON FOOTER                -->
         <!-- ======================================================== -->
-        <footer class="manuscript-footer reveal-item">
+        <footer class="manuscript-footer reveal-section">
           
           <div class="share-ribbon">
             <p>مشاركة بطاقة الدعوة الإلكترونية</p>
             <div class="share-actions">
               <button type="button" id="copy-invitation-link" class="royal-btn royal-btn-outline btn-sm">
-                <i class="fa-solid fa-link"></i>
                 <span id="copy-link-label">نسخ رابط الدعوة</span>
               </button>
               <button type="button" id="share-whatsapp-btn" class="royal-btn royal-btn-gold btn-sm">
-                <i class="fa-brands fa-whatsapp"></i>
                 <span>إهداء الدعوة عبر واتساب</span>
               </button>
             </div>

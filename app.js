@@ -1,14 +1,15 @@
 /**
  * ============================================================================
- * ROYAL MASTER'S DEFENSE & BANQUET INVITATION — INTERACTIVE ENGINE
+ * ROYAL MASTER'S DEFENSE & BANQUET INVITATION — NATIVE 60FPS ENGINE
  * Honoree: Researcher Ibtisam Mahmoud Saleh — University of Mosul
+ * Zero External Dependencies (100% CSP-Safe, Offline-Ready & Hardware Accelerated)
  * ============================================================================
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================================================
-  // 1. CINEMATIC WEB AUDIO SYNTHESIZER (Warm Harp, Wax Crack & Cotton Paper)
+  // 1. WEB AUDIO SYNTHESIZER (Wax Fracture, Cotton Paper & Royal Maqam Harp)
   // ==========================================================================
   let audioCtx = null;
   let isMuted = false;
@@ -25,20 +26,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Realistic Wax Seal Crack & Snap Sound
   function playWaxCrackSound() {
     if (isMuted || !audioCtx) return;
     try {
       const now = audioCtx.currentTime;
 
-      // Crisp high snap
+      // Crisp brittle wax snap
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(520, now);
-      osc.frequency.exponentialRampToValueAtTime(65, now + 0.14);
+      osc.frequency.setValueAtTime(540, now);
+      osc.frequency.exponentialRampToValueAtTime(68, now + 0.14);
 
-      gain.gain.setValueAtTime(0.32, now);
+      gain.gain.setValueAtTime(0.3, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
 
       osc.connect(gain);
@@ -46,26 +46,25 @@ document.addEventListener('DOMContentLoaded', () => {
       osc.start(now);
       osc.stop(now + 0.15);
 
-      // Secondary deep thud
+      // Deep physical seal release thud
       const subOsc = audioCtx.createOscillator();
       const subGain = audioCtx.createGain();
       subOsc.type = 'triangle';
-      subOsc.frequency.setValueAtTime(160, now + 0.05);
+      subOsc.frequency.setValueAtTime(165, now + 0.04);
       subOsc.frequency.exponentialRampToValueAtTime(42, now + 0.22);
 
-      subGain.gain.setValueAtTime(0.38, now + 0.05);
+      subGain.gain.setValueAtTime(0.36, now + 0.04);
       subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
 
       subOsc.connect(subGain);
       subGain.connect(audioCtx.destination);
-      subOsc.start(now + 0.05);
+      subOsc.start(now + 0.04);
       subOsc.stop(now + 0.23);
     } catch (e) {
-      console.warn('Audio error:', e);
+      // Ignore audio errors on restricted devices
     }
   }
 
-  // Heavy Cotton Paper Sliding against Silk Lining
   function playPaperSlideSound() {
     if (isMuted || !audioCtx) return;
     try {
@@ -76,89 +75,88 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = buffer.getChannelData(0);
 
       for (let i = 0; i < bufferSize; i++) {
-        // Shaped pink-like noise envelope
         const env = Math.sin((i / bufferSize) * Math.PI);
-        data[i] = (Math.random() * 2 - 1) * env * 0.16;
+        data[i] = (Math.random() * 2 - 1) * env * 0.15;
       }
 
       const noise = audioCtx.createBufferSource();
       noise.buffer = buffer;
 
-      const bandpass = audioCtx.createBiquadFilter();
-      bandpass.type = 'bandpass';
-      bandpass.frequency.setValueAtTime(650, now);
-      bandpass.frequency.linearRampToValueAtTime(1100, now + duration * 0.6);
-      bandpass.Q.value = 1.4;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(620, now);
+      filter.frequency.linearRampToValueAtTime(1150, now + duration * 0.65);
+      filter.Q.value = 1.3;
 
       const gain = audioCtx.createGain();
       gain.gain.setValueAtTime(0.01, now);
-      gain.gain.linearRampToValueAtTime(0.28, now + 0.18);
+      gain.gain.linearRampToValueAtTime(0.26, now + 0.18);
       gain.gain.exponentialRampToValueAtTime(0.005, now + duration);
 
-      noise.connect(bandpass);
-      bandpass.connect(gain);
+      noise.connect(filter);
+      filter.connect(gain);
       gain.connect(audioCtx.destination);
       noise.start(now);
     } catch (e) {
-      console.warn('Audio error:', e);
+      // Ignore audio errors
     }
   }
 
-  // Warm Celestial Harp / Oud Arpeggio Chord
   function playRoyalFanfare() {
     if (isMuted || !audioCtx) return;
     try {
       const now = audioCtx.currentTime;
-      // Warm Middle-Eastern / Royal Maqam Rast / Major 9th arpeggio notes
       const notes = [261.63, 329.63, 392.00, 493.88, 523.25, 659.25, 783.99];
 
-      notes.forEach((freq, index) => {
-        const startTime = now + index * 0.095;
+      notes.forEach((freq, idx) => {
+        const start = now + idx * 0.09;
         const osc = audioCtx.createOscillator();
-        const overtone = audioCtx.createOscillator();
+        const harmonic = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
+        const harmGain = audioCtx.createGain();
 
         osc.type = 'sine';
-        overtone.type = 'triangle';
+        harmonic.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, start);
+        harmonic.frequency.setValueAtTime(freq * 2, start);
 
-        osc.frequency.setValueAtTime(freq, startTime);
-        overtone.frequency.setValueAtTime(freq * 2, startTime);
-
-        const overtoneGain = audioCtx.createGain();
-        overtoneGain.gain.value = 0.15;
-
-        gain.gain.setValueAtTime(0.001, startTime);
-        gain.gain.linearRampToValueAtTime(0.14, startTime + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.0008, startTime + 1.8);
+        harmGain.gain.value = 0.14;
+        gain.gain.setValueAtTime(0.001, start);
+        gain.gain.linearRampToValueAtTime(0.14, start + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0008, start + 1.85);
 
         osc.connect(gain);
-        overtone.connect(overtoneGain);
-        overtoneGain.connect(gain);
+        harmonic.connect(harmGain);
+        harmGain.connect(gain);
         gain.connect(audioCtx.destination);
 
-        osc.start(startTime);
-        overtone.start(startTime);
-        osc.stop(startTime + 1.85);
-        overtone.stop(startTime + 1.85);
+        osc.start(start);
+        harmonic.start(start);
+        osc.stop(start + 1.9);
+        harmonic.stop(start + 1.9);
       });
     } catch (e) {
-      console.warn('Audio error:', e);
+      // Ignore audio errors
     }
   }
 
   // Audio Toggle Button
   const audioToggleBtn = document.getElementById('audio-toggle-btn');
-  const audioIcon = document.getElementById('audio-icon');
+  const iconVolOn = document.getElementById('icon-vol-on');
+  const iconVolOff = document.getElementById('icon-vol-off');
+
   if (audioToggleBtn) {
     audioToggleBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       ensureAudioContext();
       isMuted = !isMuted;
       if (isMuted) {
-        audioIcon.className = 'fa-solid fa-volume-xmark';
-        audioToggleBtn.style.opacity = '0.6';
+        iconVolOn.classList.add('hidden');
+        iconVolOff.classList.remove('hidden');
+        audioToggleBtn.style.opacity = '0.65';
       } else {
-        audioIcon.className = 'fa-solid fa-volume-high';
+        iconVolOff.classList.add('hidden');
+        iconVolOn.classList.remove('hidden');
         audioToggleBtn.style.opacity = '1';
         playRoyalFanfare();
       }
@@ -167,108 +165,160 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==========================================================================
-  // 2. THREE.JS CELESTIAL GOLDEN DUST & CANDLELIGHT BOKEH
+  // 2. NATIVE 60FPS CELESTIAL BOKEH & 3D GOLD-LEAF CONFETTI ENGINE
   // ==========================================================================
-  const bgCanvas = document.getElementById('bg-canvas');
-  function initCelestialScene() {
-    if (!bgCanvas || typeof THREE === 'undefined') return;
+  const canvas = document.getElementById('celestial-canvas');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+  let width = window.innerWidth;
+  let height = window.innerHeight;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.z = 160;
+  const dustMotes = [];
+  const confettiPieces = [];
+  let pointerX = 0;
+  let pointerY = 0;
 
-    const renderer = new THREE.WebGLRenderer({ canvas: bgCanvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    // Create Circular Soft Glow Texture for Golden Bokeh
-    const spriteCanvas = document.createElement('canvas');
-    spriteCanvas.width = 64;
-    spriteCanvas.height = 64;
-    const ctx = spriteCanvas.getContext('2d');
-    const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    grad.addColorStop(0, 'rgba(255, 245, 195, 1)');
-    grad.addColorStop(0.35, 'rgba(212, 175, 55, 0.75)');
-    grad.addColorStop(1, 'rgba(212, 175, 55, 0)');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 64, 64);
-    const particleTexture = new THREE.CanvasTexture(spriteCanvas);
-
-    const count = 140;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(count * 3);
-    const speeds = new Float32Array(count);
-
-    for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 340;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 340;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 180;
-      speeds[i] = 0.08 + Math.random() * 0.18;
-    }
-
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const material = new THREE.PointsMaterial({
-      size: 4.8,
-      map: particleTexture,
-      transparent: true,
-      opacity: 0.65,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending
-    });
-
-    const points = new THREE.Points(geometry, material);
-    scene.add(points);
-
-    let mouseX = 0;
-    let mouseY = 0;
-    window.addEventListener('pointermove', (e) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 18;
-      mouseY = -(e.clientY / window.innerHeight - 0.5) * 18;
-    });
-
-    function animate() {
-      requestAnimationFrame(animate);
-
-      const posAttr = geometry.attributes.position;
-      for (let i = 0; i < count; i++) {
-        let y = posAttr.getY(i);
-        y += speeds[i];
-        if (y > 170) y = -170;
-        posAttr.setY(i, y);
-      }
-      posAttr.needsUpdate = true;
-
-      camera.position.x += (mouseX - camera.position.x) * 0.03;
-      camera.position.y += (mouseY - camera.position.y) * 0.03;
-      camera.lookAt(scene.position);
-
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+  function resizeCanvas() {
+    if (!canvas) return;
+    width = window.innerWidth;
+    height = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  initCelestialScene();
+  function initDustMotes() {
+    dustMotes.length = 0;
+    const count = 85;
+    for (let i = 0; i < count; i++) {
+      dustMotes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        z: 0.2 + Math.random() * 0.8, // Depth factor for 3D parallax
+        radius: 1.0 + Math.random() * 2.8,
+        speedY: -(0.15 + Math.random() * 0.35),
+        driftPhase: Math.random() * Math.PI * 2,
+        driftSpeed: 0.008 + Math.random() * 0.015,
+        alpha: 0.2 + Math.random() * 0.55
+      });
+    }
+  }
+
+  // Spawn 3D Tumbling Gold-Leaf & Crimson Confetti
+  function spawnGoldConfetti(normX, normY, count) {
+    const originX = normX * width;
+    const originY = normY * height;
+    const palette = ['#d4af37', '#fae596', '#fff3be', '#aa8222', '#80111d', '#b88a28'];
+
+    for (let i = 0; i < count; i++) {
+      const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.9;
+      const speed = 4 + Math.random() * 9;
+      confettiPieces.push({
+        x: originX,
+        y: originY,
+        vx: Math.cos(angle) * speed + (Math.random() - 0.5) * 3,
+        vy: Math.sin(angle) * speed - Math.random() * 2,
+        w: 6 + Math.random() * 6,
+        h: 4 + Math.random() * 4,
+        color: palette[Math.floor(Math.random() * palette.length)],
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.16,
+        tilt: Math.random() * Math.PI * 2,
+        tiltSpeed: 0.08 + Math.random() * 0.14,
+        opacity: 1,
+        decay: 0.006 + Math.random() * 0.006
+      });
+    }
+  }
+
+  window.addEventListener('pointermove', (e) => {
+    pointerX = (e.clientX / width - 0.5) * 24;
+    pointerY = (e.clientY / height - 0.5) * 24;
+  });
+
+  function renderCelestialLoop() {
+    if (ctx) {
+      ctx.clearRect(0, 0, width, height);
+
+      // 1. Render 3D Parallax Golden Bokeh Motes
+      for (let i = 0; i < dustMotes.length; i++) {
+        const m = dustMotes[i];
+        m.y += m.speedY * m.z;
+        m.driftPhase += m.driftSpeed;
+        const dx = Math.sin(m.driftPhase) * 0.4;
+        m.x += dx;
+
+        if (m.y < -20) m.y = height + 20;
+        if (m.x < -20) m.x = width + 20;
+        if (m.x > width + 20) m.x = -20;
+
+        const drawX = m.x - pointerX * m.z;
+        const drawY = m.y - pointerY * m.z;
+
+        const grad = ctx.createRadialGradient(drawX, drawY, 0, drawX, drawY, m.radius * 3.2);
+        grad.addColorStop(0, `rgba(255, 243, 190, ${m.alpha})`);
+        grad.addColorStop(0.45, `rgba(212, 175, 55, ${m.alpha * 0.5})`);
+        grad.addColorStop(1, 'rgba(212, 175, 55, 0)');
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(drawX, drawY, m.radius * 3.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // 2. Render 3D Tumbling Gold-Leaf Confetti
+      for (let i = confettiPieces.length - 1; i >= 0; i--) {
+        const p = confettiPieces[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.16; // Gravity
+        p.vx *= 0.985; // Air drag
+        p.rotation += p.rotSpeed;
+        p.tilt += p.tiltSpeed;
+        p.opacity -= p.decay;
+
+        if (p.opacity <= 0 || p.y > height + 40) {
+          confettiPieces.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        const scaleY = Math.cos(p.tilt);
+        ctx.scale(1, scaleY);
+        ctx.globalAlpha = Math.max(0, p.opacity);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      }
+    }
+    requestAnimationFrame(renderCelestialLoop);
+  }
+
+  resizeCanvas();
+  initDustMotes();
+  renderCelestialLoop();
+  window.addEventListener('resize', resizeCanvas);
 
 
   // ==========================================================================
-  // 3. PRECISION 3D ENVELOPE CHOREOGRAPHY (GSAP TIMELINE)
+  // 3. PRECISION 3D ENVELOPE CHOREOGRAPHY (WEB ANIMATIONS API + RAF)
   // ==========================================================================
   const sanctuary = document.getElementById('envelope-sanctuary');
   const sanctuaryHeader = document.getElementById('sanctuary-header');
   const sanctuaryPrompt = document.getElementById('sanctuary-prompt');
   const envelopeTiltZone = document.getElementById('envelope-tilt-zone');
   const envelopeAssembly = document.getElementById('envelope-assembly');
+  const envelopeAura = document.getElementById('envelope-aura');
+  const envBack = document.getElementById('env-back');
+  const envPocket = document.getElementById('env-pocket');
   const topFlapWrap = document.getElementById('env-top-flap-wrap');
   const topFlap3d = document.getElementById('env-top-flap');
   const envLetter = document.getElementById('env-letter');
-  const waxSealStage = document.getElementById('wax-seal-stage');
+  const waxAuraRing = document.getElementById('wax-aura-ring');
+  const waxHalfLeft = document.getElementById('wax-half-left');
+  const waxHalfRight = document.getElementById('wax-half-right');
   const waxCrackPath = document.getElementById('wax-crack-path');
   const royalInvitation = document.getElementById('royal-invitation');
   const manuscriptSheet = document.getElementById('manuscript-sheet');
@@ -276,204 +326,203 @@ document.addEventListener('DOMContentLoaded', () => {
   const openTriggerBtn = document.getElementById('open-trigger-btn');
 
   let isOpeningOrOpen = false;
+  let activeAnimations = [];
+  let activeTimeouts = [];
 
-  // Interactive 3D Hover / Pointer Tilt on Closed Envelope
+  function clearChoreography() {
+    activeTimeouts.forEach((id) => clearTimeout(id));
+    activeTimeouts = [];
+    activeAnimations.forEach((anim) => {
+      try { anim.cancel(); } catch (e) {}
+    });
+    activeAnimations = [];
+  }
+
+  function animateEl(el, keyframes, options) {
+    if (!el || !el.animate) return null;
+    const anim = el.animate(keyframes, {
+      fill: 'forwards',
+      ...options
+    });
+    activeAnimations.push(anim);
+    return anim;
+  }
+
+  function scheduleStep(fn, delayMs) {
+    const id = setTimeout(fn, delayMs);
+    activeTimeouts.push(id);
+  }
+
+  // Interactive 3D Tilt on Closed Envelope
   if (envelopeTiltZone && envelopeAssembly) {
     envelopeTiltZone.addEventListener('pointermove', (e) => {
       if (isOpeningOrOpen) return;
       const rect = envelopeAssembly.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const deltaX = (e.clientX - centerX) / (rect.width / 2);
-      const deltaY = (e.clientY - centerY) / (rect.height / 2);
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / (rect.width / 2)));
+      const dy = Math.max(-1, Math.min(1, (e.clientY - cy) / (rect.height / 2)));
 
-      const clampX = Math.max(-1, Math.min(1, deltaX));
-      const clampY = Math.max(-1, Math.min(1, deltaY));
-
-      gsap.to(envelopeAssembly, {
-        rotateY: clampX * 12,
-        rotateX: -clampY * 10,
-        duration: 0.4,
-        ease: 'power2.out'
-      });
+      envelopeAssembly.style.transform = `rotateY(${dx * 11}deg) rotateX(${-dy * 9}deg)`;
     });
 
     envelopeTiltZone.addEventListener('pointerleave', () => {
       if (isOpeningOrOpen) return;
-      gsap.to(envelopeAssembly, {
-        rotateY: 0,
-        rotateX: 0,
-        duration: 0.6,
-        ease: 'power3.out'
-      });
+      envelopeAssembly.style.transform = 'rotateY(0deg) rotateX(0deg)';
     });
   }
 
-  // Master Envelope Opening Sequence
+  // Master Envelope Opening Choreography
   function triggerEnvelopeOpen() {
     if (isOpeningOrOpen) return;
     isOpeningOrOpen = true;
-
+    clearChoreography();
     ensureAudioContext();
 
-    const tl = gsap.timeline();
+    // Reset tilt smoothly
+    envelopeAssembly.style.transition = 'transform 0.3s ease';
+    envelopeAssembly.style.transform = 'rotateY(0deg) rotateX(0deg)';
 
-    // Step 0: Center the envelope & hide touch prompt
-    tl.to(envelopeAssembly, {
-      rotateX: 0,
-      rotateY: 0,
-      scale: 1.02,
-      duration: 0.3,
-      ease: 'power2.out'
-    }, 0);
+    // Hide header and touch prompt
+    animateEl(sanctuaryHeader, [
+      { opacity: 1, transform: 'translateY(0)' },
+      { opacity: 0, transform: 'translateY(-16px)' }
+    ], { duration: 400, easing: 'ease-in-out' });
 
-    tl.to([sanctuaryPrompt, sanctuaryHeader], {
-      opacity: 0,
-      y: -15,
-      duration: 0.4,
-      ease: 'power2.inOut'
-    }, 0);
+    animateEl(sanctuaryPrompt, [
+      { opacity: 1, transform: 'translateY(0)' },
+      { opacity: 0, transform: 'translateY(16px)' }
+    ], { duration: 350, easing: 'ease-in-out' });
 
-    // Step 1: Crack the Royal Wax Seal (0.15s -> 0.65s)
-    tl.call(() => playWaxCrackSound(), null, 0.15);
+    // ========================================================================
+    // PHASE 1 (100ms -> 680ms): WAX SEAL FRACTURE & TWO-PIECE PHYSICAL SPLIT
+    // ========================================================================
+    scheduleStep(() => {
+      playWaxCrackSound();
 
-    tl.to(waxCrackPath, {
-      strokeDashoffset: 0,
-      duration: 0.28,
-      ease: 'power2.in'
-    }, 0.15);
+      // 1a. Draw glowing golden fracture crack line across the wax seal
+      animateEl(waxCrackPath, [
+        { strokeDashoffset: 140, opacity: 1 },
+        { strokeDashoffset: 0, opacity: 1 }
+      ], { duration: 240, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' });
 
-    tl.to(waxSealStage, {
-      scale: 1.12,
-      duration: 0.15,
-      ease: 'back.out(2)'
-    }, 0.25);
+      animateEl(waxAuraRing, [
+        { opacity: 0.9, transform: 'scale(1)' },
+        { opacity: 0, transform: 'scale(1.5)' }
+      ], { duration: 320, easing: 'ease-out' });
+    }, 100);
 
-    // Burst of golden wax sparks at seal position
-    tl.call(() => {
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 35,
-          spread: 55,
-          startVelocity: 22,
-          origin: { y: 0.55 },
-          colors: ['#d4af37', '#fae596', '#8f111e']
-        });
-      }
-    }, null, 0.38);
+    scheduleStep(() => {
+      // Burst of golden wax sparks right at the seal
+      spawnGoldConfetti(0.5, 0.54, 32);
 
-    // Drop and dissolve broken wax seal
-    tl.to(waxSealStage, {
-      y: 45,
-      scale: 0.65,
-      opacity: 0,
-      duration: 0.32,
-      ease: 'power2.in'
-    }, 0.42);
+      // Fade out crack line as the two wax halves physically split apart
+      animateEl(waxCrackPath, [
+        { opacity: 1 },
+        { opacity: 0 }
+      ], { duration: 150, easing: 'ease-out' });
 
-    // Step 2: Unfold the 3D Top Flap (0.65s -> 1.60s)
-    tl.call(() => playPaperSlideSound(), null, 0.68);
+      // Left half of wax seal splits left & falls
+      animateEl(waxHalfLeft, [
+        { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1 },
+        { transform: 'translate(-14px, -4px) rotate(-10deg) scale(1.04)', opacity: 1, offset: 0.25 },
+        { transform: 'translate(-44px, 48px) rotate(-28deg) scale(0.8)', opacity: 0 }
+      ], { duration: 440, easing: 'cubic-bezier(0.32, 0, 0.67, 0)' });
 
-    tl.to(topFlap3d, {
-      rotateX: 180,
-      duration: 0.95,
-      ease: 'power2.inOut'
-    }, 0.65);
+      // Right half of wax seal splits right & falls
+      animateEl(waxHalfRight, [
+        { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1 },
+        { transform: 'translate(14px, -4px) rotate(10deg) scale(1.04)', opacity: 1, offset: 0.25 },
+        { transform: 'translate(44px, 48px) rotate(28deg) scale(0.8)', opacity: 0 }
+      ], { duration: 440, easing: 'cubic-bezier(0.32, 0, 0.67, 0)' });
+    }, 320);
 
-    // CRITICAL Z-INDEX HANDOFF AT EXACT 90-DEGREE MIDPOINT (0.65 + 0.475 = 1.125s):
-    // Places the opened top flap BEHIND the letter (z-index: 1 < letter z-index: 2)
-    // while the front pocket remains at z-index: 3 (IN FRONT of letter z-index: 2)!
-    tl.set(topFlapWrap, { zIndex: 1 }, 1.125);
+    // ========================================================================
+    // PHASE 2 (650ms -> 1570ms): 3D TOP FLAP UNFOLDING (0deg -> 180deg)
+    // ========================================================================
+    scheduleStep(() => {
+      playPaperSlideSound();
 
-    // Step 3: Slide the Letter UP Out of the Pocket (1.50s -> 2.55s)
-    // Because envLetter is z-index: 2 and env-layer-pocket is z-index: 3,
-    // the letter genuinely slides out from INSIDE the pocket without ever floating over the front flaps!
-    tl.call(() => playPaperSlideSound(), null, 1.52);
+      animateEl(topFlap3d, [
+        { transform: 'rotateX(0deg)' },
+        { transform: 'rotateX(180deg)' }
+      ], { duration: 920, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' });
+    }, 650);
 
-    tl.to(envLetter, {
-      yPercent: -112,
-      duration: 1.05,
-      ease: 'power3.inOut'
-    }, 1.50);
+    // CRITICAL Z-INDEX HANDOFF AT EXACT 90-DEGREE MIDPOINT (650 + 460 = 1110ms):
+    // When top flap is perpendicular (90deg), move it to z-index: 1 (behind letter z-index: 2).
+    // Meanwhile, front pocket (.env-layer-pocket) stays at z-index: 3 (in front of letter z-index: 2)!
+    scheduleStep(() => {
+      topFlapWrap.style.zIndex = '1';
+    }, 1110);
 
-    tl.to(envelopeAssembly, {
-      y: 65,
-      duration: 1.05,
-      ease: 'power3.inOut'
-    }, 1.50);
+    // ========================================================================
+    // PHASE 3 (1500ms -> 2750ms): PHYSICAL EXTRACTION
+    // Envelope pocket (z-index: 3) slides DOWN off the bottom of the letter
+    // while the letter (z-index: 2) rises into the center of the viewport!
+    // ZERO z-index swap between letter and pocket = ZERO floating paper bug!
+    // ========================================================================
+    scheduleStep(() => {
+      playPaperSlideSound();
 
-    // Step 4: Now that the bottom edge of the letter has 100% cleared the top rim of the pocket
-    // (at yPercent: -112, zero overlap with pocket!), bring letter to foreground (z-index: 10)
-    // and glide it down as the envelope recedes into the background!
-    tl.set(envLetter, { zIndex: 10 }, 2.56);
+      // Letter rises gently into center of screen
+      animateEl(envLetter, [
+        { transform: 'translateY(0%) scale(1)' },
+        { transform: 'translateY(-24%) scale(1.06)' }
+      ], { duration: 1200, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
 
-    tl.to(['.env-layer-back', '.env-layer-pocket', topFlapWrap, '.envelope-aura'], {
-      opacity: 0,
-      scale: 0.88,
-      y: 80,
-      duration: 0.65,
-      ease: 'power2.inOut'
-    }, 2.58);
+      // Envelope Back, Pocket, Opened Flap, and Aura slide DOWN off the bottom of the letter!
+      const envParts = [envBack, envPocket, topFlapWrap, envelopeAura];
+      envParts.forEach((part) => {
+        animateEl(part, [
+          { transform: 'translateY(0%) scale(1)', opacity: 1 },
+          { transform: 'translateY(75%) scale(0.96)', opacity: 1, offset: 0.62 },
+          { transform: 'translateY(122%) scale(0.90)', opacity: 0 }
+        ], { duration: 1220, easing: 'cubic-bezier(0.33, 1, 0.68, 1)' });
+      });
+    }, 1500);
 
-    tl.to(envLetter, {
-      yPercent: -18,
-      scale: 1.18,
-      duration: 0.7,
-      ease: 'power3.inOut'
-    }, 2.58);
-
-    // Step 5: Unfurl the Letter into the Full Illuminated Royal Manuscript (3.15s -> 4.10s)
-    tl.call(() => {
+    // ========================================================================
+    // PHASE 4 (2720ms -> 3650ms): UNFURLING INTO THE ILLUMINATED MANUSCRIPT
+    // ========================================================================
+    scheduleStep(() => {
       playRoyalFanfare();
+      spawnGoldConfetti(0.18, 0.55, 45);
+      spawnGoldConfetti(0.82, 0.55, 45);
+
+      // Letter expands and fades into the full manuscript sheet
+      animateEl(envLetter, [
+        { transform: 'translateY(-24%) scale(1.06)', opacity: 1 },
+        { transform: 'translateY(-10%) scale(1.28)', opacity: 0 }
+      ], { duration: 520, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' });
+
+      // Reveal Act II: The Illuminated Manuscript
       document.body.classList.remove('is-locked');
       royalInvitation.classList.add('is-active');
       royalInvitation.setAttribute('aria-hidden', 'false');
-    }, null, 3.12);
-
-    tl.to(envLetter, {
-      opacity: 0,
-      scale: 1.35,
-      duration: 0.55,
-      ease: 'power2.inOut'
-    }, 3.15);
-
-    tl.fromTo(manuscriptSheet,
-      { opacity: 0, y: 50, scale: 0.94 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.95, ease: 'power3.out' },
-      3.15
-    );
-
-    tl.call(() => {
       sanctuary.classList.add('hidden');
       replayBtn.classList.remove('hidden');
 
-      // Royal Golden Confetti Shower
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 55,
-          angle: 60,
-          spread: 60,
-          origin: { x: 0, y: 0.65 },
-          colors: ['#d4af37', '#fae596', '#80111d', '#ffffff']
-        });
-        confetti({
-          particleCount: 55,
-          angle: 120,
-          spread: 60,
-          origin: { x: 1, y: 0.65 },
-          colors: ['#d4af37', '#fae596', '#80111d', '#ffffff']
-        });
-      }
+      animateEl(manuscriptSheet, [
+        { opacity: 0, transform: 'translateY(45px) scale(0.95)' },
+        { opacity: 1, transform: 'translateY(0px) scale(1)' }
+      ], { duration: 850, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
 
-      // Stagger reveal sections inside manuscript
-      gsap.fromTo('.reveal-item',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.14, ease: 'power2.out' }
-      );
-    }, null, 3.65);
+      const sections = document.querySelectorAll('.reveal-section');
+      sections.forEach((sec, idx) => {
+        animateEl(sec, [
+          { opacity: 0, transform: 'translateY(24px)' },
+          { opacity: 1, transform: 'translateY(0px)' }
+        ], {
+          duration: 700,
+          delay: 120 + idx * 110,
+          easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
+        });
+      });
+    }, 2720);
   }
 
-  // Attach click/touch listeners to open the envelope
+  // Trigger listeners
   if (envelopeAssembly) {
     envelopeAssembly.addEventListener('click', triggerEnvelopeOpen);
     envelopeAssembly.addEventListener('keydown', (e) => {
@@ -493,28 +542,21 @@ document.addEventListener('DOMContentLoaded', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
       setTimeout(() => {
-        // Reset all states cleanly
+        clearChoreography();
         royalInvitation.classList.remove('is-active');
         royalInvitation.setAttribute('aria-hidden', 'true');
         replayBtn.classList.add('hidden');
         sanctuary.classList.remove('hidden');
         document.body.classList.add('is-locked');
 
-        gsap.set([sanctuaryPrompt, sanctuaryHeader], { opacity: 1, y: 0 });
-        gsap.set(envelopeAssembly, { y: 0, scale: 1, rotateX: 0, rotateY: 0 });
-        gsap.set(['.env-layer-back', '.env-layer-pocket', topFlapWrap, '.envelope-aura'], {
-          opacity: 1,
-          scale: 1,
-          y: 0
-        });
-        gsap.set(topFlapWrap, { zIndex: 4 });
-        gsap.set(topFlap3d, { rotateX: 0 });
-        gsap.set(envLetter, { yPercent: 0, scale: 1, opacity: 1, zIndex: 2 });
-        gsap.set(waxSealStage, { y: 0, scale: 1, opacity: 1 });
-        gsap.set(waxCrackPath, { strokeDashoffset: 140 });
+        topFlapWrap.style.zIndex = '4';
+        envLetter.style.zIndex = '2';
+        envPocket.style.zIndex = '3';
+        envBack.style.zIndex = '1';
+        envelopeAssembly.style.transform = 'rotateY(0deg) rotateX(0deg)';
 
         isOpeningOrOpen = false;
-      }, 300);
+      }, 250);
     });
   }
 
@@ -532,15 +574,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const ringMinutes = document.getElementById('ring-minutes');
   const ringSeconds = document.getElementById('ring-seconds');
 
-  const CIRCUMFERENCE = 2 * Math.PI * 52; // 326.72
-  // Target Date: Sunday, Nov 29, 2026 at 13:00 Mosul Time (UTC+3)
+  const CIRCUMFERENCE = 2 * Math.PI * 52;
   const targetTimestamp = new Date('2026-11-29T13:00:00+03:00').getTime();
 
   function setRingProgress(circleEl, fraction) {
     if (!circleEl) return;
     const clamped = Math.max(0, Math.min(1, fraction));
-    const offset = CIRCUMFERENCE - clamped * CIRCUMFERENCE;
-    circleEl.style.strokeDashoffset = offset;
+    circleEl.style.strokeDashoffset = CIRCUMFERENCE - clamped * CIRCUMFERENCE;
   }
 
   function updateAstrolabeCountdown() {
@@ -579,7 +619,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const whatsappDirectBtn = document.getElementById('whatsapp-direct-btn');
   const blessingsGrid = document.getElementById('blessings-grid');
 
-  // Toggle companions select visibility based on attendance radio
   const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
   attendanceRadios.forEach((radio) => {
     radio.addEventListener('change', () => {
@@ -612,15 +651,12 @@ document.addEventListener('DOMContentLoaded', () => {
     blessingsGrid.prepend(card);
   }
 
-  // Load saved blessings from LocalStorage
   try {
     const savedBlessings = JSON.parse(localStorage.getItem('ibtisam_royal_blessings') || '[]');
     savedBlessings.forEach((item) => {
       prependBlessingCard(item.author, item.text, item.time);
     });
-  } catch (e) {
-    console.warn('Storage read error:', e);
-  }
+  } catch (e) {}
 
   if (rsvpForm) {
     rsvpForm.addEventListener('submit', (e) => {
@@ -636,17 +672,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       ensureAudioContext();
       playRoyalFanfare();
+      spawnGoldConfetti(0.5, 0.7, 55);
 
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 70,
-          spread: 70,
-          origin: { y: 0.75 },
-          colors: ['#d4af37', '#fae596', '#80111d']
-        });
-      }
-
-      // Populate & Show VIP Royal Pass
       vipGuestName.textContent = nameVal;
       vipGuestStatus.textContent = isAttending
         ? `مؤكد بإذن الله (${countVal})`
@@ -655,16 +682,13 @@ document.addEventListener('DOMContentLoaded', () => {
       rsvpForm.classList.add('hidden');
       vipPassContainer.classList.remove('hidden');
 
-      // Add blessing to Golden Wall if provided
       if (wishesVal) {
         prependBlessingCard(nameVal, wishesVal, 'مؤخراً');
         try {
           const current = JSON.parse(localStorage.getItem('ibtisam_royal_blessings') || '[]');
           current.push({ author: nameVal, text: wishesVal, time: '٢٠٢٦' });
           localStorage.setItem('ibtisam_royal_blessings', JSON.stringify(current));
-        } catch (err) {
-          console.warn('Storage save error:', err);
-        }
+        } catch (err) {}
       }
     });
   }
@@ -676,7 +700,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // WhatsApp Direct RSVP
   if (whatsappDirectBtn) {
     whatsappDirectBtn.addEventListener('click', () => {
       const nameVal = document.getElementById('guest-name').value.trim() || 'ضيف كريم';
