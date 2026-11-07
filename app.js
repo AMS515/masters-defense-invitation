@@ -1,15 +1,15 @@
 /**
  * ============================================================================
- * ROYAL MASTER'S DEFENSE & BANQUET INVITATION — NATIVE 60FPS ENGINE
+ * ROYAL INVITATION — SOFT BLUSH & ROSE GOLD INTERACTIVE ENGINE
  * Honoree: Researcher Ibtisam Mahmoud Saleh — University of Mosul
- * Zero External Dependencies (100% CSP-Safe, Offline-Ready & Hardware Accelerated)
+ * Featuring: Drifting Rose Petals, Ethereal Piano/Harp Chords, 3D Velvet Envelope
  * ============================================================================
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================================================
-  // 1. WEB AUDIO SYNTHESIZER (Wax Fracture, Cotton Paper & Royal Maqam Harp)
+  // 1. ETHEREAL PIANO & HARP SYNTHESIZER (Celebratory E-Flat Major Warm Chords)
   // ==========================================================================
   let audioCtx = null;
   let isMuted = false;
@@ -26,57 +26,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Delicate Wax Seal Snap
   function playWaxCrackSound() {
     if (isMuted || !audioCtx) return;
     try {
       const now = audioCtx.currentTime;
 
-      // Crisp brittle wax snap
+      // Brittle snap
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(540, now);
-      osc.frequency.exponentialRampToValueAtTime(68, now + 0.14);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(480, now);
+      osc.frequency.exponentialRampToValueAtTime(75, now + 0.12);
 
-      gain.gain.setValueAtTime(0.3, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+      gain.gain.setValueAtTime(0.24, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
 
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start(now);
-      osc.stop(now + 0.15);
+      osc.stop(now + 0.13);
 
-      // Deep physical seal release thud
+      // Warm velvet release thump
       const subOsc = audioCtx.createOscillator();
       const subGain = audioCtx.createGain();
-      subOsc.type = 'triangle';
-      subOsc.frequency.setValueAtTime(165, now + 0.04);
-      subOsc.frequency.exponentialRampToValueAtTime(42, now + 0.22);
+      subOsc.type = 'sine';
+      subOsc.frequency.setValueAtTime(140, now + 0.03);
+      subOsc.frequency.exponentialRampToValueAtTime(45, now + 0.18);
 
-      subGain.gain.setValueAtTime(0.36, now + 0.04);
-      subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+      subGain.gain.setValueAtTime(0.28, now + 0.03);
+      subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
 
       subOsc.connect(subGain);
       subGain.connect(audioCtx.destination);
-      subOsc.start(now + 0.04);
-      subOsc.stop(now + 0.23);
-    } catch (e) {
-      // Ignore audio errors on restricted devices
-    }
+      subOsc.start(now + 0.03);
+      subOsc.stop(now + 0.19);
+    } catch (e) {}
   }
 
+  // Soft Cotton Paper Sliding
   function playPaperSlideSound() {
     if (isMuted || !audioCtx) return;
     try {
       const now = audioCtx.currentTime;
-      const duration = 0.65;
+      const duration = 0.6;
       const bufferSize = Math.floor(audioCtx.sampleRate * duration);
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
 
       for (let i = 0; i < bufferSize; i++) {
         const env = Math.sin((i / bufferSize) * Math.PI);
-        data[i] = (Math.random() * 2 - 1) * env * 0.15;
+        data[i] = (Math.random() * 2 - 1) * env * 0.12;
       }
 
       const noise = audioCtx.createBufferSource();
@@ -84,63 +84,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(620, now);
-      filter.frequency.linearRampToValueAtTime(1150, now + duration * 0.65);
-      filter.Q.value = 1.3;
+      filter.frequency.setValueAtTime(750, now);
+      filter.frequency.linearRampToValueAtTime(1200, now + duration * 0.7);
+      filter.Q.value = 1.2;
 
       const gain = audioCtx.createGain();
       gain.gain.setValueAtTime(0.01, now);
-      gain.gain.linearRampToValueAtTime(0.26, now + 0.18);
+      gain.gain.linearRampToValueAtTime(0.2, now + 0.15);
       gain.gain.exponentialRampToValueAtTime(0.005, now + duration);
 
       noise.connect(filter);
       filter.connect(gain);
       gain.connect(audioCtx.destination);
       noise.start(now);
-    } catch (e) {
-      // Ignore audio errors
-    }
+    } catch (e) {}
   }
 
-  function playRoyalFanfare() {
+  // Ethereal Piano & Harp Celebratory Arpeggio (Warm E-flat / A-flat harmony)
+  function playEtherealChords() {
     if (isMuted || !audioCtx) return;
     try {
       const now = audioCtx.currentTime;
-      const notes = [261.63, 329.63, 392.00, 493.88, 523.25, 659.25, 783.99];
+      // Frequencies for Eb4, G4, Bb4, C5, Eb5, G5, Bb5 (Luminous Piano Harp)
+      const freqs = [311.13, 392.00, 466.16, 523.25, 622.25, 783.99, 932.33];
 
-      notes.forEach((freq, idx) => {
-        const start = now + idx * 0.09;
+      freqs.forEach((f, idx) => {
+        const start = now + idx * 0.085;
         const osc = audioCtx.createOscillator();
-        const harmonic = audioCtx.createOscillator();
+        const overtone = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-        const harmGain = audioCtx.createGain();
+        const overGain = audioCtx.createGain();
 
         osc.type = 'sine';
-        harmonic.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, start);
-        harmonic.frequency.setValueAtTime(freq * 2, start);
+        overtone.type = 'triangle';
+        osc.frequency.setValueAtTime(f, start);
+        overtone.frequency.setValueAtTime(f * 2, start);
 
-        harmGain.gain.value = 0.14;
+        overGain.gain.value = 0.12;
         gain.gain.setValueAtTime(0.001, start);
-        gain.gain.linearRampToValueAtTime(0.14, start + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.0008, start + 1.85);
+        gain.gain.linearRampToValueAtTime(0.12, start + 0.025);
+        gain.gain.exponentialRampToValueAtTime(0.0006, start + 2.1);
 
         osc.connect(gain);
-        harmonic.connect(harmGain);
-        harmGain.connect(gain);
+        overtone.connect(overGain);
+        overGain.connect(gain);
         gain.connect(audioCtx.destination);
 
         osc.start(start);
-        harmonic.start(start);
-        osc.stop(start + 1.9);
-        harmonic.stop(start + 1.9);
+        overtone.start(start);
+        osc.stop(start + 2.15);
+        overtone.stop(start + 2.15);
       });
-    } catch (e) {
-      // Ignore audio errors
-    }
+    } catch (e) {}
   }
 
-  // Audio Toggle Button
+  // Audio Toggle
   const audioToggleBtn = document.getElementById('audio-toggle-btn');
   const iconVolOn = document.getElementById('icon-vol-on');
   const iconVolOff = document.getElementById('icon-vol-off');
@@ -153,27 +151,27 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isMuted) {
         iconVolOn.classList.add('hidden');
         iconVolOff.classList.remove('hidden');
-        audioToggleBtn.style.opacity = '0.65';
+        audioToggleBtn.style.opacity = '0.6';
       } else {
         iconVolOff.classList.add('hidden');
         iconVolOn.classList.remove('hidden');
         audioToggleBtn.style.opacity = '1';
-        playRoyalFanfare();
+        playEtherealChords();
       }
     });
   }
 
 
   // ==========================================================================
-  // 2. NATIVE 60FPS CELESTIAL BOKEH & 3D GOLD-LEAF CONFETTI ENGINE
+  // 2. DRIFTING ROSE PETALS & SILK WAVE CANVAS ENGINE
   // ==========================================================================
-  const canvas = document.getElementById('celestial-canvas');
+  const canvas = document.getElementById('silk-canvas');
   const ctx = canvas ? canvas.getContext('2d') : null;
   let width = window.innerWidth;
   let height = window.innerHeight;
 
-  const dustMotes = [];
-  const confettiPieces = [];
+  const rosePetals = [];
+  const diamondGlints = [];
   let pointerX = 0;
   let pointerY = 0;
 
@@ -187,123 +185,170 @@ document.addEventListener('DOMContentLoaded', () => {
     if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  function initDustMotes() {
-    dustMotes.length = 0;
-    const count = 85;
-    for (let i = 0; i < count; i++) {
-      dustMotes.push({
+  // Draw an organic curved rose petal
+  function drawRosePetal(c, x, y, size, angle, tilt, color, alpha) {
+    c.save();
+    c.translate(x, y);
+    c.rotate(angle);
+    c.scale(1, Math.cos(tilt));
+    c.globalAlpha = Math.max(0, Math.min(1, alpha));
+
+    c.beginPath();
+    // Heart-shaped organic petal
+    c.moveTo(0, -size);
+    c.bezierCurveTo(size * 0.9, -size * 0.8, size * 0.8, size * 0.7, 0, size);
+    c.bezierCurveTo(-size * 0.8, size * 0.7, -size * 0.9, -size * 0.8, 0, -size);
+    c.fillStyle = color;
+    c.fill();
+
+    // Subtle petal vein highlight
+    c.beginPath();
+    c.moveTo(0, -size * 0.8);
+    c.quadraticCurveTo(size * 0.1, 0, 0, size * 0.7);
+    c.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+    c.lineWidth = 0.8;
+    c.stroke();
+
+    c.restore();
+  }
+
+  function initAmbientPetals() {
+    rosePetals.length = 0;
+    diamondGlints.length = 0;
+
+    // Drifting ambient petals
+    const petalPalette = ['#e8a9b3', '#f2bebe', '#df949c', '#f7d6d5', '#e29fa7'];
+    for (let i = 0; i < 26; i++) {
+      rosePetals.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        z: 0.2 + Math.random() * 0.8, // Depth factor for 3D parallax
-        radius: 1.0 + Math.random() * 2.8,
-        speedY: -(0.15 + Math.random() * 0.35),
-        driftPhase: Math.random() * Math.PI * 2,
-        driftSpeed: 0.008 + Math.random() * 0.015,
-        alpha: 0.2 + Math.random() * 0.55
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: 0.6 + Math.random() * 0.8,
+        size: 9 + Math.random() * 8,
+        angle: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.025,
+        tilt: Math.random() * Math.PI * 2,
+        tiltSpeed: 0.02 + Math.random() * 0.035,
+        color: petalPalette[Math.floor(Math.random() * petalPalette.length)],
+        alpha: 0.45 + Math.random() * 0.35,
+        swayPhase: Math.random() * Math.PI * 2,
+        swaySpeed: 0.015 + Math.random() * 0.025
+      });
+    }
+
+    // Sparkle glints
+    for (let i = 0; i < 45; i++) {
+      diamondGlints.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: 1.2 + Math.random() * 2.2,
+        speedY: -(0.1 + Math.random() * 0.25),
+        alpha: 0.2 + Math.random() * 0.5,
+        phase: Math.random() * Math.PI * 2
       });
     }
   }
 
-  // Spawn 3D Tumbling Gold-Leaf & Crimson Confetti
-  function spawnGoldConfetti(normX, normY, count) {
+  // Spawn a celebratory flurry of rose petals
+  function spawnRosePetalFlurry(normX, normY, count) {
     const originX = normX * width;
     const originY = normY * height;
-    const palette = ['#d4af37', '#fae596', '#fff3be', '#aa8222', '#80111d', '#b88a28'];
+    const petalPalette = ['#e59aab', '#f4c2c8', '#d67c8b', '#f9dfe2', '#c96f7e'];
 
     for (let i = 0; i < count; i++) {
-      const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.9;
-      const speed = 4 + Math.random() * 9;
-      confettiPieces.push({
+      const angle = -Math.PI / 2 + (Math.random() - 0.5) * 2.2;
+      const speed = 4 + Math.random() * 8;
+      rosePetals.push({
         x: originX,
         y: originY,
         vx: Math.cos(angle) * speed + (Math.random() - 0.5) * 3,
-        vy: Math.sin(angle) * speed - Math.random() * 2,
-        w: 6 + Math.random() * 6,
-        h: 4 + Math.random() * 4,
-        color: palette[Math.floor(Math.random() * palette.length)],
-        rotation: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.16,
+        vy: Math.sin(angle) * speed - Math.random() * 3,
+        size: 11 + Math.random() * 10,
+        angle: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.08,
         tilt: Math.random() * Math.PI * 2,
-        tiltSpeed: 0.08 + Math.random() * 0.14,
-        opacity: 1,
-        decay: 0.006 + Math.random() * 0.006
+        tiltSpeed: 0.05 + Math.random() * 0.09,
+        color: petalPalette[Math.floor(Math.random() * petalPalette.length)],
+        alpha: 0.85,
+        swayPhase: Math.random() * Math.PI * 2,
+        swaySpeed: 0.03,
+        isFlurry: true
       });
     }
   }
 
   window.addEventListener('pointermove', (e) => {
-    pointerX = (e.clientX / width - 0.5) * 24;
-    pointerY = (e.clientY / height - 0.5) * 24;
+    pointerX = (e.clientX / width - 0.5) * 20;
+    pointerY = (e.clientY / height - 0.5) * 20;
   });
 
-  function renderCelestialLoop() {
+  function renderSilkLoop() {
     if (ctx) {
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Render 3D Parallax Golden Bokeh Motes
-      for (let i = 0; i < dustMotes.length; i++) {
-        const m = dustMotes[i];
-        m.y += m.speedY * m.z;
-        m.driftPhase += m.driftSpeed;
-        const dx = Math.sin(m.driftPhase) * 0.4;
-        m.x += dx;
+      // 1. Diamond Sparkle Glints
+      for (let i = 0; i < diamondGlints.length; i++) {
+        const g = diamondGlints[i];
+        g.y += g.speedY;
+        g.phase += 0.03;
+        if (g.y < -10) g.y = height + 10;
 
-        if (m.y < -20) m.y = height + 20;
-        if (m.x < -20) m.x = width + 20;
-        if (m.x > width + 20) m.x = -20;
+        const pulse = 0.5 + Math.sin(g.phase) * 0.5;
+        const drawAlpha = g.alpha * pulse;
 
-        const drawX = m.x - pointerX * m.z;
-        const drawY = m.y - pointerY * m.z;
-
-        const grad = ctx.createRadialGradient(drawX, drawY, 0, drawX, drawY, m.radius * 3.2);
-        grad.addColorStop(0, `rgba(255, 243, 190, ${m.alpha})`);
-        grad.addColorStop(0.45, `rgba(212, 175, 55, ${m.alpha * 0.5})`);
-        grad.addColorStop(1, 'rgba(212, 175, 55, 0)');
-
-        ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(drawX, drawY, m.radius * 3.2, 0, Math.PI * 2);
+        ctx.arc(g.x, g.y, g.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(197, 125, 135, ${drawAlpha * 0.45})`;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(g.x, g.y, g.radius * 0.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${drawAlpha})`;
         ctx.fill();
       }
 
-      // 2. Render 3D Tumbling Gold-Leaf Confetti
-      for (let i = confettiPieces.length - 1; i >= 0; i--) {
-        const p = confettiPieces[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.16; // Gravity
-        p.vx *= 0.985; // Air drag
-        p.rotation += p.rotSpeed;
-        p.tilt += p.tiltSpeed;
-        p.opacity -= p.decay;
+      // 2. Drifting & Falling Rose Petals
+      for (let i = rosePetals.length - 1; i >= 0; i--) {
+        const p = rosePetals[i];
 
-        if (p.opacity <= 0 || p.y > height + 40) {
-          confettiPieces.splice(i, 1);
-          continue;
+        if (p.isFlurry) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.12; // Gravity
+          p.vx *= 0.985;
+          p.alpha -= 0.005;
+
+          if (p.alpha <= 0 || p.y > height + 50) {
+            rosePetals.splice(i, 1);
+            continue;
+          }
+        } else {
+          p.swayPhase += p.swaySpeed;
+          p.x += p.vx + Math.sin(p.swayPhase) * 0.7;
+          p.y += p.vy;
+
+          if (p.y > height + 30) p.y = -30;
+          if (p.x < -30) p.x = width + 30;
+          if (p.x > width + 30) p.x = -30;
         }
 
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.rotation);
-        const scaleY = Math.cos(p.tilt);
-        ctx.scale(1, scaleY);
-        ctx.globalAlpha = Math.max(0, p.opacity);
-        ctx.fillStyle = p.color;
-        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-        ctx.restore();
+        p.angle += p.rotSpeed;
+        p.tilt += p.tiltSpeed;
+
+        drawRosePetal(ctx, p.x, p.y, p.size, p.angle, p.tilt, p.color, p.alpha);
       }
     }
-    requestAnimationFrame(renderCelestialLoop);
+    requestAnimationFrame(renderSilkLoop);
   }
 
   resizeCanvas();
-  initDustMotes();
-  renderCelestialLoop();
+  initAmbientPetals();
+  renderSilkLoop();
   window.addEventListener('resize', resizeCanvas);
 
 
   // ==========================================================================
-  // 3. PRECISION 3D ENVELOPE CHOREOGRAPHY (WEB ANIMATIONS API + RAF)
+  // 3. PRECISION 3D ENVELOPE CHOREOGRAPHY (WEB ANIMATIONS API)
   // ==========================================================================
   const sanctuary = document.getElementById('envelope-sanctuary');
   const sanctuaryHeader = document.getElementById('sanctuary-header');
@@ -363,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / (rect.width / 2)));
       const dy = Math.max(-1, Math.min(1, (e.clientY - cy) / (rect.height / 2)));
 
-      envelopeAssembly.style.transform = `rotateY(${dx * 11}deg) rotateX(${-dy * 9}deg)`;
+      envelopeAssembly.style.transform = `rotateY(${dx * 10}deg) rotateX(${-dy * 8}deg)`;
     });
 
     envelopeTiltZone.addEventListener('pointerleave', () => {
@@ -372,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Master Envelope Opening Choreography
+  // Master Envelope Opening Sequence
   function triggerEnvelopeOpen() {
     if (isOpeningOrOpen) return;
     isOpeningOrOpen = true;
@@ -386,21 +431,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hide header and touch prompt
     animateEl(sanctuaryHeader, [
       { opacity: 1, transform: 'translateY(0)' },
-      { opacity: 0, transform: 'translateY(-16px)' }
-    ], { duration: 400, easing: 'ease-in-out' });
+      { opacity: 0, transform: 'translateY(-14px)' }
+    ], { duration: 380, easing: 'ease-in-out' });
 
     animateEl(sanctuaryPrompt, [
       { opacity: 1, transform: 'translateY(0)' },
-      { opacity: 0, transform: 'translateY(16px)' }
-    ], { duration: 350, easing: 'ease-in-out' });
+      { opacity: 0, transform: 'translateY(14px)' }
+    ], { duration: 340, easing: 'ease-in-out' });
 
-    // ========================================================================
-    // PHASE 1 (100ms -> 680ms): WAX SEAL FRACTURE & TWO-PIECE PHYSICAL SPLIT
-    // ========================================================================
+    // PHASE 1 (100ms -> 680ms): Wax Seal Fracture & Two-Piece Split
     scheduleStep(() => {
       playWaxCrackSound();
 
-      // 1a. Draw glowing golden fracture crack line across the wax seal
       animateEl(waxCrackPath, [
         { strokeDashoffset: 140, opacity: 1 },
         { strokeDashoffset: 0, opacity: 1 }
@@ -408,95 +450,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
       animateEl(waxAuraRing, [
         { opacity: 0.9, transform: 'scale(1)' },
-        { opacity: 0, transform: 'scale(1.5)' }
-      ], { duration: 320, easing: 'ease-out' });
+        { opacity: 0, transform: 'scale(1.4)' }
+      ], { duration: 300, easing: 'ease-out' });
     }, 100);
 
     scheduleStep(() => {
-      // Burst of golden wax sparks right at the seal
-      spawnGoldConfetti(0.5, 0.54, 32);
+      // Petals and spark flurry
+      spawnRosePetalFlurry(0.5, 0.54, 25);
 
-      // Fade out crack line as the two wax halves physically split apart
       animateEl(waxCrackPath, [
         { opacity: 1 },
         { opacity: 0 }
-      ], { duration: 150, easing: 'ease-out' });
+      ], { duration: 140, easing: 'ease-out' });
 
-      // Left half of wax seal splits left & falls
+      // Left half splits & falls
       animateEl(waxHalfLeft, [
         { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1 },
-        { transform: 'translate(-14px, -4px) rotate(-10deg) scale(1.04)', opacity: 1, offset: 0.25 },
-        { transform: 'translate(-44px, 48px) rotate(-28deg) scale(0.8)', opacity: 0 }
-      ], { duration: 440, easing: 'cubic-bezier(0.32, 0, 0.67, 0)' });
+        { transform: 'translate(-12px, -4px) rotate(-8deg) scale(1.03)', opacity: 1, offset: 0.25 },
+        { transform: 'translate(-42px, 46px) rotate(-24deg) scale(0.8)', opacity: 0 }
+      ], { duration: 420, easing: 'cubic-bezier(0.32, 0, 0.67, 0)' });
 
-      // Right half of wax seal splits right & falls
+      // Right half splits & falls
       animateEl(waxHalfRight, [
         { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1 },
-        { transform: 'translate(14px, -4px) rotate(10deg) scale(1.04)', opacity: 1, offset: 0.25 },
-        { transform: 'translate(44px, 48px) rotate(28deg) scale(0.8)', opacity: 0 }
-      ], { duration: 440, easing: 'cubic-bezier(0.32, 0, 0.67, 0)' });
+        { transform: 'translate(12px, -4px) rotate(8deg) scale(1.03)', opacity: 1, offset: 0.25 },
+        { transform: 'translate(42px, 46px) rotate(24deg) scale(0.8)', opacity: 0 }
+      ], { duration: 420, easing: 'cubic-bezier(0.32, 0, 0.67, 0)' });
     }, 320);
 
-    // ========================================================================
-    // PHASE 2 (650ms -> 1570ms): 3D TOP FLAP UNFOLDING (0deg -> 180deg)
-    // ========================================================================
+    // PHASE 2 (650ms -> 1570ms): 3D Top Flap Unfolding
     scheduleStep(() => {
       playPaperSlideSound();
 
       animateEl(topFlap3d, [
         { transform: 'rotateX(0deg)' },
         { transform: 'rotateX(180deg)' }
-      ], { duration: 920, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' });
+      ], { duration: 900, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' });
     }, 650);
 
-    // CRITICAL Z-INDEX HANDOFF AT EXACT 90-DEGREE MIDPOINT (650 + 460 = 1110ms):
-    // When top flap is perpendicular (90deg), move it to z-index: 1 (behind letter z-index: 2).
-    // Meanwhile, front pocket (.env-layer-pocket) stays at z-index: 3 (in front of letter z-index: 2)!
+    // Z-index handoff at 90deg midpoint
     scheduleStep(() => {
       topFlapWrap.style.zIndex = '1';
-    }, 1110);
+    }, 1100);
 
-    // ========================================================================
-    // PHASE 3 (1500ms -> 2750ms): PHYSICAL EXTRACTION
-    // Envelope pocket (z-index: 3) slides DOWN off the bottom of the letter
-    // while the letter (z-index: 2) rises into the center of the viewport!
-    // ZERO z-index swap between letter and pocket = ZERO floating paper bug!
-    // ========================================================================
+    // PHASE 3 (1500ms -> 2720ms): Pocket glides down, card glides up
     scheduleStep(() => {
       playPaperSlideSound();
 
-      // Letter rises gently into center of screen
       animateEl(envLetter, [
         { transform: 'translateY(0%) scale(1)' },
-        { transform: 'translateY(-24%) scale(1.06)' }
-      ], { duration: 1200, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+        { transform: 'translateY(-22%) scale(1.05)' }
+      ], { duration: 1180, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
 
-      // Envelope Back, Pocket, Opened Flap, and Aura slide DOWN off the bottom of the letter!
       const envParts = [envBack, envPocket, topFlapWrap, envelopeAura];
       envParts.forEach((part) => {
         animateEl(part, [
           { transform: 'translateY(0%) scale(1)', opacity: 1 },
-          { transform: 'translateY(75%) scale(0.96)', opacity: 1, offset: 0.62 },
-          { transform: 'translateY(122%) scale(0.90)', opacity: 0 }
-        ], { duration: 1220, easing: 'cubic-bezier(0.33, 1, 0.68, 1)' });
+          { transform: 'translateY(70%) scale(0.96)', opacity: 1, offset: 0.6 },
+          { transform: 'translateY(120%) scale(0.90)', opacity: 0 }
+        ], { duration: 1200, easing: 'cubic-bezier(0.33, 1, 0.68, 1)' });
       });
     }, 1500);
 
-    // ========================================================================
-    // PHASE 4 (2720ms -> 3650ms): UNFURLING INTO THE ILLUMINATED MANUSCRIPT
-    // ========================================================================
+    // PHASE 4 (2700ms): Ethereal Chords, Rose Flurry & Unfurl
     scheduleStep(() => {
-      playRoyalFanfare();
-      spawnGoldConfetti(0.18, 0.55, 45);
-      spawnGoldConfetti(0.82, 0.55, 45);
+      playEtherealChords();
+      spawnRosePetalFlurry(0.2, 0.45, 30);
+      spawnRosePetalFlurry(0.8, 0.45, 30);
 
-      // Letter expands and fades into the full manuscript sheet
       animateEl(envLetter, [
-        { transform: 'translateY(-24%) scale(1.06)', opacity: 1 },
-        { transform: 'translateY(-10%) scale(1.28)', opacity: 0 }
-      ], { duration: 520, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' });
+        { transform: 'translateY(-22%) scale(1.05)', opacity: 1 },
+        { transform: 'translateY(-8%) scale(1.24)', opacity: 0 }
+      ], { duration: 500, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' });
 
-      // Reveal Act II: The Illuminated Manuscript
       document.body.classList.remove('is-locked');
       royalInvitation.classList.add('is-active');
       royalInvitation.setAttribute('aria-hidden', 'false');
@@ -504,25 +530,25 @@ document.addEventListener('DOMContentLoaded', () => {
       replayBtn.classList.remove('hidden');
 
       animateEl(manuscriptSheet, [
-        { opacity: 0, transform: 'translateY(45px) scale(0.95)' },
+        { opacity: 0, transform: 'translateY(40px) scale(0.96)' },
         { opacity: 1, transform: 'translateY(0px) scale(1)' }
-      ], { duration: 850, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+      ], { duration: 800, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
 
       const sections = document.querySelectorAll('.reveal-section');
       sections.forEach((sec, idx) => {
         animateEl(sec, [
-          { opacity: 0, transform: 'translateY(24px)' },
+          { opacity: 0, transform: 'translateY(20px)' },
           { opacity: 1, transform: 'translateY(0px)' }
         ], {
-          duration: 700,
-          delay: 120 + idx * 110,
+          duration: 650,
+          delay: 100 + idx * 95,
           easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
         });
       });
-    }, 2720);
+    }, 2700);
   }
 
-  // Trigger listeners
+  // Trigger Listeners
   if (envelopeAssembly) {
     envelopeAssembly.addEventListener('click', triggerEnvelopeOpen);
     envelopeAssembly.addEventListener('keydown', (e) => {
@@ -536,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
     openTriggerBtn.addEventListener('click', triggerEnvelopeOpen);
   }
 
-  // Replay / Re-close Envelope Button
+  // Replay Button
   if (replayBtn) {
     replayBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -562,7 +588,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==========================================================================
-  // 4. CELESTIAL ASTROLABE COUNTDOWN (Target: 29 November 2026)
+  // 4. COUNTDOWN TIMER (Target: 29 November 2026)
   // ==========================================================================
   const cdDays = document.getElementById('cd-days');
   const cdHours = document.getElementById('cd-hours');
@@ -583,7 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
     circleEl.style.strokeDashoffset = CIRCUMFERENCE - clamped * CIRCUMFERENCE;
   }
 
-  function updateAstrolabeCountdown() {
+  function updateCountdown() {
     const now = Date.now();
     const diff = Math.max(0, targetTimestamp - now);
 
@@ -603,12 +629,12 @@ document.addEventListener('DOMContentLoaded', () => {
     setRingProgress(ringSeconds, seconds / 60);
   }
 
-  updateAstrolabeCountdown();
-  setInterval(updateAstrolabeCountdown, 1000);
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 
 
   // ==========================================================================
-  // 5. ROYAL GUESTBOOK, VIP PASS GENERATOR & BLESSINGS WALL
+  // 5. RSVP & VIP PASS GENERATOR & BLESSINGS WALL
   // ==========================================================================
   const rsvpForm = document.getElementById('rsvp-form');
   const companionsFieldWrap = document.getElementById('companions-field-wrap');
@@ -652,7 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   try {
-    const savedBlessings = JSON.parse(localStorage.getItem('ibtisam_royal_blessings') || '[]');
+    const savedBlessings = JSON.parse(localStorage.getItem('ibtisam_rose_blessings') || '[]');
     savedBlessings.forEach((item) => {
       prependBlessingCard(item.author, item.text, item.time);
     });
@@ -671,13 +697,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const wishesVal = document.getElementById('guest-wishes').value.trim();
 
       ensureAudioContext();
-      playRoyalFanfare();
-      spawnGoldConfetti(0.5, 0.7, 55);
+      playEtherealChords();
+      spawnRosePetalFlurry(0.5, 0.7, 40);
 
       vipGuestName.textContent = nameVal;
       vipGuestStatus.textContent = isAttending
-        ? `مؤكد بإذن الله (${countVal})`
-        : 'معتذر مع خالص التبريكات';
+        ? `يشرفنا حضوركم الكريم (${countVal})`
+        : 'معتذر بكل محبة وتقدير';
 
       rsvpForm.classList.add('hidden');
       vipPassContainer.classList.remove('hidden');
@@ -685,9 +711,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (wishesVal) {
         prependBlessingCard(nameVal, wishesVal, 'مؤخراً');
         try {
-          const current = JSON.parse(localStorage.getItem('ibtisam_royal_blessings') || '[]');
+          const current = JSON.parse(localStorage.getItem('ibtisam_rose_blessings') || '[]');
           current.push({ author: nameVal, text: wishesVal, time: '٢٠٢٦' });
-          localStorage.setItem('ibtisam_royal_blessings', JSON.stringify(current));
+          localStorage.setItem('ibtisam_rose_blessings', JSON.stringify(current));
         } catch (err) {}
       }
     });
@@ -709,17 +735,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const wishesVal = document.getElementById('guest-wishes').value.trim();
 
       const statusLine = isAttending
-        ? `أتشرف بالحضور والمشاركة (${countVal})`
-        : 'أعتذر لظرف خاص مع خالص التهاني والتبريكات';
+        ? `يشرفني الحضور بكل سرور (${countVal})`
+        : 'أعتذر بكل محبة لظرف طارئ';
 
-      let msg = `✨ *بطاقة تأكيد تشريف — مأدبة تتويج الباحثة ابتسام محمود صالح* ✨\n\n`;
+      let msg = `✨ *بطاقة تأكيد حضور — مأدبة تتويج الباحثة ابتسام محمود صالح* ✨\n\n`;
       msg += `• *الاسم الكريم:* ${nameVal}\n`;
       msg += `• *حالة الحضور:* ${statusLine}\n`;
       msg += `• *الموعد:* الأحد ٢٩ تشرين الثاني ٢٠٢٦\n`;
       if (wishesVal) {
         msg += `\n💌 *كلمة التهنئة:*\n"${wishesVal}"\n`;
       }
-      msg += `\nمبارك نيل درجة الماجستير في أمن المعلومات ومنها للأعلى بإذن الله.`;
+      msg += `\nألف مبارك نيل درجة الماجستير ومنها للأعلى بإذن الله.`;
 
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
     });
@@ -751,7 +777,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (shareWhatsappBtn) {
     shareWhatsappBtn.addEventListener('click', () => {
       const url = window.location.href;
-      const text = `👑 *دعوة ملكية خاصة* 👑\n\nنتشرف بدعوتكم لحضور *مأدبة الغداء التكريمية* بمناسبة نيل الباحثة *ابتسام محمود صالح* درجة الماجستير في إدارة الأعمال (تخصص أمن المعلومات) — جامعة الموصل.\n\n📅 *الأحد ٢٩ / ١١ / ٢٠٢٦*\n\nتفضلوا بفتح ظرف الدعوة التفاعلي من هنا:\n${url}`;
+      const text = `🌸 *دعوة لحضور مأدبة غداء تكريمية* 🌸\n\nبمناسبة نيل الباحثة *ابتسام محمود صالح* درجة الماجستير في إدارة الأعمال (تخصص أمن المعلومات) — جامعة الموصل.\n\n📅 *الأحد ٢٩ / ١١ / ٢٠٢٦*\n\nيسعدنا ويشرفنا فتح بطاقة الدعوة التفاعلية من هنا:\n${url}`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     });
   }
