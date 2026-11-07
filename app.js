@@ -216,44 +216,44 @@ document.addEventListener('DOMContentLoaded', () => {
     rosePetals.length = 0;
     diamondGlints.length = 0;
 
-    // Drifting ambient petals
-    const petalPalette = ['#e8a9b3', '#f2bebe', '#df949c', '#f7d6d5', '#e29fa7'];
-    for (let i = 0; i < 26; i++) {
+    // Drifting ambient petals (Whisper-soft pearl & silk blush)
+    const petalPalette = ['#fbf2f0', '#f7e8e4', '#f3ded9', '#fcf7f5', '#eed6d0'];
+    for (let i = 0; i < 18; i++) {
       rosePetals.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: 0.6 + Math.random() * 0.8,
-        size: 9 + Math.random() * 8,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: 0.5 + Math.random() * 0.65,
+        size: 8 + Math.random() * 7,
         angle: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.025,
+        rotSpeed: (Math.random() - 0.5) * 0.02,
         tilt: Math.random() * Math.PI * 2,
-        tiltSpeed: 0.02 + Math.random() * 0.035,
+        tiltSpeed: 0.02 + Math.random() * 0.03,
         color: petalPalette[Math.floor(Math.random() * petalPalette.length)],
-        alpha: 0.45 + Math.random() * 0.35,
+        alpha: 0.25 + Math.random() * 0.25,
         swayPhase: Math.random() * Math.PI * 2,
-        swaySpeed: 0.015 + Math.random() * 0.025
+        swaySpeed: 0.012 + Math.random() * 0.02
       });
     }
 
     // Sparkle glints
-    for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < 40; i++) {
       diamondGlints.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        radius: 1.2 + Math.random() * 2.2,
-        speedY: -(0.1 + Math.random() * 0.25),
-        alpha: 0.2 + Math.random() * 0.5,
+        radius: 1.2 + Math.random() * 2.0,
+        speedY: -(0.1 + Math.random() * 0.22),
+        alpha: 0.18 + Math.random() * 0.4,
         phase: Math.random() * Math.PI * 2
       });
     }
   }
 
-  // Spawn a celebratory flurry of rose petals
+  // Spawn a celebratory flurry of soft pearl-blush petals
   function spawnRosePetalFlurry(normX, normY, count) {
     const originX = normX * width;
     const originY = normY * height;
-    const petalPalette = ['#e59aab', '#f4c2c8', '#d67c8b', '#f9dfe2', '#c96f7e'];
+    const petalPalette = ['#f7e6e2', '#f2dad5', '#e8c8c0', '#fbf3f1', '#dfc0b8'];
 
     for (let i = 0; i < count; i++) {
       const angle = -Math.PI / 2 + (Math.random() - 0.5) * 2.2;
@@ -263,13 +263,13 @@ document.addEventListener('DOMContentLoaded', () => {
         y: originY,
         vx: Math.cos(angle) * speed + (Math.random() - 0.5) * 3,
         vy: Math.sin(angle) * speed - Math.random() * 3,
-        size: 11 + Math.random() * 10,
+        size: 10 + Math.random() * 9,
         angle: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.08,
+        rotSpeed: (Math.random() - 0.5) * 0.07,
         tilt: Math.random() * Math.PI * 2,
-        tiltSpeed: 0.05 + Math.random() * 0.09,
+        tiltSpeed: 0.05 + Math.random() * 0.08,
         color: petalPalette[Math.floor(Math.random() * petalPalette.length)],
-        alpha: 0.85,
+        alpha: 0.68,
         swayPhase: Math.random() * Math.PI * 2,
         swaySpeed: 0.03,
         isFlurry: true
