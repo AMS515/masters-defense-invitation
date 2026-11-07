@@ -3,378 +3,854 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>دعوة مأدبة غداء | بمناسبة نيل الماجستير - الباحثة ابتسام محمود صالح</title>
+  <title>دعوة ملكية خاصة | مأدبة تتويج الباحثة ابتسام محمود صالح - جامعة الموصل</title>
   
-  <meta name="description" content="دعوة كريمة لحضور مأدبة الغداء احتفاءً بنيل الباحثة ابتسام محمود صالح درجة الماجستير في إدارة الأعمال / أمن المعلومات - جامعة الموصل">
+  <meta name="description" content="دعوة خاصة لحضور مأدبة الغداء التكريمية بمناسبة نيل الباحثة ابتسام محمود صالح درجة الماجستير في إدارة الأعمال / أمن المعلومات - جامعة الموصل">
   <meta property="og:title" content="دعوة خاصة | الباحثة ابتسام محمود صالح">
-  <meta property="og:description" content="يسرنا دعوتكم لمشاركتنا فرحة إنجاز الماجستير وحضور مأدبة الغداء التكريمية">
+  <meta property="og:description" content="نتشرف بدعوتكم لحضور مأدبة الغداء التكريمية احتفاءً بنيل درجة الماجستير في أمن المعلومات - جامعة الموصل">
   <meta property="og:type" content="website">
 
-  <!-- Google Fonts: Amiri & Cairo -->
+  <!-- Curated Arabic Typography: Amiri, Aref Ruqaa, Tajawal, Reem Kufi -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
   
-  <!-- FontAwesome Icons & Canvas Confetti -->
+  <!-- Icons & Animation Libraries -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-
-  <!-- GSAP for Silky Smooth Animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
-  <!-- Three.js for 3D Background Lighting & Atmosphere -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="is-locked">
 
-  <!-- Three.js 3D Background Canvas -->
+  <!-- Global SVG Filters & Pattern Definitions -->
+  <svg class="svg-defs" aria-hidden="true">
+    <defs>
+      <!-- Metallic 24K Gold Gradient -->
+      <linearGradient id="gold-foil" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#9b7220" />
+        <stop offset="22%" stop-color="#d4af37" />
+        <stop offset="45%" stop-color="#fff1b8" />
+        <stop offset="65%" stop-color="#c99e32" />
+        <stop offset="85%" stop-color="#f5dc8c" />
+        <stop offset="100%" stop-color="#8a6214" />
+      </linearGradient>
+
+      <linearGradient id="gold-foil-soft" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#b88a28" stop-opacity="0.3" />
+        <stop offset="50%" stop-color="#fae596" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="#b88a28" stop-opacity="0.3" />
+      </linearGradient>
+
+      <!-- Envelope Exterior Obsidian-Emerald Velvet Gradient -->
+      <linearGradient id="env-velvet-back" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0b1922" />
+        <stop offset="50%" stop-color="#071118" />
+        <stop offset="100%" stop-color="#040a0e" />
+      </linearGradient>
+
+      <linearGradient id="env-velvet-left" x1="0%" y1="0%" x2="100%" y2="50%">
+        <stop offset="0%" stop-color="#112430" />
+        <stop offset="100%" stop-color="#09151d" />
+      </linearGradient>
+
+      <linearGradient id="env-velvet-right" x1="100%" y1="0%" x2="0%" y2="50%">
+        <stop offset="0%" stop-color="#0f202b" />
+        <stop offset="100%" stop-color="#071219" />
+      </linearGradient>
+
+      <linearGradient id="env-velvet-bottom" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="#142936" />
+        <stop offset="40%" stop-color="#0d1d27" />
+        <stop offset="100%" stop-color="#061016" />
+      </linearGradient>
+
+      <linearGradient id="env-velvet-top" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="#183040" />
+        <stop offset="60%" stop-color="#0e1f2a" />
+        <stop offset="100%" stop-color="#09151e" />
+      </linearGradient>
+
+      <!-- Royal Arabesque Silk Lining Pattern -->
+      <pattern id="arabesque-lining" width="44" height="44" patternUnits="userSpaceOnUse">
+        <rect width="44" height="44" fill="#061217"/>
+        <path d="M22 0 L27 15 L44 22 L27 29 L22 44 L17 29 L0 22 L17 15 Z" fill="none" stroke="#c99e32" stroke-width="0.6" stroke-opacity="0.28"/>
+        <circle cx="22" cy="22" r="6" fill="none" stroke="#fae596" stroke-width="0.5" stroke-opacity="0.22"/>
+        <circle cx="0" cy="0" r="8" fill="none" stroke="#c99e32" stroke-width="0.5" stroke-opacity="0.18"/>
+        <circle cx="44" cy="0" r="8" fill="none" stroke="#c99e32" stroke-width="0.5" stroke-opacity="0.18"/>
+        <circle cx="0" cy="44" r="8" fill="none" stroke="#c99e32" stroke-width="0.5" stroke-opacity="0.18"/>
+        <circle cx="44" cy="44" r="8" fill="none" stroke="#c99e32" stroke-width="0.5" stroke-opacity="0.18"/>
+      </pattern>
+
+      <!-- Wax Seal Gradients -->
+      <radialGradient id="wax-outer-grad" cx="35%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#c92435" />
+        <stop offset="35%" stop-color="#8f111e" />
+        <stop offset="75%" stop-color="#5c0811" />
+        <stop offset="100%" stop-color="#2e0206" />
+      </radialGradient>
+
+      <radialGradient id="wax-inner-grad" cx="60%" cy="65%" r="65%">
+        <stop offset="0%" stop-color="#7d0e1a" />
+        <stop offset="65%" stop-color="#4e060e" />
+        <stop offset="100%" stop-color="#290105" />
+      </radialGradient>
+
+      <!-- Drop Shadows for Envelope Folds -->
+      <filter id="fold-shadow" x="-15%" y="-15%" width="130%" height="130%">
+        <feDropShadow dx="0" dy="-3" stdDeviation="5" flood-color="#000000" flood-opacity="0.65"/>
+      </filter>
+      <filter id="flap-drop-shadow" x="-15%" y="-10%" width="130%" height="135%">
+        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000000" flood-opacity="0.7"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Three.js Celestial Golden Ambience Canvas -->
   <canvas id="bg-canvas"></canvas>
 
-  <!-- Ambient Sound Control Floating Button -->
-  <button id="audio-toggle-btn" class="floating-btn audio-btn" title="المؤثرات الصوتية">
-    <i class="fa-solid fa-volume-high" id="audio-icon"></i>
-  </button>
+  <!-- Ambient Vignette & Subtle Grain Overlay -->
+  <div class="ambient-vignette"></div>
 
-  <!-- Re-open Envelope Floating Button (Visible after opening) -->
-  <button id="replay-btn" class="floating-btn replay-btn hidden" title="إعادة إغلاق الظرف">
-    <i class="fa-solid fa-envelope"></i>
-    <span>إعادة إغلاق</span>
-  </button>
+  <!-- Top Navigation Floating Controls -->
+  <nav class="floating-controls" aria-label="أدوات التحكم">
+    <button id="audio-toggle-btn" class="ctrl-btn" title="المؤثرات الصوتية والموسيقى">
+      <i class="fa-solid fa-volume-high" id="audio-icon"></i>
+      <span class="ctrl-label">الصوت</span>
+    </button>
 
-  <!-- ============================================== -->
-  <!-- 3D INTERACTIVE ENVELOPE STAGE                  -->
-  <!-- ============================================== -->
-  <div id="envelope-stage" class="envelope-stage">
+    <button id="replay-envelope-btn" class="ctrl-btn hidden" title="إعادة مشهد فتح الظرف الملكي">
+      <i class="fa-solid fa-envelope-open-text"></i>
+      <span class="ctrl-label">إعادة فتح الظرف</span>
+    </button>
+  </nav>
+
+
+  <!-- ================================================================ -->
+  <!-- ACT I: THE ROYAL ENVELOPE SANCTUARY (PHYSICAL 3D STAGE)          -->
+  <!-- ================================================================ -->
+  <section id="envelope-sanctuary" class="envelope-sanctuary">
     
-    <div class="stage-header">
-      <div class="emblem-badge">
-        <i class="fa-solid fa-graduation-cap"></i>
+    <!-- Atmospheric Header above Envelope -->
+    <div class="sanctuary-header" id="sanctuary-header">
+      <div class="crest-mini">
+        <span class="ornament-wing">༺</span>
+        <span class="crest-star">✦</span>
+        <span class="ornament-wing">༻</span>
       </div>
-      <h2 class="stage-sub">جامعة الموصل • كلية الإدارة والاقتصاد</h2>
-      <p class="stage-hint">المس الظرف أو الختم لفتح بطاقة الدعوة</p>
+      <p class="sanctuary-pre">جامعة الموصل • كلية الإدارة والاقتصاد</p>
+      <h2 class="sanctuary-title">دعوة ملكية خاصة</h2>
+      <p class="sanctuary-subtitle">مُهدى إلى مقامكم الكريم بمناسبة تتويج الباحثة <strong>ابتسام محمود صالح</strong></p>
     </div>
 
-    <div class="envelope-perspective-wrapper" id="envelope-wrapper">
-      <div class="envelope-3d" id="envelope">
+    <!-- The Interactive Envelope Stage -->
+    <div class="envelope-stage-center" id="envelope-tilt-zone">
+      <div class="envelope-assembly" id="envelope-assembly" role="button" tabindex="0" aria-label="افتح ظرف الدعوة">
         
-        <!-- Back Flap / Interior -->
-        <div class="env-back">
-          <div class="env-interior-pattern"></div>
+        <!-- Ambient Golden Aura behind the envelope -->
+        <div class="envelope-aura"></div>
+
+        <!-- LAYER 1 (z-index: 1): ENVELOPE BACK & ARABESQUE SILK LINING -->
+        <div class="env-layer-back">
+          <svg viewBox="0 0 460 300" class="env-svg-full" preserveAspectRatio="none">
+            <!-- Outer dark frame -->
+            <rect x="0" y="0" width="460" height="300" rx="12" fill="url(#env-velvet-back)" stroke="url(#gold-foil)" stroke-width="1.5"/>
+            <!-- Inner Arabesque Silk Lining -->
+            <rect x="8" y="8" width="444" height="284" rx="8" fill="url(#arabesque-lining)" stroke="#c99e32" stroke-width="0.6" stroke-opacity="0.4"/>
+            <!-- Inner Shadow Depth -->
+            <rect x="8" y="8" width="444" height="284" rx="8" fill="rgba(0,0,0,0.28)"/>
+          </svg>
         </div>
 
-        <!-- The Invitation Card that pulls out -->
-        <div class="env-card-preview" id="card-preview">
-          <div class="card-preview-inner">
-            <div class="preview-crest">✦ ﷽ ✦</div>
-            <div class="preview-title">دعوة مأدبة غداء احتفالية</div>
-            <div class="preview-name">الباحثة ابتسام محمود صالح</div>
-            <div class="preview-bar"></div>
+        <!-- LAYER 2 (z-index: 2): THE INVITATION LETTER RESTING INSIDE THE POCKET -->
+        <!-- Strictly behind Layer 3 (Front Pocket) while inside! -->
+        <div class="env-layer-letter" id="env-letter">
+          <div class="letter-paper">
+            <div class="letter-gold-frame">
+              <div class="letter-corner lc-tl"></div>
+              <div class="letter-corner lc-tr"></div>
+              <div class="letter-corner lc-bl"></div>
+              <div class="letter-corner lc-br"></div>
+
+              <div class="letter-Basmala">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+              <div class="letter-divider">
+                <span></span><i class="fa-solid fa-crown"></i><span></span>
+              </div>
+              <div class="letter-kicker">دعوة مأدبة غداء تكريمية</div>
+              <div class="letter-honoree">الباحثة ابتسام محمود صالح</div>
+              <div class="letter-degree">ماجستير إدارة الأعمال • أمن المعلومات</div>
+              <div class="letter-seal-mark">جامعة الموصل • ٢٠٢٦</div>
+            </div>
           </div>
         </div>
 
-        <!-- Left & Right Folded Flaps -->
-        <div class="env-left-flap"></div>
-        <div class="env-right-flap"></div>
-        
-        <!-- Bottom Flap -->
-        <div class="env-bottom-flap">
-          <div class="env-gold-trim"></div>
+        <!-- LAYER 3 (z-index: 3): ENVELOPE FRONT POCKET (LEFT, RIGHT & BOTTOM FLAPS) -->
+        <!-- Physically masks the letter as it slides upwards out of the pocket! -->
+        <div class="env-layer-pocket">
+          <svg viewBox="0 0 460 300" class="env-svg-full" preserveAspectRatio="none">
+            <!-- Left Folded Wing -->
+            <path d="M 0,10 L 215,155 L 0,292 Z" fill="url(#env-velvet-left)" filter="url(#fold-shadow)"/>
+            <path d="M 0,12 L 212,155 L 0,290" fill="none" stroke="url(#gold-foil)" stroke-width="1.2" stroke-opacity="0.75"/>
+            <path d="M 0,18 L 204,155 L 0,284" fill="none" stroke="url(#gold-foil)" stroke-width="0.5" stroke-opacity="0.4"/>
+
+            <!-- Right Folded Wing -->
+            <path d="M 460,10 L 245,155 L 460,292 Z" fill="url(#env-velvet-right)" filter="url(#fold-shadow)"/>
+            <path d="M 460,12 L 248,155 L 460,290" fill="none" stroke="url(#gold-foil)" stroke-width="1.2" stroke-opacity="0.75"/>
+            <path d="M 460,18 L 256,155 L 460,284" fill="none" stroke="url(#gold-foil)" stroke-width="0.5" stroke-opacity="0.4"/>
+
+            <!-- Bottom Pocket Flap (Overlaps Left & Right Wings with Tailored Curve) -->
+            <path d="M 0,300 L 0,288 L 194,134 Q 230,108 266,134 L 460,288 L 460,300 Z" fill="url(#env-velvet-bottom)" filter="url(#fold-shadow)"/>
+            <!-- Gold Foil Double Border on Bottom Flap -->
+            <path d="M 2,289 L 196,136 Q 230,111 264,136 L 458,289" fill="none" stroke="url(#gold-foil)" stroke-width="1.6"/>
+            <path d="M 8,294 L 200,142 Q 230,119 260,142 L 452,294" fill="none" stroke="url(#gold-foil)" stroke-width="0.6" stroke-opacity="0.6"/>
+            
+            <!-- Bottom Center Gold Filigree Ornament -->
+            <g transform="translate(230, 255)" opacity="0.75">
+              <path d="M -35,0 L -8,0 M 8,0 L 35,0" stroke="url(#gold-foil)" stroke-width="1"/>
+              <polygon points="0,-6 6,0 0,6 -6,0" fill="url(#gold-foil)"/>
+              <circle cx="-14" cy="0" r="2" fill="#fae596"/>
+              <circle cx="14" cy="0" r="2" fill="#fae596"/>
+            </g>
+
+            <!-- Outer Pocket Perimeter Gold Frame -->
+            <rect x="0.75" y="0.75" width="458.5" height="298.5" rx="12" fill="none" stroke="url(#gold-foil)" stroke-width="1.5"/>
+          </svg>
         </div>
 
-        <!-- Top Foldable Flap -->
-        <div class="env-top-flap" id="top-flap">
-          <div class="env-top-triangle"></div>
-        </div>
+        <!-- LAYER 4 (z-index: 4 when closed, swaps to z-index: 1 at 90deg open): TOP 3D HINGED FLAP -->
+        <div class="env-layer-top-flap" id="env-top-flap-wrap">
+          <div class="top-flap-3d" id="env-top-flap">
+            
+            <!-- Front Face of Top Flap (Visible when closed) -->
+            <div class="flap-face flap-face-front">
+              <svg viewBox="0 0 460 185" class="env-svg-flap" preserveAspectRatio="none">
+                <path d="M 0,0 L 460,0 L 460,14 L 262,164 Q 230,186 198,164 L 0,14 Z" fill="url(#env-velvet-top)" filter="url(#flap-drop-shadow)"/>
+                <!-- Outer Gold Foil Trim -->
+                <path d="M 2,1 L 458,1 L 458,13 L 260,162 Q 230,183 200,162 L 2,13 Z" fill="none" stroke="url(#gold-foil)" stroke-width="1.8"/>
+                <!-- Inner Delicate Filigree Line -->
+                <path d="M 12,8 L 448,8 L 448,16 L 255,155 Q 230,173 205,155 L 12,16 Z" fill="none" stroke="url(#gold-foil)" stroke-width="0.7" stroke-opacity="0.65" stroke-dasharray="4 2"/>
+                <!-- Royal Crest on Upper Flap -->
+                <g transform="translate(230, 58)">
+                  <circle cx="0" cy="0" r="18" fill="none" stroke="url(#gold-foil)" stroke-width="0.8" stroke-opacity="0.6"/>
+                  <path d="M -28,0 L -21,0 M 21,0 L 28,0" stroke="url(#gold-foil)" stroke-width="1"/>
+                  <text x="0" y="6" text-anchor="middle" fill="url(#gold-foil)" font-family="'Aref Ruqaa', serif" font-size="15">الموصل</text>
+                </g>
+              </svg>
+              <div class="flap-shimmer"></div>
+            </div>
 
-        <!-- 3D Luxury Wax Seal -->
-        <div class="wax-seal" id="wax-seal">
-          <div class="wax-ring"></div>
-          <div class="wax-center">
-            <span class="wax-symbol">إ</span>
+            <!-- Back Face of Top Flap (Visible when opened 180deg upward - Shows Silk Lining!) -->
+            <div class="flap-face flap-face-back">
+              <svg viewBox="0 0 460 185" class="env-svg-flap" preserveAspectRatio="none">
+                <!-- Flipped silhouette so when rotated 180deg X, the pointed tip is at the top! -->
+                <path d="M 0,185 L 460,185 L 460,171 L 262,21 Q 230,-1 198,21 L 0,171 Z" fill="url(#env-velvet-back)" stroke="url(#gold-foil)" stroke-width="1.5"/>
+                <path d="M 6,182 L 454,182 L 454,169 L 258,26 Q 230,7 202,26 L 6,169 Z" fill="url(#arabesque-lining)" stroke="#c99e32" stroke-width="0.8" stroke-opacity="0.5"/>
+              </svg>
+            </div>
+
           </div>
-          <div class="seal-glow"></div>
         </div>
 
-        <!-- Touch / Click Ripple Prompt -->
-        <div class="touch-indicator" id="touch-indicator">
-          <div class="touch-ring"></div>
-          <div class="touch-text">اضغط لفتح الدعوة</div>
+        <!-- LAYER 5 (z-index: 5): SCULPTED 3D ROYAL WAX SEAL -->
+        <div class="wax-seal-stage" id="wax-seal-stage">
+          <div class="wax-aura-ring"></div>
+          
+          <!-- Left Half of Seal (for split fracture animation) -->
+          <div class="wax-seal-whole" id="wax-seal-whole">
+            <svg viewBox="0 0 120 120" class="wax-svg">
+              <!-- Realistic Organic Molten Wax Outer Edge -->
+              <path d="M 60,6 
+                       C 72,5 81,11 91,17 
+                       C 101,23 111,32 113,44 
+                       C 115,56 112,68 108,79 
+                       C 104,90 96,101 85,107 
+                       C 74,113 61,115 49,112 
+                       C 37,109 24,104 16,94 
+                       C 8,84 6,70 7,57 
+                       C 8,44 12,31 21,21 
+                       C 30,11 48,7 60,6 Z" 
+                    fill="url(#wax-outer-grad)" 
+                    stroke="#3b0308" 
+                    stroke-width="1.2"/>
+              
+              <!-- Molten Rim Highlight -->
+              <path d="M 58,10 C 70,9 80,14 88,20 C 97,26 106,34 108,45 C 110,56 107,67 103,77 C 99,87 92,97 82,102 C 72,107 60,109 49,106 C 38,103 27,98 20,89 C 13,80 11,68 12,56 C 13,44 17,33 25,24 C 33,15 46,11 58,10 Z" 
+                    fill="none" 
+                    stroke="#e34254" 
+                    stroke-width="0.8" 
+                    stroke-opacity="0.45"/>
+
+              <!-- Sunken Inner Stamp Well -->
+              <circle cx="60" cy="60" r="39" fill="url(#wax-inner-grad)" stroke="url(#gold-foil)" stroke-width="1.6"/>
+              
+              <!-- Embossed Golden Rope Ring -->
+              <circle cx="60" cy="60" r="34" fill="none" stroke="url(#gold-foil)" stroke-width="1.1" stroke-dasharray="3 2.5" opacity="0.85"/>
+
+              <!-- Left & Right Laurel Wreaths -->
+              <path d="M 42,82 C 31,72 31,48 44,37" fill="none" stroke="url(#gold-foil)" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M 78,82 C 89,72 89,48 76,37" fill="none" stroke="url(#gold-foil)" stroke-width="1.3" stroke-linecap="round"/>
+              
+              <!-- Crown / Star at Top of Seal -->
+              <polygon points="60,29 62,34 67,34 63,37 64,42 60,39 56,42 57,37 53,34 58,34" fill="url(#gold-foil)"/>
+
+              <!-- Calligraphic Monogram "ابتسام" -->
+              <text x="60" y="67" text-anchor="middle" fill="url(#gold-foil)" font-family="'Aref Ruqaa', 'Amiri', serif" font-size="22" font-weight="700" style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.85));">ابتسام</text>
+              <text x="60" y="83" text-anchor="middle" fill="#fae596" font-family="'Amiri', serif" font-size="8.5" opacity="0.85">١٤٤٨ هـ • ٢٠٢٦ م</text>
+
+              <!-- Fracture Crack Line (Animates on click) -->
+              <path id="wax-crack-path" d="M 60,6 L 55,32 L 64,52 L 53,74 L 62,95 L 57,114" fill="none" stroke="#fff3c4" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="140" stroke-dashoffset="140" style="filter: drop-shadow(0 0 6px #ffd700);"/>
+            </svg>
+          </div>
         </div>
 
       </div>
     </div>
 
-    <div class="stage-footer">
-      <span class="golden-dots">❖ ❖ ❖</span>
+    <!-- Interactive Touch Prompt below Envelope -->
+    <div class="sanctuary-prompt" id="sanctuary-prompt">
+      <div class="prompt-button" id="open-trigger-btn">
+        <span class="prompt-pulse"></span>
+        <i class="fa-solid fa-hand-sparkles"></i>
+        <span>المس الختم الملكي لفضّ الظرف وفتح الدعوة</span>
+      </div>
     </div>
 
-  </div>
+  </section>
 
-  <!-- ============================================== -->
-  <!-- MAIN INVITATION CONTENT CONTAINER              -->
-  <!-- ============================================== -->
-  <main id="invitation-main" class="invitation-main hidden">
 
-    <div class="invitation-sheet" id="invitation-sheet">
+  <!-- ================================================================ -->
+  <!-- ACT II: THE ILLUMINATED ROYAL INVITATION SCROLL                  -->
+  <!-- ================================================================ -->
+  <main id="royal-invitation" class="royal-invitation" aria-hidden="true">
+    
+    <div class="scroll-container">
       
-      <!-- Ornate Border Frame -->
-      <div class="ornate-border">
-        <span class="corner corner-tl"></span>
-        <span class="corner corner-tr"></span>
-        <span class="corner corner-bl"></span>
-        <span class="corner corner-br"></span>
-      </div>
-
-      <!-- Basmala Header -->
-      <header class="card-header">
-        <div class="basmala">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-        <div class="bismillah-divider">
-          <span class="line"></span>
-          <span class="icon">⚜</span>
-          <span class="line"></span>
-        </div>
-      </header>
-
-      <!-- Royal Academic Crest -->
-      <div class="academic-crest">
-        <div class="crest-circle">
-          <i class="fa-solid fa-scroll crest-icon"></i>
-        </div>
-        <div class="university-title">جامعة الموصل</div>
-        <div class="faculty-title">كلية الإدارة والاقتصاد • قسم إدارة الأعمال</div>
-      </div>
-
-      <!-- Main Invitation Salutation & Content -->
-      <section class="invitation-body">
+      <!-- Master Illuminated Manuscript Sheet -->
+      <article class="manuscript-sheet" id="manuscript-sheet">
         
-        <p class="salutation">
-          يطيب لنا ويسعدنا أن نرفع إليكم أسمى آيات التقدير والاحترام، ونتشرف بدعوتكم الكريمة لمشاركتنا فرحتنا الكبرى بمناسبة إتمام مناقشة ونيل درجة الماجستير
-        </p>
+        <!-- Multi-layered Architectural Gold Borders -->
+        <div class="manuscript-frame-outer"></div>
+        <div class="manuscript-frame-inner"></div>
 
-        <div class="guest-of-honor">
-          <span class="honor-prefix">للباحثة الفاضلة</span>
-          <h1 class="researcher-name">ابتسام محمود صالح</h1>
-          <div class="degree-pill">
-            <i class="fa-solid fa-award"></i>
-            <span>ماجستير في إدارة الأعمال • تخصص أمن المعلومات</span>
+        <!-- Intricate SVG Corner Arabesques -->
+        <svg class="corner-arabesque ca-tl" viewBox="0 0 100 100">
+          <path d="M 2,98 L 2,22 Q 2,2 22,2 L 98,2" fill="none" stroke="url(#gold-foil)" stroke-width="3"/>
+          <path d="M 10,85 L 10,26 Q 10,10 26,10 L 85,10" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
+          <path d="M 2,45 Q 25,45 45,2" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
+          <circle cx="22" cy="22" r="5" fill="url(#gold-foil)"/>
+          <polygon points="10,10 18,14 14,18" fill="url(#gold-foil)"/>
+        </svg>
+        <svg class="corner-arabesque ca-tr" viewBox="0 0 100 100">
+          <path d="M 2,98 L 2,22 Q 2,2 22,2 L 98,2" fill="none" stroke="url(#gold-foil)" stroke-width="3"/>
+          <path d="M 10,85 L 10,26 Q 10,10 26,10 L 85,10" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
+          <path d="M 2,45 Q 25,45 45,2" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
+          <circle cx="22" cy="22" r="5" fill="url(#gold-foil)"/>
+        </svg>
+        <svg class="corner-arabesque ca-bl" viewBox="0 0 100 100">
+          <path d="M 2,98 L 2,22 Q 2,2 22,2 L 98,2" fill="none" stroke="url(#gold-foil)" stroke-width="3"/>
+          <path d="M 10,85 L 10,26 Q 10,10 26,10 L 85,10" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
+          <path d="M 2,45 Q 25,45 45,2" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
+          <circle cx="22" cy="22" r="5" fill="url(#gold-foil)"/>
+        </svg>
+        <svg class="corner-arabesque ca-br" viewBox="0 0 100 100">
+          <path d="M 2,98 L 2,22 Q 2,2 22,2 L 98,2" fill="none" stroke="url(#gold-foil)" stroke-width="3"/>
+          <path d="M 10,85 L 10,26 Q 10,10 26,10 L 85,10" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
+          <path d="M 2,45 Q 25,45 45,2" fill="none" stroke="url(#gold-foil)" stroke-width="1.2"/>
+          <circle cx="22" cy="22" r="5" fill="url(#gold-foil)"/>
+        </svg>
+
+
+        <!-- ======================================================== -->
+        <!-- SECTION 1: THE ILLUMINATED SHAMSA & BASMALA PROLOGUE     -->
+        <!-- ======================================================== -->
+        <header class="manuscript-header reveal-item">
+          
+          <!-- Rotating Islamic Geometric Shamsa Rosette -->
+          <div class="shamsa-medallion">
+            <svg viewBox="0 0 200 200" class="shamsa-svg">
+              <g transform="translate(100,100)">
+                <polygon points="0,-90 22,-22 90,0 22,22 0,90 -22,22 -90,0 -22,-22" fill="none" stroke="url(#gold-foil)" stroke-width="1.2" opacity="0.5"/>
+                <polygon points="0,-90 22,-22 90,0 22,22 0,90 -22,22 -90,0 -22,-22" fill="none" stroke="url(#gold-foil)" stroke-width="1.2" opacity="0.5" transform="rotate(45)"/>
+                <polygon points="0,-72 18,-18 72,0 18,18 0,72 -18,18 -72,0 -18,-18" fill="none" stroke="url(#gold-foil)" stroke-width="1" opacity="0.4" transform="rotate(22.5)"/>
+                <polygon points="0,-72 18,-18 72,0 18,18 0,72 -18,18 -72,0 -18,-18" fill="none" stroke="url(#gold-foil)" stroke-width="1" opacity="0.4" transform="rotate(67.5)"/>
+                <circle cx="0" cy="0" r="48" fill="none" stroke="url(#gold-foil)" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <circle cx="0" cy="0" r="32" fill="rgba(212, 175, 55, 0.08)" stroke="url(#gold-foil)" stroke-width="1.2"/>
+              </g>
+            </svg>
+            <div class="shamsa-center-icon">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
           </div>
-        </div>
 
-        <div class="banquet-announcement">
-          <div class="quote-symbol">❝</div>
-          <p class="banquet-text">
-            واحتفاءً بهذه المناسبة المباركة وتتويجاً لمسيرة الجهد والاجتهاد، يسرنا دعوتكم لحضور <strong>مأدبة الغداء التكريمية</strong> التي نقيمها على شرفكم وشرف السادة أعضاء لجنة المناقشة والأهل والأصدقاء، لتكتمل سعادتنا بفيض حضوركم الكريم وجميل مشاركتكم.
+          <div class="basmala-calligraphy">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+          
+          <p class="quranic-verse">
+            ﴿ يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ ﴾
           </p>
-          <div class="quote-symbol quote-close">❞</div>
-        </div>
 
-      </section>
+          <div class="royal-divider">
+            <span class="div-line"></span>
+            <span class="div-motif">❖ ✦ ❖</span>
+            <span class="div-line"></span>
+          </div>
 
-      <!-- Key Event Cards (Date, Time, Location) -->
-      <section class="event-details-grid">
-        
-        <!-- Date Card -->
-        <div class="detail-card">
-          <div class="card-icon-wrap">
-            <i class="fa-regular fa-calendar-days"></i>
+          <!-- Academic Provenance -->
+          <div class="academic-banner">
+            <span class="univ-name">جَامِعَةُ المَوْصِل</span>
+            <span class="univ-dot">•</span>
+            <span class="college-name">كلية الإدارة والاقتصاد</span>
+            <span class="univ-dot">•</span>
+            <span class="dept-name">قسم إدارة الأعمال</span>
           </div>
-          <h3>تاريخ المناسبة</h3>
-          <p class="highlight-date">29 تشرين الثاني (نوفمبر) 2026</p>
-          <span class="sub-hint">يوم الأحد</span>
-        </div>
 
-        <!-- Time Card -->
-        <div class="detail-card">
-          <div class="card-icon-wrap">
-            <i class="fa-regular fa-clock"></i>
-          </div>
-          <h3>موعد مأدبة الغداء</h3>
-          <p class="highlight-time">عقب انتهاء المناقشة مباشرة</p>
-          <span class="sub-hint badge-pending">سيتم تأكيد الساعة بدقة قريباً</span>
-        </div>
+        </header>
 
-        <!-- Location Card -->
-        <div class="detail-card">
-          <div class="card-icon-wrap">
-            <i class="fa-solid fa-location-dot"></i>
-          </div>
-          <h3>مكان الدعوة</h3>
-          <p class="highlight-venue">الموصل - موقع المطعم المخصص</p>
-          <span class="sub-hint">سيتم تزويدكم بالإحداثيات المباشرة</span>
-        </div>
 
-      </section>
+        <!-- ======================================================== -->
+        <!-- SECTION 2: POETIC PRELUDE & HONOREE PROCLAMATION         -->
+        <!-- ======================================================== -->
+        <section class="proclamation-section reveal-item">
+          
+          <div class="poetic-prelude">
+            <p>
+              بعدَ ليالٍ أضاءها السَّهر، وخطواتٍ حفَّها الصَّبرُ والأملُ في محرابِ المعرفة،<br>
+              آنَ لغرسِ العلمِ أن يُثمر، وللفرحةِ الكبرى أن تكتملَ بفيضِ حضوركم...
+            </p>
+          </div>
 
-      <!-- Countdown Timer Section -->
-      <section class="countdown-section">
-        <h3 class="section-title">
-          <i class="fa-solid fa-hourglass-half"></i>
-          <span>الوقت المتبقي حتى يوم المناسبة</span>
-        </h3>
-        
-        <div class="countdown-display" id="countdown">
-          <div class="time-block">
-            <span class="number" id="days">00</span>
-            <span class="unit">يوم</span>
-          </div>
-          <div class="time-separator">:</div>
-          <div class="time-block">
-            <span class="number" id="hours">00</span>
-            <span class="unit">ساعة</span>
-          </div>
-          <div class="time-separator">:</div>
-          <div class="time-block">
-            <span class="number" id="minutes">00</span>
-            <span class="unit">دقيقة</span>
-          </div>
-          <div class="time-separator">:</div>
-          <div class="time-block">
-            <span class="number" id="seconds">00</span>
-            <span class="unit">ثانية</span>
-          </div>
-        </div>
-      </section>
+          <p class="formal-salutation">
+            يطيبُ لنا ويشرفنا أن نرفع إلى مقامكم الكريم أسمى آياتِ المودّة والتقدير،<br>
+            داعين إيّاكم لمشاركتنا بهجة التتويج العلمي وفرحة نيل درجة <strong>الماجستير</strong>
+          </p>
 
-      <!-- Location Action & Map Area -->
-      <section class="venue-location-section">
-        <div class="location-banner">
-          <div class="loc-info">
-            <i class="fa-solid fa-map-location-dot loc-large-icon"></i>
-            <div>
-              <h4>موقع المأدبة في مدينة الموصل</h4>
-              <p>نرحب بقدومكم العطر ونسعد بتواجدكم بيننا</p>
+          <!-- The Royal Cartouche of the Researcher -->
+          <div class="honoree-cartouche">
+            <div class="cartouche-glow"></div>
+            <span class="honoree-title-prefix">للباحثة</span>
+            <h1 class="honoree-full-name">ابتسام محمود صالح</h1>
+            
+            <div class="specialization-badge">
+              <span class="spec-icon"><i class="fa-solid fa-shield-halved"></i></span>
+              <span class="spec-text">تخصص أمن المعلومات • إدارة الأعمال</span>
             </div>
           </div>
-          <a href="https://maps.google.com/?q=Mosul,Iraq" target="_blank" rel="noopener noreferrer" class="btn btn-outline map-btn">
-            <i class="fa-brands fa-google"></i>
-            <span>فتح الخريطة (Google Maps)</span>
-          </a>
-        </div>
-      </section>
 
-      <!-- RSVP Attendance Form -->
-      <section class="rsvp-section" id="rsvp">
-        <div class="rsvp-card">
-          <div class="rsvp-header">
-            <i class="fa-solid fa-envelope-open-text rsvp-icon"></i>
-            <h3>تأكيد الحضور (RSVP)</h3>
-            <p>يسعدنا معرفة إمكانية تشريفكم لنا لمساعدتنا في حسن الترتيب والضيافة</p>
-          </div>
+        </section>
 
-          <form id="rsvp-form" class="rsvp-form">
-            <div class="form-group">
-              <label for="guest-name">الاسم الكريم / اللقب</label>
-              <input type="text" id="guest-name" name="guest_name" required placeholder="أدخل اسمك الكريم..." class="form-input">
+
+        <!-- ======================================================== -->
+        <!-- SECTION 3: THE CELEBRATORY BANQUET INVITATION            -->
+        <!-- ======================================================== -->
+        <section class="banquet-sanctuary reveal-item">
+          
+          <div class="banquet-box">
+            <div class="banquet-arch-top">
+              <span>༺ مأدبة الغداء التكريمية ༻</span>
             </div>
 
-            <div class="form-row">
-              <div class="form-group flex-1">
-                <label>حالة الحضور</label>
-                <div class="attendance-options">
-                  <label class="radio-label">
-                    <input type="radio" name="attendance" value="attending" checked>
-                    <span class="radio-custom"></span>
-                    <span class="radio-text">يشرفني الحضور بكل سرور</span>
-                  </label>
-                  <label class="radio-label">
-                    <input type="radio" name="attendance" value="declined">
-                    <span class="radio-custom"></span>
-                    <span class="radio-text">أعتذر بكل محبة لظرف طارئ</span>
-                  </label>
+            <p class="banquet-prose">
+              جرياً على سُنّةِ الوفاءِ والكرم، وابتهاجاً بتمامِ المناقشةِ العلنية واستلامِ التقدير؛
+              نتشرفُ بدعوتكم لتناول <strong>وجبة الغداء</strong> التي نقيمها احتفاءً بهذه المناسبة المباركة،
+              وذلك على شرفِ السادةِ أعضاءِ لجنةِ المناقشةِ الموقّرين، وجمعٍ عزيزٍ من الأساتذة والأهل والأصدقاء الذين ازدانت المسيرةُ بمحبّتهم ودعمهم.
+            </p>
+
+            <p class="banquet-poetry">
+              « ما طابَ مجلسُنا إلا بملقاكمُ ... ولا ازدهى الفرحُ إلا حينَ جئتمونا »
+            </p>
+          </div>
+
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- SECTION 4: ESTEEMED DEFENSE COMMITTEE TRIBUTE            -->
+        <!-- ======================================================== -->
+        <section class="committee-section reveal-item">
+          <div class="section-heading-lockup">
+            <span class="heading-kicker">أهلُ العلمِ والفضل</span>
+            <h2 class="heading-main">لجنة المناقشة والإشراف العلمي</h2>
+            <div class="heading-underline"></div>
+          </div>
+
+          <div class="committee-scroll-card">
+            <div class="committee-icon-medallion">
+              <i class="fa-solid fa-scale-balanced"></i>
+            </div>
+            <p class="committee-tribute-text">
+              خالصُ الامتنانِ وعظيمُ التقديرِ والاحترامِ إلى مقامِ السادةِ العلماءِ والأساتذةِ الأفاضل
+              <strong>رئيسِ وأعضاءِ لجنةِ المناقشةِ الموقّرين والأستاذِ المشرف</strong>،
+              الذين تفضّلوا بتقويمِ هذا الجهدِ العلميِّ وإثرائهِ بسديدِ آرائهم؛
+              وسيتشرّفُ هذا السجلُّ بإدراجِ أسمائهم وألقابهم العلميةِ الكريمةِ تِباعاً.
+            </p>
+          </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- SECTION 5: ARCHITECTURAL ARCHES OF TIME & PLACE          -->
+        <!-- ======================================================== -->
+        <section class="arches-section reveal-item">
+          <div class="section-heading-lockup">
+            <span class="heading-kicker">تفاصيلُ الموعدِ والمكان</span>
+            <h2 class="heading-main">مراسمُ يومِ التتويج</h2>
+            <div class="heading-underline"></div>
+          </div>
+
+          <div class="mosul-arches-grid">
+            
+            <!-- Arch 1: Date -->
+            <div class="mosul-arch-card">
+              <div class="arch-dome">
+                <i class="fa-regular fa-calendar-check"></i>
+              </div>
+              <span class="arch-label">اليوم والتاريخ</span>
+              <h3 class="arch-value">الأحد • ٢٩ تشرين الثاني</h3>
+              <p class="arch-sub">29 نوفمبر (11) 2026 م</p>
+            </div>
+
+            <!-- Arch 2: Timing -->
+            <div class="mosul-arch-card arch-featured">
+              <div class="arch-dome">
+                <i class="fa-regular fa-clock"></i>
+              </div>
+              <span class="arch-label">توقيت مأدبة الغداء</span>
+              <h3 class="arch-value">عقب انتهاء المناقشة</h3>
+              <p class="arch-sub arch-badge-gold">تُحدَّد الساعة الدقيقة قريباً</p>
+            </div>
+
+            <!-- Arch 3: Venue -->
+            <div class="mosul-arch-card">
+              <div class="arch-dome">
+                <i class="fa-solid fa-utensils"></i>
+              </div>
+              <span class="arch-label">دار الضيافة والمطعم</span>
+              <h3 class="arch-value">مدينة الموصل</h3>
+              <p class="arch-sub">سيُعلن اسم المطعم وإحداثياته قريباً</p>
+            </div>
+
+          </div>
+
+          <!-- Day Flow Timeline -->
+          <div class="day-journey-bar">
+            <div class="journey-step">
+              <span class="step-num">١</span>
+              <div class="step-info">
+                <strong>المناقشة العلنية</strong>
+                <span>كلية الإدارة والاقتصاد - جامعة الموصل</span>
+              </div>
+            </div>
+            <div class="journey-connector"><i class="fa-solid fa-angles-left"></i></div>
+            <div class="journey-step">
+              <span class="step-num">٢</span>
+              <div class="step-info">
+                <strong>إعلان التقدير والتهنئة</strong>
+                <span>تتويج الباحثة بدرجة الماجستير</span>
+              </div>
+            </div>
+            <div class="journey-connector"><i class="fa-solid fa-angles-left"></i></div>
+            <div class="journey-step step-highlight">
+              <span class="step-num">٣</span>
+              <div class="step-info">
+                <strong>مأدبة الغداء التكريمية</strong>
+                <span>التوجه إلى المطعم المخصص للاحتفاء بالضيوف</span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- SECTION 6: CELESTIAL ASTROLABE COUNTDOWN                 -->
+        <!-- ======================================================== -->
+        <section class="astrolabe-countdown-section reveal-item">
+          <div class="astrolabe-panel">
+            <h3 class="astrolabe-title">
+              <span class="star-wing">✦</span>
+              <span>الميقاتيةُ الزمنيةُ ليومِ الفرحةِ الكبرى</span>
+              <span class="star-wing">✦</span>
+            </h3>
+
+            <div class="astrolabe-rings-grid" dir="ltr">
+              
+              <!-- Days Dial -->
+              <div class="astrolabe-dial">
+                <svg viewBox="0 0 120 120" class="dial-svg">
+                  <circle cx="60" cy="60" r="52" class="dial-track"/>
+                  <circle cx="60" cy="60" r="52" class="dial-progress" id="ring-days"/>
+                </svg>
+                <div class="dial-content">
+                  <span class="dial-number" id="cd-days">00</span>
+                  <span class="dial-label">يَوْم</span>
                 </div>
               </div>
 
-              <div class="form-group companions-group" id="companions-group">
-                <label for="guest-count">عدد الأفراد (المرافقين)</label>
-                <select id="guest-count" name="guest_count" class="form-input">
-                  <option value="1">شخص واحد</option>
-                  <option value="2">شخصان (2)</option>
-                  <option value="3">3 أشخاص</option>
-                  <option value="4">4 أشخاص</option>
-                  <option value="5+">5 أشخاص فما فوق</option>
-                </select>
+              <!-- Hours Dial -->
+              <div class="astrolabe-dial">
+                <svg viewBox="0 0 120 120" class="dial-svg">
+                  <circle cx="60" cy="60" r="52" class="dial-track"/>
+                  <circle cx="60" cy="60" r="52" class="dial-progress" id="ring-hours"/>
+                </svg>
+                <div class="dial-content">
+                  <span class="dial-number" id="cd-hours">00</span>
+                  <span class="dial-label">سَاعَة</span>
+                </div>
+              </div>
+
+              <!-- Minutes Dial -->
+              <div class="astrolabe-dial">
+                <svg viewBox="0 0 120 120" class="dial-svg">
+                  <circle cx="60" cy="60" r="52" class="dial-track"/>
+                  <circle cx="60" cy="60" r="52" class="dial-progress" id="ring-minutes"/>
+                </svg>
+                <div class="dial-content">
+                  <span class="dial-number" id="cd-minutes">00</span>
+                  <span class="dial-label">دَقِيقَة</span>
+                </div>
+              </div>
+
+              <!-- Seconds Dial -->
+              <div class="astrolabe-dial">
+                <svg viewBox="0 0 120 120" class="dial-svg">
+                  <circle cx="60" cy="60" r="52" class="dial-track"/>
+                  <circle cx="60" cy="60" r="52" class="dial-progress" id="ring-seconds"/>
+                </svg>
+                <div class="dial-content">
+                  <span class="dial-number" id="cd-seconds">00</span>
+                  <span class="dial-label">ثَانِيَة</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- SECTION 7: VENUE COMPASS & INTERACTIVE MAP               -->
+        <!-- ======================================================== -->
+        <section class="venue-compass-section reveal-item">
+          <div class="compass-card">
+            <div class="compass-rose-wrap">
+              <div class="compass-pin-pulse"></div>
+              <i class="fa-solid fa-location-dot compass-pin"></i>
+            </div>
+            <div class="compass-details">
+              <span class="compass-tag">العنوان والموقع الجغرافي • نينوى</span>
+              <h4>الموصل الحدباء — موقع المطعم المخصص للمأدبة</h4>
+              <p>سيتم تفعيل الإحداثيات الدقيقة للمطعم هنا فور تثبيت الحجز النهائي ليقودكم مباشرة عبر خرائط Google.</p>
+            </div>
+            <div class="compass-action">
+              <a href="https://maps.google.com/?q=University+of+Mosul,Mosul,Iraq" target="_blank" rel="noopener noreferrer" class="royal-btn royal-btn-outline">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>فتح الخريطة التفاعلية</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- SECTION 8: ROYAL GUESTBOOK & RSVP (تأكيد التشريف)        -->
+        <!-- ======================================================== -->
+        <section class="rsvp-sanctuary reveal-item" id="rsvp-section">
+          <div class="section-heading-lockup">
+            <span class="heading-kicker">سجلُّ التشريفِ والضيافة</span>
+            <h2 class="heading-main">تأكيد الحضور والتهنئة</h2>
+            <div class="heading-underline"></div>
+            <p class="heading-desc">يسعدنا تسجيل حضوركم الكريم لإصدار بطاقة التشريف الخاصة بكم وترتيب مراسم استقبالكم بما يليق بمقامكم</p>
+          </div>
+
+          <div class="rsvp-ledger-box">
+            <form id="rsvp-form" class="rsvp-form">
+              
+              <!-- Guest Name -->
+              <div class="ledger-field">
+                <label for="guest-name">الاسم الكريم واللقب العلمي / الاجتماعي</label>
+                <div class="input-ornament-wrap">
+                  <i class="fa-solid fa-feather-pointed field-icon"></i>
+                  <input type="text" id="guest-name" required placeholder="مثال: أ. د. محمد العبدالله / الأستاذ علي الطائي..." class="ledger-input">
+                </div>
+              </div>
+
+              <!-- Attendance Choice Cards -->
+              <div class="ledger-field">
+                <label>حالة التشريف بالحضور</label>
+                <div class="choice-cards-grid">
+                  
+                  <label class="choice-card">
+                    <input type="radio" name="attendance" value="attending" checked>
+                    <div class="choice-card-body">
+                      <span class="choice-icon"><i class="fa-solid fa-champagne-glasses"></i></span>
+                      <div class="choice-text">
+                        <strong>أتشرف بالحضور والمشاركة</strong>
+                        <span>يسعدني التواجد في مأدبة الغداء</span>
+                      </div>
+                      <span class="choice-check"><i class="fa-solid fa-circle-check"></i></span>
+                    </div>
+                  </label>
+
+                  <label class="choice-card">
+                    <input type="radio" name="attendance" value="declined">
+                    <div class="choice-card-body">
+                      <span class="choice-icon"><i class="fa-solid fa-dove"></i></span>
+                      <div class="choice-text">
+                        <strong>أعتذر لظرفٍ خاص</strong>
+                        <span>مع خالص التهاني والدعوات بالتوفيق</span>
+                      </div>
+                      <span class="choice-check"><i class="fa-solid fa-circle-check"></i></span>
+                    </div>
+                  </label>
+
+                </div>
+              </div>
+
+              <!-- Number of Companions -->
+              <div class="ledger-field" id="companions-field-wrap">
+                <label for="guest-count">عدد الحاضرين (شاملاً شخصكم الكريم)</label>
+                <div class="input-ornament-wrap">
+                  <i class="fa-solid fa-users field-icon"></i>
+                  <select id="guest-count" class="ledger-input ledger-select">
+                    <option value="شخص واحد">شخص واحد (١)</option>
+                    <option value="شخصان">شخصان (٢)</option>
+                    <option value="٣ أشخاص">ثلاثة أشخاص (٣)</option>
+                    <option value="٤ أشخاص">أربعة أشخاص (٤)</option>
+                    <option value="عائلة / مجموعة">عائلة كريمة / أكثر من ٤</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Blessing / Congratulatory Message -->
+              <div class="ledger-field">
+                <label for="guest-wishes">كلمة تهنئة أو إهداء يُخلَّد في سجل الباحثة (اختياري)</label>
+                <div class="input-ornament-wrap">
+                  <textarea id="guest-wishes" rows="3" placeholder="اكتب كلماتك المباركة للباحثة ابتسام محمود صالح..." class="ledger-input ledger-textarea"></textarea>
+                </div>
+              </div>
+
+              <!-- Submit Actions -->
+              <div class="ledger-actions">
+                <button type="submit" class="royal-btn royal-btn-gold">
+                  <i class="fa-solid fa-stamp"></i>
+                  <span>اعتماد التأكيد وإصدار بطاقة التشريف</span>
+                </button>
+
+                <button type="button" id="whatsapp-direct-btn" class="royal-btn royal-btn-whatsapp">
+                  <i class="fa-brands fa-whatsapp"></i>
+                  <span>إرسال التأكيد عبر واتساب</span>
+                </button>
+              </div>
+
+            </form>
+
+            <!-- GENERATED VIP ROYAL GUEST PASS (Appears upon RSVP submit) -->
+            <div id="vip-pass-container" class="vip-pass-container hidden">
+              <div class="vip-pass-card">
+                <div class="vip-pass-header">
+                  <span class="vip-crest"><i class="fa-solid fa-crown"></i></span>
+                  <h4>بطاقة تشريف ملكية خاصة</h4>
+                  <p>مأدبة تتويج الباحثة ابتسام محمود صالح • جامعة الموصل</p>
+                </div>
+                <div class="vip-pass-body">
+                  <div class="vip-row">
+                    <span class="vip-label">الضيف المكرّم:</span>
+                    <strong class="vip-val" id="vip-guest-name">—</strong>
+                  </div>
+                  <div class="vip-row">
+                    <span class="vip-label">حالة الحضور:</span>
+                    <strong class="vip-val" id="vip-guest-status">—</strong>
+                  </div>
+                  <div class="vip-row">
+                    <span class="vip-label">تاريخ المناسبة:</span>
+                    <strong class="vip-val">الأحد • ٢٩ تشرين الثاني ٢٠٢٦</strong>
+                  </div>
+                </div>
+                <div class="vip-pass-footer">
+                  <span>تم تسجيل تشريفكم بكل اعتزاز وامتنان</span>
+                  <button type="button" id="edit-rsvp-btn" class="vip-edit-link">تعديل البيانات</button>
+                </div>
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="guest-wishes">كلمة مباركة أو رسالة تهنئة للباحثة (اختياري)</label>
-              <textarea id="guest-wishes" name="guest_wishes" rows="3" placeholder="اكتب كلماتك وتمنياتك للباحثة ابتسام..." class="form-input"></textarea>
+          </div>
+        </section>
+
+
+        <!-- ======================================================== -->
+        <!-- SECTION 9: THE IMMORTAL SCROLL OF BLESSINGS (سجل التهاني) -->
+        <!-- ======================================================== -->
+        <section class="blessings-wall-section reveal-item">
+          <div class="section-heading-lockup">
+            <span class="heading-kicker">طيبُ الكَلِمِ وجميلُ الأثر</span>
+            <h2 class="heading-main">الديوانُ الذهبيُّ للتهاني والتبريكات</h2>
+            <div class="heading-underline"></div>
+          </div>
+
+          <div class="blessings-grid" id="blessings-grid">
+            
+            <div class="blessing-parchment">
+              <div class="blessing-quote-mark">❝</div>
+              <p class="blessing-body">
+                ألف مبارك للباحثة المتألقة ابتسام محمود صالح هذا الإنجاز العلمي الرفيع في أمن المعلومات، فخورون بمثابرتكِ وإصراركِ، ونسأل الله أن ينفع بعلمكِ ويبلغكِ أعلى المراتب.
+              </p>
+              <div class="blessing-meta">
+                <span class="blessing-author">الأهل والأحبة</span>
+                <span class="blessing-time">بكل فخر واعتزاز</span>
+              </div>
             </div>
 
-            <div class="form-actions">
-              <button type="submit" class="btn btn-primary submit-rsvp-btn">
-                <i class="fa-solid fa-check-circle"></i>
-                <span>تأكيد الإرسال</span>
-              </button>
-              
-              <button type="button" id="whatsapp-rsvp-btn" class="btn btn-whatsapp">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span>تأكيد عبر واتساب</span>
-              </button>
+            <div class="blessing-parchment">
+              <div class="blessing-quote-mark">❝</div>
+              <p class="blessing-body">
+                مباركٌ لكِ تتويج مسيرة الماجستير في كلية الإدارة والاقتصاد بجامعة الموصل العريقة، خطوة مباركة نحو الدكتوراة ومزيد من التميز الأكاديمي.
+              </p>
+              <div class="blessing-meta">
+                <span class="blessing-author">زملاء الدراسات العليا</span>
+                <span class="blessing-time">جامعة الموصل</span>
+              </div>
             </div>
-          </form>
 
-          <!-- RSVP Success Notification Banner -->
-          <div id="rsvp-success" class="rsvp-success hidden">
-            <i class="fa-solid fa-circle-check success-icon"></i>
-            <h4>تم استلام تأكيدكم بمزيد من السرور والامتنان!</h4>
-            <p id="rsvp-success-msg">نتطلع بشغف للقائكم والاحتفال معاً بهذه اللحظات السعيدة.</p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Wishes & Blessings Live Board -->
-      <section class="wishes-section">
-        <h3 class="section-title">
-          <i class="fa-solid fa-heart"></i>
-          <span>سجل التهاني والتبريكات</span>
-        </h3>
-        <p class="section-subtitle">كلماتكم الطيبة تبعث الفرح وتزيد من بهاء هذه المناسبة</p>
 
-        <div class="wishes-container" id="wishes-container">
-          <!-- Sample starter greetings -->
-          <div class="wish-item">
-            <div class="wish-author">الأهل والمحبون</div>
-            <p class="wish-text">ألف مبارك للباحثة ابتسام، فخورون جداً بكِ وبجهدكِ المبارك في أمن المعلومات، سائلين الله لكِ دوام الرفعة والتألق.</p>
-            <span class="wish-date">اليوم</span>
-          </div>
-          <div class="wish-item">
-            <div class="wish-author">زملاء كلية الإدارة والاقتصاد</div>
-            <p class="wish-text">مبارك نيل الماجستير بجدارة واستحقاق، ومنها للأعلى وإلى الدكتوراة بإذن الله تعالى.</p>
-            <span class="wish-date">اليوم</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Share Buttons Section -->
-      <section class="share-section">
-        <p class="share-lead">شارِك هذه الدعوة مع الأهل والأصدقاء والأحبة</p>
-        <div class="share-buttons">
-          <button id="copy-link-btn" class="btn btn-share">
-            <i class="fa-solid fa-link"></i>
-            <span id="copy-btn-text">نسخ رابط الدعوة</span>
-          </button>
+        <!-- ======================================================== -->
+        <!-- SECTION 10: SHARE & ROYAL COLOPHON FOOTER                -->
+        <!-- ======================================================== -->
+        <footer class="manuscript-footer reveal-item">
           
-          <button id="share-whatsapp-btn" class="btn btn-share btn-share-wa">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>مشاركة عبر واتساب</span>
-          </button>
-        </div>
-      </section>
+          <div class="share-ribbon">
+            <p>مشاركة بطاقة الدعوة الإلكترونية</p>
+            <div class="share-actions">
+              <button type="button" id="copy-invitation-link" class="royal-btn royal-btn-outline btn-sm">
+                <i class="fa-solid fa-link"></i>
+                <span id="copy-link-label">نسخ رابط الدعوة</span>
+              </button>
+              <button type="button" id="share-whatsapp-btn" class="royal-btn royal-btn-gold btn-sm">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>إهداء الدعوة عبر واتساب</span>
+              </button>
+            </div>
+          </div>
 
-      <!-- Invitation Card Royal Footer -->
-      <footer class="invitation-footer">
-        <div class="footer-divider">
-          <span>❖</span>
-          <span>❖</span>
-          <span>❖</span>
-        </div>
-        <p class="footer-closing">حضوركم شرفٌ لنا وفرحةٌ تزدان بها قلوبنا</p>
-        <p class="footer-sign">الداعية: الباحثة ابتسام محمود صالح وأسرتها الكريمة</p>
-        <small class="footer-credits">الموصل - 2026</small>
-      </footer>
+          <div class="colophon">
+            <div class="colophon-ornament">༺ ❖ ✦ ❖ ༻</div>
+            <p class="colophon-verse">
+              « وبكم تزدادُ الأفراحُ بهجةً، وبتشريفكم يكتملُ عقدُ المسرّات »
+            </p>
+            <div class="colophon-signature">
+              <span>الداعية إلى مأدبة التكريم</span>
+              <strong>الباحثة ابتسام محمود صالح وعائلتها الكريمة</strong>
+            </div>
+            <div class="colophon-location">جامعة الموصل • نينوى • ٢٠٢٦ م</div>
+          </div>
+
+        </footer>
+
+      </article>
 
     </div>
 

@@ -1,22 +1,23 @@
 /**
- * Royal Master's Defense Invitation
- * Researcher: Ibtisam Mahmoud Saleh - University of Mosul
- * Interactive 3D Envelope, Three.js Ambience, Audio Synthesizer & RSVP
+ * ============================================================================
+ * ROYAL MASTER'S DEFENSE & BANQUET INVITATION — INTERACTIVE ENGINE
+ * Honoree: Researcher Ibtisam Mahmoud Saleh — University of Mosul
+ * ============================================================================
  */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ==========================================================
-  // 1. WEB AUDIO SYNTHESIZER (No external audio file dependencies)
-  // ==========================================================
+  // ==========================================================================
+  // 1. CINEMATIC WEB AUDIO SYNTHESIZER (Warm Harp, Wax Crack & Cotton Paper)
+  // ==========================================================================
   let audioCtx = null;
   let isMuted = false;
 
-  function initAudio() {
+  function ensureAudioContext() {
     if (!audioCtx) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (AudioContext) {
-        audioCtx = new AudioContext();
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) {
+        audioCtx = new AudioContextClass();
       }
     }
     if (audioCtx && audioCtx.state === 'suspended') {
@@ -24,159 +25,223 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Wax seal crack sound
-  function playSealBreakSound() {
+  // Realistic Wax Seal Crack & Snap Sound
+  function playWaxCrackSound() {
     if (isMuted || !audioCtx) return;
     try {
+      const now = audioCtx.currentTime;
+
+      // Crisp high snap
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(320, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 0.12);
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(65, now + 0.14);
 
-      gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+      gain.gain.setValueAtTime(0.32, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
 
       osc.connect(gain);
       gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.12);
+      osc.start(now);
+      osc.stop(now + 0.15);
+
+      // Secondary deep thud
+      const subOsc = audioCtx.createOscillator();
+      const subGain = audioCtx.createGain();
+      subOsc.type = 'triangle';
+      subOsc.frequency.setValueAtTime(160, now + 0.05);
+      subOsc.frequency.exponentialRampToValueAtTime(42, now + 0.22);
+
+      subGain.gain.setValueAtTime(0.38, now + 0.05);
+      subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+
+      subOsc.connect(subGain);
+      subGain.connect(audioCtx.destination);
+      subOsc.start(now + 0.05);
+      subOsc.stop(now + 0.23);
     } catch (e) {
-      console.warn('Audio play failed', e);
+      console.warn('Audio error:', e);
     }
   }
 
-  // Paper rustle / slide sound
-  function playPaperRustleSound() {
+  // Heavy Cotton Paper Sliding against Silk Lining
+  function playPaperSlideSound() {
     if (isMuted || !audioCtx) return;
     try {
-      const bufferSize = audioCtx.sampleRate * 0.25;
+      const now = audioCtx.currentTime;
+      const duration = 0.65;
+      const bufferSize = Math.floor(audioCtx.sampleRate * duration);
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
+
       for (let i = 0; i < bufferSize; i++) {
-        data[i] = (Math.random() * 2 - 1) * 0.15;
+        // Shaped pink-like noise envelope
+        const env = Math.sin((i / bufferSize) * Math.PI);
+        data[i] = (Math.random() * 2 - 1) * env * 0.16;
       }
 
       const noise = audioCtx.createBufferSource();
       noise.buffer = buffer;
 
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(900, audioCtx.currentTime);
-      filter.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.25);
+      const bandpass = audioCtx.createBiquadFilter();
+      bandpass.type = 'bandpass';
+      bandpass.frequency.setValueAtTime(650, now);
+      bandpass.frequency.linearRampToValueAtTime(1100, now + duration * 0.6);
+      bandpass.Q.value = 1.4;
 
       const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+      gain.gain.setValueAtTime(0.01, now);
+      gain.gain.linearRampToValueAtTime(0.28, now + 0.18);
+      gain.gain.exponentialRampToValueAtTime(0.005, now + duration);
 
-      noise.connect(filter);
-      filter.connect(gain);
+      noise.connect(bandpass);
+      bandpass.connect(gain);
       gain.connect(audioCtx.destination);
-
-      noise.start();
+      noise.start(now);
     } catch (e) {
-      console.warn('Audio play failed', e);
+      console.warn('Audio error:', e);
     }
   }
 
-  // Celebratory Royal Chime
-  function playCelebrationChime() {
+  // Warm Celestial Harp / Oud Arpeggio Chord
+  function playRoyalFanfare() {
     if (isMuted || !audioCtx) return;
     try {
-      const frequencies = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
-      frequencies.forEach((freq, idx) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.08);
+      const now = audioCtx.currentTime;
+      // Warm Middle-Eastern / Royal Maqam Rast / Major 9th arpeggio notes
+      const notes = [261.63, 329.63, 392.00, 493.88, 523.25, 659.25, 783.99];
 
-        gain.gain.setValueAtTime(0, audioCtx.currentTime + idx * 0.08);
-        gain.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + idx * 0.08 + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.08 + 0.9);
+      notes.forEach((freq, index) => {
+        const startTime = now + index * 0.095;
+        const osc = audioCtx.createOscillator();
+        const overtone = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        overtone.type = 'triangle';
+
+        osc.frequency.setValueAtTime(freq, startTime);
+        overtone.frequency.setValueAtTime(freq * 2, startTime);
+
+        const overtoneGain = audioCtx.createGain();
+        overtoneGain.gain.value = 0.15;
+
+        gain.gain.setValueAtTime(0.001, startTime);
+        gain.gain.linearRampToValueAtTime(0.14, startTime + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0008, startTime + 1.8);
 
         osc.connect(gain);
+        overtone.connect(overtoneGain);
+        overtoneGain.connect(gain);
         gain.connect(audioCtx.destination);
-        osc.start(audioCtx.currentTime + idx * 0.08);
-        osc.stop(audioCtx.currentTime + idx * 0.08 + 1.0);
+
+        osc.start(startTime);
+        overtone.start(startTime);
+        osc.stop(startTime + 1.85);
+        overtone.stop(startTime + 1.85);
       });
     } catch (e) {
-      console.warn('Chime failed', e);
+      console.warn('Audio error:', e);
     }
   }
 
   // Audio Toggle Button
-  const audioBtn = document.getElementById('audio-toggle-btn');
+  const audioToggleBtn = document.getElementById('audio-toggle-btn');
   const audioIcon = document.getElementById('audio-icon');
-  audioBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    initAudio();
-    isMuted = !isMuted;
-    if (isMuted) {
-      audioIcon.className = 'fa-solid fa-volume-xmark';
-      audioBtn.style.opacity = '0.5';
-    } else {
-      audioIcon.className = 'fa-solid fa-volume-high';
-      audioBtn.style.opacity = '1';
-      playCelebrationChime();
-    }
-  });
+  if (audioToggleBtn) {
+    audioToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      ensureAudioContext();
+      isMuted = !isMuted;
+      if (isMuted) {
+        audioIcon.className = 'fa-solid fa-volume-xmark';
+        audioToggleBtn.style.opacity = '0.6';
+      } else {
+        audioIcon.className = 'fa-solid fa-volume-high';
+        audioToggleBtn.style.opacity = '1';
+        playRoyalFanfare();
+      }
+    });
+  }
 
 
-  // ==========================================================
-  // 2. THREE.JS 3D AMBIENT PARTICLES & LIGHTING
-  // ==========================================================
-  const canvas = document.getElementById('bg-canvas');
-  let scene, camera, renderer, particlesMesh;
+  // ==========================================================================
+  // 2. THREE.JS CELESTIAL GOLDEN DUST & CANDLELIGHT BOKEH
+  // ==========================================================================
+  const bgCanvas = document.getElementById('bg-canvas');
+  function initCelestialScene() {
+    if (!bgCanvas || typeof THREE === 'undefined') return;
 
-  function initThreeBg() {
-    if (typeof THREE === 'undefined') return;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.position.z = 160;
 
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.z = 150;
-
-    renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    const renderer = new THREE.WebGLRenderer({ canvas: bgCanvas, alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Particle Geometry (Golden celebration dust)
-    const particleCount = 180;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const scales = new Float32Array(particleCount);
+    // Create Circular Soft Glow Texture for Golden Bokeh
+    const spriteCanvas = document.createElement('canvas');
+    spriteCanvas.width = 64;
+    spriteCanvas.height = 64;
+    const ctx = spriteCanvas.getContext('2d');
+    const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0, 'rgba(255, 245, 195, 1)');
+    grad.addColorStop(0.35, 'rgba(212, 175, 55, 0.75)');
+    grad.addColorStop(1, 'rgba(212, 175, 55, 0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 64, 64);
+    const particleTexture = new THREE.CanvasTexture(spriteCanvas);
 
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 350;
-      positions[i + 1] = (Math.random() - 0.5) * 350;
-      positions[i + 2] = (Math.random() - 0.5) * 200;
-      scales[i / 3] = Math.random() * 2.5 + 0.8;
+    const count = 140;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(count * 3);
+    const speeds = new Float32Array(count);
+
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 340;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 340;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 180;
+      speeds[i] = 0.08 + Math.random() * 0.18;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
 
-    // Subtle golden particles shader material
     const material = new THREE.PointsMaterial({
-      color: 0xd4af37,
-      size: 2.2,
+      size: 4.8,
+      map: particleTexture,
       transparent: true,
-      opacity: 0.55,
+      opacity: 0.65,
+      depthWrite: false,
       blending: THREE.AdditiveBlending
     });
 
-    particlesMesh = new THREE.Points(geometry, material);
-    scene.add(particlesMesh);
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
 
-    // Render loop
-    let clock = new THREE.Clock();
+    let mouseX = 0;
+    let mouseY = 0;
+    window.addEventListener('pointermove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 18;
+      mouseY = -(e.clientY / window.innerHeight - 0.5) * 18;
+    });
+
     function animate() {
       requestAnimationFrame(animate);
-      const elapsedTime = clock.getElapsedTime();
 
-      if (particlesMesh) {
-        particlesMesh.rotation.y = elapsedTime * 0.04;
-        particlesMesh.rotation.x = Math.sin(elapsedTime * 0.03) * 0.05;
+      const posAttr = geometry.attributes.position;
+      for (let i = 0; i < count; i++) {
+        let y = posAttr.getY(i);
+        y += speeds[i];
+        if (y > 170) y = -170;
+        posAttr.setY(i, y);
       }
+      posAttr.needsUpdate = true;
+
+      camera.position.x += (mouseX - camera.position.x) * 0.03;
+      camera.position.y += (mouseY - camera.position.y) * 0.03;
+      camera.lookAt(scene.position);
 
       renderer.render(scene, camera);
     }
@@ -189,319 +254,482 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  initThreeBg();
+  initCelestialScene();
 
 
-  // ==========================================================
-  // 3. 3D ENVELOPE TILT & OPENING SEQUENCE
-  // ==========================================================
-  const envelopeStage = document.getElementById('envelope-stage');
-  const envelopeWrapper = document.getElementById('envelope-wrapper');
-  const envelope = document.getElementById('envelope');
-  const waxSeal = document.getElementById('wax-seal');
-  const invitationMain = document.getElementById('invitation-main');
-  const replayBtn = document.getElementById('replay-btn');
+  // ==========================================================================
+  // 3. PRECISION 3D ENVELOPE CHOREOGRAPHY (GSAP TIMELINE)
+  // ==========================================================================
+  const sanctuary = document.getElementById('envelope-sanctuary');
+  const sanctuaryHeader = document.getElementById('sanctuary-header');
+  const sanctuaryPrompt = document.getElementById('sanctuary-prompt');
+  const envelopeTiltZone = document.getElementById('envelope-tilt-zone');
+  const envelopeAssembly = document.getElementById('envelope-assembly');
+  const topFlapWrap = document.getElementById('env-top-flap-wrap');
+  const topFlap3d = document.getElementById('env-top-flap');
+  const envLetter = document.getElementById('env-letter');
+  const waxSealStage = document.getElementById('wax-seal-stage');
+  const waxCrackPath = document.getElementById('wax-crack-path');
+  const royalInvitation = document.getElementById('royal-invitation');
+  const manuscriptSheet = document.getElementById('manuscript-sheet');
+  const replayBtn = document.getElementById('replay-envelope-btn');
+  const openTriggerBtn = document.getElementById('open-trigger-btn');
 
-  let isEnvelopeOpen = false;
+  let isOpeningOrOpen = false;
 
-  // 3D Tilt on Hover / Pointer move
-  if (envelopeWrapper) {
-    envelopeWrapper.addEventListener('mousemove', (e) => {
-      if (isEnvelopeOpen) return;
-      const rect = envelopeWrapper.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      const rotateX = -(y / (rect.height / 2)) * 12;
-      const rotateY = (x / (rect.width / 2)) * 14;
-      envelopeWrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  // Interactive 3D Hover / Pointer Tilt on Closed Envelope
+  if (envelopeTiltZone && envelopeAssembly) {
+    envelopeTiltZone.addEventListener('pointermove', (e) => {
+      if (isOpeningOrOpen) return;
+      const rect = envelopeAssembly.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const deltaX = (e.clientX - centerX) / (rect.width / 2);
+      const deltaY = (e.clientY - centerY) / (rect.height / 2);
+
+      const clampX = Math.max(-1, Math.min(1, deltaX));
+      const clampY = Math.max(-1, Math.min(1, deltaY));
+
+      gsap.to(envelopeAssembly, {
+        rotateY: clampX * 12,
+        rotateX: -clampY * 10,
+        duration: 0.4,
+        ease: 'power2.out'
+      });
     });
 
-    envelopeWrapper.addEventListener('mouseleave', () => {
-      if (!isEnvelopeOpen) {
-        envelopeWrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
-      }
+    envelopeTiltZone.addEventListener('pointerleave', () => {
+      if (isOpeningOrOpen) return;
+      gsap.to(envelopeAssembly, {
+        rotateY: 0,
+        rotateX: 0,
+        duration: 0.6,
+        ease: 'power3.out'
+      });
     });
   }
 
-  // Open Envelope Trigger Function
-  function openEnvelope() {
-    if (isEnvelopeOpen) return;
-    isEnvelopeOpen = true;
+  // Master Envelope Opening Sequence
+  function triggerEnvelopeOpen() {
+    if (isOpeningOrOpen) return;
+    isOpeningOrOpen = true;
 
-    initAudio();
-    playSealBreakSound();
+    ensureAudioContext();
 
-    // Reset tilt transform
-    envelopeWrapper.style.transform = 'none';
+    const tl = gsap.timeline();
 
-    // 1. Add class to envelope to trigger CSS 3D transitions
-    envelope.classList.add('is-open');
+    // Step 0: Center the envelope & hide touch prompt
+    tl.to(envelopeAssembly, {
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1.02,
+      duration: 0.3,
+      ease: 'power2.out'
+    }, 0);
 
-    // 2. Play paper sound as flap opens and card pulls up
-    setTimeout(() => {
-      playPaperRustleSound();
-    }, 450);
+    tl.to([sanctuaryPrompt, sanctuaryHeader], {
+      opacity: 0,
+      y: -15,
+      duration: 0.4,
+      ease: 'power2.inOut'
+    }, 0);
 
-    // 3. Confetti Burst
-    setTimeout(() => {
+    // Step 1: Crack the Royal Wax Seal (0.15s -> 0.65s)
+    tl.call(() => playWaxCrackSound(), null, 0.15);
+
+    tl.to(waxCrackPath, {
+      strokeDashoffset: 0,
+      duration: 0.28,
+      ease: 'power2.in'
+    }, 0.15);
+
+    tl.to(waxSealStage, {
+      scale: 1.12,
+      duration: 0.15,
+      ease: 'back.out(2)'
+    }, 0.25);
+
+    // Burst of golden wax sparks at seal position
+    tl.call(() => {
       if (typeof confetti === 'function') {
         confetti({
-          particleCount: 90,
-          spread: 75,
-          origin: { y: 0.65 },
-          colors: ['#cba135', '#fae69e', '#8c1726', '#ffffff']
+          particleCount: 35,
+          spread: 55,
+          startVelocity: 22,
+          origin: { y: 0.55 },
+          colors: ['#d4af37', '#fae596', '#8f111e']
         });
       }
-      playCelebrationChime();
-    }, 700);
+    }, null, 0.38);
 
-    // 4. Smooth Transition from Envelope to Main Invitation Sheet
-    setTimeout(() => {
-      envelopeStage.classList.add('stage-vanish');
+    // Drop and dissolve broken wax seal
+    tl.to(waxSealStage, {
+      y: 45,
+      scale: 0.65,
+      opacity: 0,
+      duration: 0.32,
+      ease: 'power2.in'
+    }, 0.42);
 
-      setTimeout(() => {
-        envelopeStage.classList.add('hidden');
-        invitationMain.classList.remove('hidden');
-        replayBtn.classList.remove('hidden');
+    // Step 2: Unfold the 3D Top Flap (0.65s -> 1.60s)
+    tl.call(() => playPaperSlideSound(), null, 0.68);
 
-        // Scroll gracefully to top of sheet
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    tl.to(topFlap3d, {
+      rotateX: 180,
+      duration: 0.95,
+      ease: 'power2.inOut'
+    }, 0.65);
 
-        // Extra celebratory gentle confetti shower
-        if (typeof confetti === 'function') {
-          setTimeout(() => {
-            confetti({
-              particleCount: 45,
-              angle: 60,
-              spread: 55,
-              origin: { x: 0 },
-              colors: ['#cba135', '#fae69e', '#8c1726']
-            });
-            confetti({
-              particleCount: 45,
-              angle: 120,
-              spread: 55,
-              origin: { x: 1 },
-              colors: ['#cba135', '#fae69e', '#8c1726']
-            });
-          }, 400);
-        }
+    // CRITICAL Z-INDEX HANDOFF AT EXACT 90-DEGREE MIDPOINT (0.65 + 0.475 = 1.125s):
+    // Places the opened top flap BEHIND the letter (z-index: 1 < letter z-index: 2)
+    // while the front pocket remains at z-index: 3 (IN FRONT of letter z-index: 2)!
+    tl.set(topFlapWrap, { zIndex: 1 }, 1.125);
 
-      }, 700);
-    }, 1500);
+    // Step 3: Slide the Letter UP Out of the Pocket (1.50s -> 2.55s)
+    // Because envLetter is z-index: 2 and env-layer-pocket is z-index: 3,
+    // the letter genuinely slides out from INSIDE the pocket without ever floating over the front flaps!
+    tl.call(() => playPaperSlideSound(), null, 1.52);
+
+    tl.to(envLetter, {
+      yPercent: -112,
+      duration: 1.05,
+      ease: 'power3.inOut'
+    }, 1.50);
+
+    tl.to(envelopeAssembly, {
+      y: 65,
+      duration: 1.05,
+      ease: 'power3.inOut'
+    }, 1.50);
+
+    // Step 4: Now that the bottom edge of the letter has 100% cleared the top rim of the pocket
+    // (at yPercent: -112, zero overlap with pocket!), bring letter to foreground (z-index: 10)
+    // and glide it down as the envelope recedes into the background!
+    tl.set(envLetter, { zIndex: 10 }, 2.56);
+
+    tl.to(['.env-layer-back', '.env-layer-pocket', topFlapWrap, '.envelope-aura'], {
+      opacity: 0,
+      scale: 0.88,
+      y: 80,
+      duration: 0.65,
+      ease: 'power2.inOut'
+    }, 2.58);
+
+    tl.to(envLetter, {
+      yPercent: -18,
+      scale: 1.18,
+      duration: 0.7,
+      ease: 'power3.inOut'
+    }, 2.58);
+
+    // Step 5: Unfurl the Letter into the Full Illuminated Royal Manuscript (3.15s -> 4.10s)
+    tl.call(() => {
+      playRoyalFanfare();
+      document.body.classList.remove('is-locked');
+      royalInvitation.classList.add('is-active');
+      royalInvitation.setAttribute('aria-hidden', 'false');
+    }, null, 3.12);
+
+    tl.to(envLetter, {
+      opacity: 0,
+      scale: 1.35,
+      duration: 0.55,
+      ease: 'power2.inOut'
+    }, 3.15);
+
+    tl.fromTo(manuscriptSheet,
+      { opacity: 0, y: 50, scale: 0.94 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.95, ease: 'power3.out' },
+      3.15
+    );
+
+    tl.call(() => {
+      sanctuary.classList.add('hidden');
+      replayBtn.classList.remove('hidden');
+
+      // Royal Golden Confetti Shower
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 55,
+          angle: 60,
+          spread: 60,
+          origin: { x: 0, y: 0.65 },
+          colors: ['#d4af37', '#fae596', '#80111d', '#ffffff']
+        });
+        confetti({
+          particleCount: 55,
+          angle: 120,
+          spread: 60,
+          origin: { x: 1, y: 0.65 },
+          colors: ['#d4af37', '#fae596', '#80111d', '#ffffff']
+        });
+      }
+
+      // Stagger reveal sections inside manuscript
+      gsap.fromTo('.reveal-item',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.14, ease: 'power2.out' }
+      );
+    }, null, 3.65);
   }
 
-  // Trigger on click anywhere on envelope or seal
-  if (envelope) {
-    envelope.addEventListener('click', openEnvelope);
+  // Attach click/touch listeners to open the envelope
+  if (envelopeAssembly) {
+    envelopeAssembly.addEventListener('click', triggerEnvelopeOpen);
+    envelopeAssembly.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        triggerEnvelopeOpen();
+      }
+    });
+  }
+  if (openTriggerBtn) {
+    openTriggerBtn.addEventListener('click', triggerEnvelopeOpen);
   }
 
-  // Re-close Envelope Trigger
+  // Replay / Re-close Envelope Button
   if (replayBtn) {
     replayBtn.addEventListener('click', () => {
-      isEnvelopeOpen = false;
-      invitationMain.classList.add('hidden');
-      replayBtn.classList.add('hidden');
-
-      envelopeStage.classList.remove('stage-vanish');
-      envelopeStage.classList.remove('hidden');
-      envelope.classList.remove('is-open');
-      envelopeWrapper.style.transform = 'none';
-
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      setTimeout(() => {
+        // Reset all states cleanly
+        royalInvitation.classList.remove('is-active');
+        royalInvitation.setAttribute('aria-hidden', 'true');
+        replayBtn.classList.add('hidden');
+        sanctuary.classList.remove('hidden');
+        document.body.classList.add('is-locked');
+
+        gsap.set([sanctuaryPrompt, sanctuaryHeader], { opacity: 1, y: 0 });
+        gsap.set(envelopeAssembly, { y: 0, scale: 1, rotateX: 0, rotateY: 0 });
+        gsap.set(['.env-layer-back', '.env-layer-pocket', topFlapWrap, '.envelope-aura'], {
+          opacity: 1,
+          scale: 1,
+          y: 0
+        });
+        gsap.set(topFlapWrap, { zIndex: 4 });
+        gsap.set(topFlap3d, { rotateX: 0 });
+        gsap.set(envLetter, { yPercent: 0, scale: 1, opacity: 1, zIndex: 2 });
+        gsap.set(waxSealStage, { y: 0, scale: 1, opacity: 1 });
+        gsap.set(waxCrackPath, { strokeDashoffset: 140 });
+
+        isOpeningOrOpen = false;
+      }, 300);
     });
   }
 
 
-  // ==========================================================
-  // 4. COUNTDOWN TIMER (November 29, 2026)
-  // ==========================================================
-  const daysEl = document.getElementById('days');
-  const hoursEl = document.getElementById('hours');
-  const minutesEl = document.getElementById('minutes');
-  const secondsEl = document.getElementById('seconds');
+  // ==========================================================================
+  // 4. CELESTIAL ASTROLABE COUNTDOWN (Target: 29 November 2026)
+  // ==========================================================================
+  const cdDays = document.getElementById('cd-days');
+  const cdHours = document.getElementById('cd-hours');
+  const cdMinutes = document.getElementById('cd-minutes');
+  const cdSeconds = document.getElementById('cd-seconds');
 
-  // November 29, 2026 13:00 (1:00 PM)
-  const targetEventDate = new Date('2026-11-29T13:00:00+03:00').getTime();
+  const ringDays = document.getElementById('ring-days');
+  const ringHours = document.getElementById('ring-hours');
+  const ringMinutes = document.getElementById('ring-minutes');
+  const ringSeconds = document.getElementById('ring-seconds');
 
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const difference = targetEventDate - now;
+  const CIRCUMFERENCE = 2 * Math.PI * 52; // 326.72
+  // Target Date: Sunday, Nov 29, 2026 at 13:00 Mosul Time (UTC+3)
+  const targetTimestamp = new Date('2026-11-29T13:00:00+03:00').getTime();
 
-    if (difference <= 0) {
-      if (daysEl) daysEl.textContent = '00';
-      if (hoursEl) hoursEl.textContent = '00';
-      if (minutesEl) minutesEl.textContent = '00';
-      if (secondsEl) secondsEl.textContent = '00';
-      return;
-    }
-
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-    if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-    if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-    if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-    if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+  function setRingProgress(circleEl, fraction) {
+    if (!circleEl) return;
+    const clamped = Math.max(0, Math.min(1, fraction));
+    const offset = CIRCUMFERENCE - clamped * CIRCUMFERENCE;
+    circleEl.style.strokeDashoffset = offset;
   }
 
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  function updateAstrolabeCountdown() {
+    const now = Date.now();
+    const diff = Math.max(0, targetTimestamp - now);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    if (cdDays) cdDays.textContent = String(days).padStart(2, '0');
+    if (cdHours) cdHours.textContent = String(hours).padStart(2, '0');
+    if (cdMinutes) cdMinutes.textContent = String(minutes).padStart(2, '0');
+    if (cdSeconds) cdSeconds.textContent = String(seconds).padStart(2, '0');
+
+    setRingProgress(ringDays, Math.min(1, days / 30));
+    setRingProgress(ringHours, hours / 24);
+    setRingProgress(ringMinutes, minutes / 60);
+    setRingProgress(ringSeconds, seconds / 60);
+  }
+
+  updateAstrolabeCountdown();
+  setInterval(updateAstrolabeCountdown, 1000);
 
 
-  // ==========================================================
-  // 5. RSVP & WISHES MANAGEMENT
-  // ==========================================================
+  // ==========================================================================
+  // 5. ROYAL GUESTBOOK, VIP PASS GENERATOR & BLESSINGS WALL
+  // ==========================================================================
   const rsvpForm = document.getElementById('rsvp-form');
-  const rsvpSuccess = document.getElementById('rsvp-success');
-  const rsvpSuccessMsg = document.getElementById('rsvp-success-msg');
-  const whatsappRsvpBtn = document.getElementById('whatsapp-rsvp-btn');
-  const wishesContainer = document.getElementById('wishes-container');
+  const companionsFieldWrap = document.getElementById('companions-field-wrap');
+  const vipPassContainer = document.getElementById('vip-pass-container');
+  const vipGuestName = document.getElementById('vip-guest-name');
+  const vipGuestStatus = document.getElementById('vip-guest-status');
+  const editRsvpBtn = document.getElementById('edit-rsvp-btn');
+  const whatsappDirectBtn = document.getElementById('whatsapp-direct-btn');
+  const blessingsGrid = document.getElementById('blessings-grid');
 
-  // Load stored wishes from LocalStorage
-  function loadWishes() {
-    try {
-      const stored = localStorage.getItem('ibtisam_wishes');
-      if (stored && wishesContainer) {
-        const wishes = JSON.parse(stored);
-        wishes.forEach(item => appendWishCard(item.name, item.text, item.date));
+  // Toggle companions select visibility based on attendance radio
+  const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+  attendanceRadios.forEach((radio) => {
+    radio.addEventListener('change', () => {
+      if (radio.value === 'declined' && radio.checked) {
+        companionsFieldWrap.style.display = 'none';
+      } else {
+        companionsFieldWrap.style.display = 'flex';
       }
-    } catch (e) {
-      console.warn('LocalStorage unavailable', e);
-    }
-  }
-
-  function appendWishCard(name, text, dateStr) {
-    if (!wishesContainer) return;
-    const card = document.createElement('div');
-    card.className = 'wish-item';
-    card.innerHTML = `
-      <div class="wish-author">${escapeHTML(name)}</div>
-      <p class="wish-text">${escapeHTML(text)}</p>
-      <span class="wish-date">${dateStr || 'مؤخراً'}</span>
-    `;
-    wishesContainer.prepend(card);
-  }
+    });
+  });
 
   function escapeHTML(str) {
-    const p = document.createElement('p');
-    p.appendChild(document.createTextNode(str));
-    return p.innerHTML;
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
   }
 
-  loadWishes();
+  function prependBlessingCard(author, text, timeLabel) {
+    if (!blessingsGrid) return;
+    const card = document.createElement('div');
+    card.className = 'blessing-parchment';
+    card.innerHTML = `
+      <div class="blessing-quote-mark">❝</div>
+      <p class="blessing-body">${escapeHTML(text)}</p>
+      <div class="blessing-meta">
+        <span class="blessing-author">${escapeHTML(author)}</span>
+        <span class="blessing-time">${escapeHTML(timeLabel || 'الآن')}</span>
+      </div>
+    `;
+    blessingsGrid.prepend(card);
+  }
 
-  // Form Submission
+  // Load saved blessings from LocalStorage
+  try {
+    const savedBlessings = JSON.parse(localStorage.getItem('ibtisam_royal_blessings') || '[]');
+    savedBlessings.forEach((item) => {
+      prependBlessingCard(item.author, item.text, item.time);
+    });
+  } catch (e) {
+    console.warn('Storage read error:', e);
+  }
+
   if (rsvpForm) {
     rsvpForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const guestName = document.getElementById('guest-name').value.trim();
-      const attendance = document.querySelector('input[name="attendance"]:checked').value;
-      const guestCount = document.getElementById('guest-count').value;
-      const guestWishes = document.getElementById('guest-wishes').value.trim();
+      const nameVal = document.getElementById('guest-name').value.trim();
+      if (!nameVal) return;
 
-      if (!guestName) return;
+      const attChecked = document.querySelector('input[name="attendance"]:checked');
+      const isAttending = attChecked ? attChecked.value === 'attending' : true;
+      const countVal = document.getElementById('guest-count').value;
+      const wishesVal = document.getElementById('guest-wishes').value.trim();
 
-      initAudio();
-      playCelebrationChime();
+      ensureAudioContext();
+      playRoyalFanfare();
 
-      // Confetti celebration
       if (typeof confetti === 'function') {
         confetti({
-          particleCount: 80,
+          particleCount: 70,
           spread: 70,
-          origin: { y: 0.7 },
-          colors: ['#cba135', '#fae69e', '#16a34a']
+          origin: { y: 0.75 },
+          colors: ['#d4af37', '#fae596', '#80111d']
         });
       }
 
-      // Hide form and show confirmation banner
-      rsvpForm.style.display = 'none';
-      rsvpSuccess.classList.remove('hidden');
+      // Populate & Show VIP Royal Pass
+      vipGuestName.textContent = nameVal;
+      vipGuestStatus.textContent = isAttending
+        ? `مؤكد بإذن الله (${countVal})`
+        : 'معتذر مع خالص التبريكات';
 
-      if (attendance === 'declined') {
-        rsvpSuccessMsg.textContent = `شكراً جزيلاً لك يا ${guestName} على مشاعرك الطيبة وتمنياتك الصادقة للباحثة.`;
-      } else {
-        rsvpSuccessMsg.textContent = `يسعدنا ويشرفنا حضوركم يا ${guestName} (${guestCount === '1' ? 'شخص واحد' : guestCount + ' أشخاص'})، ونتطلع للقائكم بكل محبة وسرور.`;
-      }
+      rsvpForm.classList.add('hidden');
+      vipPassContainer.classList.remove('hidden');
 
-      // Add wish to board if written
-      if (guestWishes) {
-        appendWishCard(guestName, guestWishes, 'الآن');
+      // Add blessing to Golden Wall if provided
+      if (wishesVal) {
+        prependBlessingCard(nameVal, wishesVal, 'مؤخراً');
         try {
-          const stored = JSON.parse(localStorage.getItem('ibtisam_wishes') || '[]');
-          stored.push({ name: guestName, text: guestWishes, date: 'الآن' });
-          localStorage.setItem('ibtisam_wishes', JSON.stringify(stored));
+          const current = JSON.parse(localStorage.getItem('ibtisam_royal_blessings') || '[]');
+          current.push({ author: nameVal, text: wishesVal, time: '٢٠٢٦' });
+          localStorage.setItem('ibtisam_royal_blessings', JSON.stringify(current));
         } catch (err) {
-          console.warn('Wish save failed', err);
+          console.warn('Storage save error:', err);
         }
       }
     });
   }
 
-  // Direct WhatsApp RSVP
-  if (whatsappRsvpBtn) {
-    whatsappRsvpBtn.addEventListener('click', () => {
-      const guestName = document.getElementById('guest-name').value.trim() || 'الضيف الكريم';
-      const attendanceInput = document.querySelector('input[name="attendance"]:checked');
-      const isAttending = attendanceInput ? attendanceInput.value === 'attending' : true;
-      const count = document.getElementById('guest-count').value;
-      const wishes = document.getElementById('guest-wishes').value.trim();
+  if (editRsvpBtn) {
+    editRsvpBtn.addEventListener('click', () => {
+      vipPassContainer.classList.add('hidden');
+      rsvpForm.classList.remove('hidden');
+    });
+  }
 
-      const statusText = isAttending 
-        ? `يشرفني الحضور بكل سرور (العدد: ${count})`
-        : `أعتذر بكل محبة لظرف طارئ`;
+  // WhatsApp Direct RSVP
+  if (whatsappDirectBtn) {
+    whatsappDirectBtn.addEventListener('click', () => {
+      const nameVal = document.getElementById('guest-name').value.trim() || 'ضيف كريم';
+      const attChecked = document.querySelector('input[name="attendance"]:checked');
+      const isAttending = attChecked ? attChecked.value === 'attending' : true;
+      const countVal = document.getElementById('guest-count').value;
+      const wishesVal = document.getElementById('guest-wishes').value.trim();
 
-      let message = `السلام عليكم ورحمة الله وبركاته،\n\n`;
-      message += `تأكيد حضور دعوة مأدبة الغداء احتفاءً بنيل الباحثة ابتسام محمود صالح درجة الماجستير:\n`;
-      message += `• الاسم: ${guestName}\n`;
-      message += `• الحالة: ${statusText}\n`;
-      if (wishes) {
-        message += `• كلمة التهنئة: ${wishes}\n`;
+      const statusLine = isAttending
+        ? `أتشرف بالحضور والمشاركة (${countVal})`
+        : 'أعتذر لظرف خاص مع خالص التهاني والتبريكات';
+
+      let msg = `✨ *بطاقة تأكيد تشريف — مأدبة تتويج الباحثة ابتسام محمود صالح* ✨\n\n`;
+      msg += `• *الاسم الكريم:* ${nameVal}\n`;
+      msg += `• *حالة الحضور:* ${statusLine}\n`;
+      msg += `• *الموعد:* الأحد ٢٩ تشرين الثاني ٢٠٢٦\n`;
+      if (wishesVal) {
+        msg += `\n💌 *كلمة التهنئة:*\n"${wishesVal}"\n`;
       }
-      message += `\nألف مبارك ومنها للأعلى والتوفيق الدائم.`;
+      msg += `\nمبارك نيل درجة الماجستير في أمن المعلومات ومنها للأعلى بإذن الله.`;
 
-      const encodedMsg = encodeURIComponent(message);
-      window.open(`https://api.whatsapp.com/send?text=${encodedMsg}`, '_blank');
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
     });
   }
 
 
-  // ==========================================================
-  // 6. SHARE INVITATION (Link Copy & WhatsApp)
-  // ==========================================================
-  const copyLinkBtn = document.getElementById('copy-link-btn');
-  const copyBtnText = document.getElementById('copy-btn-text');
-  const shareWhatsAppBtn = document.getElementById('share-whatsapp-btn');
+  // ==========================================================================
+  // 6. SHARE INVITATION ACTIONS
+  // ==========================================================================
+  const copyLinkBtn = document.getElementById('copy-invitation-link');
+  const copyLinkLabel = document.getElementById('copy-link-label');
+  const shareWhatsappBtn = document.getElementById('share-whatsapp-btn');
 
   if (copyLinkBtn) {
     copyLinkBtn.addEventListener('click', () => {
       const url = window.location.href;
       navigator.clipboard.writeText(url).then(() => {
-        const originalText = copyBtnText.textContent;
-        copyBtnText.textContent = 'تم نسخ الرابط بنجاح! ✓';
-        copyLinkBtn.style.background = '#dcfce7';
-        copyLinkBtn.style.borderColor = '#16a34a';
-
+        const orig = copyLinkLabel.textContent;
+        copyLinkLabel.textContent = 'تم نسخ الرابط بنجاح ✓';
         setTimeout(() => {
-          copyBtnText.textContent = originalText;
-          copyLinkBtn.style.background = '';
-          copyLinkBtn.style.borderColor = '';
+          copyLinkLabel.textContent = orig;
         }, 2500);
       }).catch(() => {
-        prompt('انسخ الرابط التالي:', url);
+        prompt('انسخ رابط الدعوة:', url);
       });
     });
   }
 
-  if (shareWhatsAppBtn) {
-    shareWhatsAppBtn.addEventListener('click', () => {
+  if (shareWhatsappBtn) {
+    shareWhatsappBtn.addEventListener('click', () => {
       const url = window.location.href;
-      const shareText = `🎓 دعوة لحضور مأدبة غداء احتفالية 🎓\n\nبمناسبة نيل الباحثة ابتسام محمود صالح درجة الماجستير في إدارة الأعمال (تخصص أمن المعلومات) - جامعة الموصل.\n\nيسعدنا ويشرفنا حضوركم وتبريكاتكم:\n${url}`;
-      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`, '_blank');
+      const text = `👑 *دعوة ملكية خاصة* 👑\n\nنتشرف بدعوتكم لحضور *مأدبة الغداء التكريمية* بمناسبة نيل الباحثة *ابتسام محمود صالح* درجة الماجستير في إدارة الأعمال (تخصص أمن المعلومات) — جامعة الموصل.\n\n📅 *الأحد ٢٩ / ١١ / ٢٠٢٦*\n\nتفضلوا بفتح ظرف الدعوة التفاعلي من هنا:\n${url}`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     });
   }
 
