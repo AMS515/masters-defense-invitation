@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>دعوة مأدبة غداء | بمناسبة نيل الماجستير - الباحثة ابتسام محمود صالح</title>
+  
+  <meta name="description" content="دعوة كريمة لحضور مأدبة الغداء احتفاءً بنيل الباحثة ابتسام محمود صالح درجة الماجستير في إدارة الأعمال / أمن المعلومات - جامعة الموصل">
+  <meta property="og:title" content="دعوة خاصة | الباحثة ابتسام محمود صالح">
+  <meta property="og:description" content="يسرنا دعوتكم لمشاركتنا فرحة إنجاز الماجستير وحضور مأدبة الغداء التكريمية">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Amiri & Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons & Canvas Confetti -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- GSAP for Silky Smooth Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- Three.js for 3D Background Lighting & Atmosphere -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Three.js 3D Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Ambient Sound Control Floating Button -->
+  <button id="audio-toggle-btn" class="floating-btn audio-btn" title="المؤثرات الصوتية">
+    <i class="fa-solid fa-volume-high" id="audio-icon"></i>
+  </button>
+
+  <!-- Re-open Envelope Floating Button (Visible after opening) -->
+  <button id="replay-btn" class="floating-btn replay-btn hidden" title="إعادة إغلاق الظرف">
+    <i class="fa-solid fa-envelope"></i>
+    <span>إعادة إغلاق</span>
+  </button>
+
+  <!-- ============================================== -->
+  <!-- 3D INTERACTIVE ENVELOPE STAGE                  -->
+  <!-- ============================================== -->
+  <div id="envelope-stage" class="envelope-stage">
+    
+    <div class="stage-header">
+      <div class="emblem-badge">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <h2 class="stage-sub">جامعة الموصل • كلية الإدارة والاقتصاد</h2>
+      <p class="stage-hint">المس الظرف أو الختم لفتح بطاقة الدعوة</p>
+    </div>
+
+    <div class="envelope-perspective-wrapper" id="envelope-wrapper">
+      <div class="envelope-3d" id="envelope">
+        
+        <!-- Back Flap / Interior -->
+        <div class="env-back">
+          <div class="env-interior-pattern"></div>
+        </div>
+
+        <!-- The Invitation Card that pulls out -->
+        <div class="env-card-preview" id="card-preview">
+          <div class="card-preview-inner">
+            <div class="preview-crest">✦ ﷽ ✦</div>
+            <div class="preview-title">دعوة مأدبة غداء احتفالية</div>
+            <div class="preview-name">الباحثة ابتسام محمود صالح</div>
+            <div class="preview-bar"></div>
+          </div>
+        </div>
+
+        <!-- Left & Right Folded Flaps -->
+        <div class="env-left-flap"></div>
+        <div class="env-right-flap"></div>
+        
+        <!-- Bottom Flap -->
+        <div class="env-bottom-flap">
+          <div class="env-gold-trim"></div>
+        </div>
+
+        <!-- Top Foldable Flap -->
+        <div class="env-top-flap" id="top-flap">
+          <div class="env-top-triangle"></div>
+        </div>
+
+        <!-- 3D Luxury Wax Seal -->
+        <div class="wax-seal" id="wax-seal">
+          <div class="wax-ring"></div>
+          <div class="wax-center">
+            <span class="wax-symbol">إ</span>
+          </div>
+          <div class="seal-glow"></div>
+        </div>
+
+        <!-- Touch / Click Ripple Prompt -->
+        <div class="touch-indicator" id="touch-indicator">
+          <div class="touch-ring"></div>
+          <div class="touch-text">اضغط لفتح الدعوة</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="stage-footer">
+      <span class="golden-dots">❖ ❖ ❖</span>
+    </div>
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MAIN INVITATION CONTENT CONTAINER              -->
+  <!-- ============================================== -->
+  <main id="invitation-main" class="invitation-main hidden">
+
+    <div class="invitation-sheet" id="invitation-sheet">
+      
+      <!-- Ornate Border Frame -->
+      <div class="ornate-border">
+        <span class="corner corner-tl"></span>
+        <span class="corner corner-tr"></span>
+        <span class="corner corner-bl"></span>
+        <span class="corner corner-br"></span>
+      </div>
+
+      <!-- Basmala Header -->
+      <header class="card-header">
+        <div class="basmala">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <div class="bismillah-divider">
+          <span class="line"></span>
+          <span class="icon">⚜</span>
+          <span class="line"></span>
+        </div>
+      </header>
+
+      <!-- Royal Academic Crest -->
+      <div class="academic-crest">
+        <div class="crest-circle">
+          <i class="fa-solid fa-scroll crest-icon"></i>
+        </div>
+        <div class="university-title">جامعة الموصل</div>
+        <div class="faculty-title">كلية الإدارة والاقتصاد • قسم إدارة الأعمال</div>
+      </div>
+
+      <!-- Main Invitation Salutation & Content -->
+      <section class="invitation-body">
+        
+        <p class="salutation">
+          يطيب لنا ويسعدنا أن نرفع إليكم أسمى آيات التقدير والاحترام، ونتشرف بدعوتكم الكريمة لمشاركتنا فرحتنا الكبرى بمناسبة إتمام مناقشة ونيل درجة الماجستير
+        </p>
+
+        <div class="guest-of-honor">
+          <span class="honor-prefix">للباحثة الفاضلة</span>
+          <h1 class="researcher-name">ابتسام محمود صالح</h1>
+          <div class="degree-pill">
+            <i class="fa-solid fa-award"></i>
+            <span>ماجستير في إدارة الأعمال • تخصص أمن المعلومات</span>
+          </div>
+        </div>
+
+        <div class="banquet-announcement">
+          <div class="quote-symbol">❝</div>
+          <p class="banquet-text">
+            واحتفاءً بهذه المناسبة المباركة وتتويجاً لمسيرة الجهد والاجتهاد، يسرنا دعوتكم لحضور <strong>مأدبة الغداء التكريمية</strong> التي نقيمها على شرفكم وشرف السادة أعضاء لجنة المناقشة والأهل والأصدقاء، لتكتمل سعادتنا بفيض حضوركم الكريم وجميل مشاركتكم.
+          </p>
+          <div class="quote-symbol quote-close">❞</div>
+        </div>
+
+      </section>
+
+      <!-- Key Event Cards (Date, Time, Location) -->
+      <section class="event-details-grid">
+        
+        <!-- Date Card -->
+        <div class="detail-card">
+          <div class="card-icon-wrap">
+            <i class="fa-regular fa-calendar-days"></i>
+          </div>
+          <h3>تاريخ المناسبة</h3>
+          <p class="highlight-date">29 تشرين الثاني (نوفمبر) 2026</p>
+          <span class="sub-hint">يوم الأحد</span>
+        </div>
+
+        <!-- Time Card -->
+        <div class="detail-card">
+          <div class="card-icon-wrap">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+          <h3>موعد مأدبة الغداء</h3>
+          <p class="highlight-time">عقب انتهاء المناقشة مباشرة</p>
+          <span class="sub-hint badge-pending">سيتم تأكيد الساعة بدقة قريباً</span>
+        </div>
+
+        <!-- Location Card -->
+        <div class="detail-card">
+          <div class="card-icon-wrap">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <h3>مكان الدعوة</h3>
+          <p class="highlight-venue">الموصل - موقع المطعم المخصص</p>
+          <span class="sub-hint">سيتم تزويدكم بالإحداثيات المباشرة</span>
+        </div>
+
+      </section>
+
+      <!-- Countdown Timer Section -->
+      <section class="countdown-section">
+        <h3 class="section-title">
+          <i class="fa-solid fa-hourglass-half"></i>
+          <span>الوقت المتبقي حتى يوم المناسبة</span>
+        </h3>
+        
+        <div class="countdown-display" id="countdown">
+          <div class="time-block">
+            <span class="number" id="days">00</span>
+            <span class="unit">يوم</span>
+          </div>
+          <div class="time-separator">:</div>
+          <div class="time-block">
+            <span class="number" id="hours">00</span>
+            <span class="unit">ساعة</span>
+          </div>
+          <div class="time-separator">:</div>
+          <div class="time-block">
+            <span class="number" id="minutes">00</span>
+            <span class="unit">دقيقة</span>
+          </div>
+          <div class="time-separator">:</div>
+          <div class="time-block">
+            <span class="number" id="seconds">00</span>
+            <span class="unit">ثانية</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Location Action & Map Area -->
+      <section class="venue-location-section">
+        <div class="location-banner">
+          <div class="loc-info">
+            <i class="fa-solid fa-map-location-dot loc-large-icon"></i>
+            <div>
+              <h4>موقع المأدبة في مدينة الموصل</h4>
+              <p>نرحب بقدومكم العطر ونسعد بتواجدكم بيننا</p>
+            </div>
+          </div>
+          <a href="https://maps.google.com/?q=Mosul,Iraq" target="_blank" rel="noopener noreferrer" class="btn btn-outline map-btn">
+            <i class="fa-brands fa-google"></i>
+            <span>فتح الخريطة (Google Maps)</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- RSVP Attendance Form -->
+      <section class="rsvp-section" id="rsvp">
+        <div class="rsvp-card">
+          <div class="rsvp-header">
+            <i class="fa-solid fa-envelope-open-text rsvp-icon"></i>
+            <h3>تأكيد الحضور (RSVP)</h3>
+            <p>يسعدنا معرفة إمكانية تشريفكم لنا لمساعدتنا في حسن الترتيب والضيافة</p>
+          </div>
+
+          <form id="rsvp-form" class="rsvp-form">
+            <div class="form-group">
+              <label for="guest-name">الاسم الكريم / اللقب</label>
+              <input type="text" id="guest-name" name="guest_name" required placeholder="أدخل اسمك الكريم..." class="form-input">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label>حالة الحضور</label>
+                <div class="attendance-options">
+                  <label class="radio-label">
+                    <input type="radio" name="attendance" value="attending" checked>
+                    <span class="radio-custom"></span>
+                    <span class="radio-text">يشرفني الحضور بكل سرور</span>
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="attendance" value="declined">
+                    <span class="radio-custom"></span>
+                    <span class="radio-text">أعتذر بكل محبة لظرف طارئ</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group companions-group" id="companions-group">
+                <label for="guest-count">عدد الأفراد (المرافقين)</label>
+                <select id="guest-count" name="guest_count" class="form-input">
+                  <option value="1">شخص واحد</option>
+                  <option value="2">شخصان (2)</option>
+                  <option value="3">3 أشخاص</option>
+                  <option value="4">4 أشخاص</option>
+                  <option value="5+">5 أشخاص فما فوق</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="guest-wishes">كلمة مباركة أو رسالة تهنئة للباحثة (اختياري)</label>
+              <textarea id="guest-wishes" name="guest_wishes" rows="3" placeholder="اكتب كلماتك وتمنياتك للباحثة ابتسام..." class="form-input"></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary submit-rsvp-btn">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>تأكيد الإرسال</span>
+              </button>
+              
+              <button type="button" id="whatsapp-rsvp-btn" class="btn btn-whatsapp">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>تأكيد عبر واتساب</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- RSVP Success Notification Banner -->
+          <div id="rsvp-success" class="rsvp-success hidden">
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <h4>تم استلام تأكيدكم بمزيد من السرور والامتنان!</h4>
+            <p id="rsvp-success-msg">نتطلع بشغف للقائكم والاحتفال معاً بهذه اللحظات السعيدة.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Wishes & Blessings Live Board -->
+      <section class="wishes-section">
+        <h3 class="section-title">
+          <i class="fa-solid fa-heart"></i>
+          <span>سجل التهاني والتبريكات</span>
+        </h3>
+        <p class="section-subtitle">كلماتكم الطيبة تبعث الفرح وتزيد من بهاء هذه المناسبة</p>
+
+        <div class="wishes-container" id="wishes-container">
+          <!-- Sample starter greetings -->
+          <div class="wish-item">
+            <div class="wish-author">الأهل والمحبون</div>
+            <p class="wish-text">ألف مبارك للباحثة ابتسام، فخورون جداً بكِ وبجهدكِ المبارك في أمن المعلومات، سائلين الله لكِ دوام الرفعة والتألق.</p>
+            <span class="wish-date">اليوم</span>
+          </div>
+          <div class="wish-item">
+            <div class="wish-author">زملاء كلية الإدارة والاقتصاد</div>
+            <p class="wish-text">مبارك نيل الماجستير بجدارة واستحقاق، ومنها للأعلى وإلى الدكتوراة بإذن الله تعالى.</p>
+            <span class="wish-date">اليوم</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Share Buttons Section -->
+      <section class="share-section">
+        <p class="share-lead">شارِك هذه الدعوة مع الأهل والأصدقاء والأحبة</p>
+        <div class="share-buttons">
+          <button id="copy-link-btn" class="btn btn-share">
+            <i class="fa-solid fa-link"></i>
+            <span id="copy-btn-text">نسخ رابط الدعوة</span>
+          </button>
+          
+          <button id="share-whatsapp-btn" class="btn btn-share btn-share-wa">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>مشاركة عبر واتساب</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Invitation Card Royal Footer -->
+      <footer class="invitation-footer">
+        <div class="footer-divider">
+          <span>❖</span>
+          <span>❖</span>
+          <span>❖</span>
+        </div>
+        <p class="footer-closing">حضوركم شرفٌ لنا وفرحةٌ تزدان بها قلوبنا</p>
+        <p class="footer-sign">الداعية: الباحثة ابتسام محمود صالح وأسرتها الكريمة</p>
+        <small class="footer-credits">الموصل - 2026</small>
+      </footer>
+
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
