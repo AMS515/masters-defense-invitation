@@ -1,263 +1,290 @@
 /* ==========================================================================
-   HAUTE COUTURE LUXURY INVITATION — SOFT BLUSH & ROSE GOLD THEME
-   Honoree: Researcher Ibtisam Mahmoud Saleh — University of Mosul
-   Philosophy: Modern Royal Editorial, Soft Blush Velvet, Rose Gold & Silk
+   MASTER'S DEFENSE CELEBRATORY LUNCHEON — ACADEMIC PRESTIGE & MOBILE-FIRST UI
+   Researcher: Ibtisam Mahmoud Saleh | University of Mosul
    ========================================================================== */
 
 :root {
+  /* Calm Academic Alabaster & Warm Ivory Palette */
+  --bg-alabaster: #f8f6f2;
+  --bg-ivory-warm: #f2ede6;
+  --card-surface: #ffffff;
+  --card-surface-soft: #fcfbf9;
+  --card-tinted: #f7f4ee;
+
+  /* Subtle Blush-Warmth Background Touch (Very gentle, background only) */
+  --aura-blush-subtle: rgba(224, 182, 188, 0.16);
+  --aura-gold-subtle: rgba(198, 166, 107, 0.14);
+
+  /* Academic Slate & Oxford Navy Ink */
+  --ink-navy: #1e293b;
+  --ink-slate: #334155;
+  --ink-secondary: #475569;
+  --ink-muted: #64748b;
+
+  /* Antique Academic Champagne Gold */
+  --gold-primary: #b59456;
+  --gold-mid: #c6a66b;
+  --gold-light: #e5d3b0;
+  --gold-pale: #f5efe2;
+  --gold-dark: #8c6d32;
+
+  /* Borders & Shadows */
+  --border-gold: rgba(181, 148, 86, 0.28);
+  --border-subtle: rgba(30, 41, 59, 0.08);
+  --shadow-card: 0 20px 50px -15px rgba(30, 41, 59, 0.09), 0 4px 16px -2px rgba(181, 148, 86, 0.08);
+  --shadow-sm: 0 4px 14px rgba(30, 41, 59, 0.04);
+
   /* Typography */
-  --font-royal: 'Alexandria', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-classical: 'Amiri', 'Traditional Arabic', serif;
-  --font-ruqaa: 'Aref Ruqaa', serif;
+  --font-sans: 'Alexandria', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Amiri', Georgia, serif;
 
-  /* Luminous Palette (Pure Warm Pearl, Whisper-Blush & Silk Ivory) */
-  --pearl-bg-light: #fdfcfb;
-  --pearl-bg-subtle: #fbf8f6;
-  --blush-powder-soft: #faf4f2;
-  --blush-powder-mid: #f4eae6;
-  --blush-powder-deep: #eadbd6;
-
-  /* Warm Champagne Rose Gold Foil */
-  --rose-gold-light: #f9eee9;
-  --rose-gold-mid: #c9a495;
-  --rose-gold-rich: #8c6658;
-  --rose-gold-deep: #6b4b3e;
-  --rose-gold-foil: linear-gradient(135deg, #9c7a6b 0%, #c9a495 25%, #f9eee9 50%, #c69f8f 75%, #8a6859 100%);
-  --rose-gold-glow: rgba(201, 164, 149, 0.22);
-
-  /* Deep Warm Contrast Inks (Crisp, Legible & Peaceful) */
-  --ink-primary: #2e2421;
-  --ink-secondary: #594944;
-  --ink-muted: #826f69;
-
-  /* Soft Pearl-Rose Wax */
-  --wax-rose: #c49a8e;
+  /* Smooth Easings */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Base Reset */
+/* ==========================================================================
+   1. RESET & BASE MOBILE ERGONOMICS
+   ========================================================================== */
 *, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  background-color: var(--bg-alabaster);
+  color: var(--ink-navy);
 }
 
 body {
-  font-family: var(--font-royal);
-  background-color: var(--pearl-bg-light);
-  color: var(--ink-primary);
-  min-height: 490px;
+  font-family: var(--font-sans);
+  background: linear-gradient(165deg, var(--bg-alabaster) 0%, var(--bg-ivory-warm) 100%);
+  color: var(--ink-navy);
+  min-height: 100%;
   overflow-x: hidden;
   position: relative;
-  line-height: 1.8;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
 body.is-locked {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-/* Hidden SVG Definitions */
 .svg-defs {
   position: absolute;
   width: 0;
   height: 0;
-  overflow: hidden;
   pointer-events: none;
-}
-
-/* Native 60fps Silk & Rose Petals Canvas */
-#silk-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.ambient-vignette {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(circle at 50% 40%, transparent 50%, rgba(244, 234, 230, 0.35) 100%);
-}
-
-/* ==========================================================================
-   FLOATING NAVIGATION CONTROLS
-   ========================================================================== */
-.floating-controls {
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  right: 14px;
-  z-index: 200;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
-}
-
-.ctrl-btn {
-  pointer-events: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 40px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(201, 164, 149, 0.45);
-  color: var(--rose-gold-rich);
-  font-family: var(--font-royal);
-  font-size: 0.84rem;
-  font-weight: 600;
-  cursor: pointer;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 6px 20px rgba(140, 102, 88, 0.12);
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.ctrl-btn:hover {
-  transform: translateY(-2px);
-  border-color: var(--rose-gold-mid);
-  box-shadow: 0 8px 24px var(--rose-gold-glow);
-  background: #ffffff;
-}
-
-.ctrl-svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
 }
 
 .hidden {
   display: none !important;
 }
 
+/* ==========================================================================
+   2. AMBIENT CANVAS & SUBTLE BACKGROUND AURA
+   ========================================================================== */
+#ambient-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.75;
+}
+
+.bg-soft-aura {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(75px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aura-top {
+  top: -8%;
+  right: -12%;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, var(--aura-blush-subtle) 0%, var(--aura-gold-subtle) 55%, transparent 75%);
+}
+
+.aura-bottom {
+  bottom: -10%;
+  left: -12%;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, var(--aura-gold-subtle) 0%, var(--aura-blush-subtle) 55%, transparent 75%);
+}
 
 /* ==========================================================================
-   ACT I: THE LUMINOUS ROSE VELVET ENVELOPE SANCTUARY
+   3. FLOATING TOP CONTROLS (MOBILE PILLS)
+   ========================================================================== */
+.top-Controls {
+  position: fixed;
+  top: 12px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.pill-control {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-gold);
+  color: var(--ink-navy);
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(30, 41, 59, 0.06);
+  transition: transform 0.25s var(--ease-out-expo), background 0.25s ease, border-color 0.25s ease;
+}
+
+.pill-control:hover,
+.pill-control:active {
+  transform: translateY(-1px);
+  background: #ffffff;
+  border-color: var(--gold-primary);
+}
+
+.ctrl-icon {
+  width: 15px;
+  height: 15px;
+  color: var(--gold-primary);
+}
+
+/* ==========================================================================
+   4. SCREEN 1: MOBILE-FIRST ACADEMIC ENVELOPE STAGE
    ========================================================================== */
 .envelope-sanctuary {
   position: relative;
-  z-index: 50;
-  min-height: 485px;
+  z-index: 20;
+  width: 100%;
+  min-height: 495px;
+  padding: 46px 16px 22px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 1.2rem;
-  padding: 1.5rem 1rem 1.4rem;
-  overflow: hidden;
+  transition: opacity 0.65s var(--ease-out-expo), visibility 0.65s ease;
 }
 
 @media (min-height: 640px) {
   .envelope-sanctuary {
-    min-height: 100vh;
-    padding: 3.2rem 1rem 2rem;
+    min-height: 100dvh;
+    padding: 58px 18px 34px;
+    justify-content: center;
+    gap: 24px;
   }
 }
 
-/* Sanctuary Header */
+.envelope-sanctuary.is-dismissed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+}
+
+/* Envelope Stage Header */
 .sanctuary-header {
   text-align: center;
-  z-index: 10;
-  max-width: 580px;
-  will-change: transform, opacity;
+  max-width: 390px;
+  margin: 0 auto;
+  transition: opacity 0.45s ease, transform 0.45s var(--ease-out-expo);
 }
 
-.crest-mini {
-  color: var(--rose-gold-mid);
-  font-size: 1.1rem;
-  letter-spacing: 5px;
-  margin-bottom: 3px;
-  opacity: 0.9;
-}
-
-.crest-star {
-  color: var(--rose-gold-rich);
+.univ-pill-tag {
   display: inline-block;
-  animation: gentleTwinkle 3s infinite ease-in-out;
-}
-
-@keyframes gentleTwinkle {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.2); opacity: 1; text-shadow: 0 0 10px rgba(201, 164, 149, 0.6); }
-}
-
-.sanctuary-pre {
-  font-size: 0.84rem;
-  color: var(--ink-muted);
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  margin-bottom: 2px;
+  padding: 4px 13px;
+  border-radius: 999px;
+  background: rgba(30, 41, 59, 0.05);
+  border: 1px solid rgba(181, 148, 86, 0.32);
+  color: var(--gold-dark);
+  font-size: 0.73rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: 0.2px;
 }
 
 .sanctuary-title {
-  font-size: clamp(1.6rem, 3.8vw, 2.3rem);
-  font-weight: 800;
-  background: var(--rose-gold-foil);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 2px;
+  font-family: var(--font-serif);
+  font-size: clamp(1.55rem, 5vw, 2rem);
+  font-weight: 700;
+  color: var(--ink-navy);
   line-height: 1.3;
-  filter: drop-shadow(0 2px 8px rgba(140, 102, 88, 0.15));
+  margin-bottom: 4px;
 }
 
 .sanctuary-subtitle {
-  font-size: clamp(0.86rem, 2.2vw, 1rem);
+  font-size: clamp(0.82rem, 3.3vw, 0.92rem);
   color: var(--ink-secondary);
   font-weight: 400;
+  line-height: 1.55;
 }
 
 .sanctuary-subtitle strong {
-  color: var(--rose-gold-rich);
-  font-weight: 700;
+  color: var(--ink-navy);
+  font-weight: 600;
 }
 
-/* 3D Envelope Center Stage */
+/* Envelope Container & 3D Perspective */
 .envelope-stage-center {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  flex: 1;
-  perspective: 1400px;
-  z-index: 15;
-  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+  margin: 6px 0;
 }
 
-/* Envelope Assembly: Deterministic 2D Layering in 3D Space */
 .envelope-assembly {
   position: relative;
-  width: min(84vw, 360px);
+  width: min(92vw, 390px);
   aspect-ratio: 460 / 300;
   cursor: pointer;
   user-select: none;
+  /* Flat stacking context guarantees deterministic z-index ordering */
   transform-style: flat;
-  will-change: transform;
+  transition: transform 0.35s var(--ease-out-expo);
 }
 
-@media (min-height: 640px) and (min-width: 500px) {
+@media (max-height: 560px) {
   .envelope-assembly {
-    width: min(86vw, 435px);
+    width: min(82vw, 315px);
   }
 }
 
-.envelope-aura {
+.envelope-assembly:hover {
+  transform: translateY(-3px);
+}
+
+.envelope-shadow-base {
   position: absolute;
-  inset: -35px;
-  background: radial-gradient(circle, rgba(201, 164, 149, 0.22) 0%, transparent 70%);
-  border-radius: 50%;
+  inset: 8% 5% -8% 5%;
+  border-radius: 18px;
+  background: radial-gradient(ellipse at center, rgba(30, 41, 59, 0.16) 0%, rgba(181, 148, 86, 0.1) 50%, transparent 75%);
+  filter: blur(16px);
   z-index: 0;
   pointer-events: none;
-  filter: blur(22px);
 }
 
 .env-svg-full {
@@ -267,154 +294,111 @@ body.is-locked {
   overflow: visible;
 }
 
-/* LAYER 1: ENVELOPE BACK & FLORAL SILK LINING */
+/* Layer 1: Envelope Back & Academic Navy-Gold Lining */
 .env-layer-back {
   position: absolute;
   inset: 0;
   z-index: 1;
   border-radius: 14px;
-  box-shadow: 
-    0 25px 60px -10px rgba(140, 102, 88, 0.25),
-    0 0 35px rgba(236, 220, 214, 0.45);
-  will-change: transform, opacity;
 }
 
-/* LAYER 2: LUXURY COTTON CARD RESTING INSIDE THE POCKET */
+/* Layer 2: Inner Letter Card (Always z-index: 2 < Pocket z-index: 3) */
 .env-layer-letter {
   position: absolute;
-  left: 5%;
-  width: 90%;
-  bottom: 4.5%;
-  height: 86%;
-  z-index: 2; /* Always behind Layer 3 (.env-layer-pocket) */
-  will-change: transform, opacity;
-  transform-origin: center center;
+  top: 7%;
+  left: 5.5%;
+  right: 5.5%;
+  bottom: 7%;
+  z-index: 2;
+  will-change: transform;
 }
 
 .letter-paper {
   width: 100%;
   height: 100%;
-  background: linear-gradient(165deg, #ffffff 0%, #fcf9f8 100%);
-  border-radius: 8px;
-  padding: 9px;
-  box-shadow: 
-    0 -4px 18px rgba(140, 102, 88, 0.15),
-    inset 0 0 25px rgba(201, 164, 149, 0.08);
-  border: 1px solid rgba(201, 164, 149, 0.5);
+  background: linear-gradient(180deg, #ffffff 0%, #fbf9f5 100%);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 6px 20px rgba(30, 41, 59, 0.12);
+  border: 1px solid rgba(198, 166, 107, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .letter-gold-frame {
-  position: relative;
   width: 100%;
   height: 100%;
-  border: 1.5px solid var(--rose-gold-mid);
-  border-radius: 5px;
+  border: 1px solid rgba(198, 166, 107, 0.45);
+  border-radius: 7px;
+  padding: 10px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.6rem 0.9rem;
   text-align: center;
-  background: radial-gradient(circle at 50% 30%, rgba(249, 240, 236, 0.35), transparent 70%);
-}
-
-.letter-corner {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-color: var(--rose-gold-rich);
-  border-style: solid;
-}
-.lc-tl { top: 3px; left: 3px; border-width: 2px 0 0 2px; }
-.lc-tr { top: 3px; right: 3px; border-width: 2px 2px 0 0; }
-.lc-bl { bottom: 3px; left: 3px; border-width: 0 0 2px 2px; }
-.lc-br { bottom: 3px; right: 3px; border-width: 0 2px 2px 0; }
-
-.letter-rosette {
-  font-size: 0.65rem;
-  color: var(--rose-gold-mid);
-  letter-spacing: 3px;
-  margin-bottom: 2px;
+  background: radial-gradient(circle at top, rgba(198, 166, 107, 0.06), transparent 70%);
 }
 
 .letter-Basmala {
-  font-family: var(--font-classical);
-  font-size: clamp(0.85rem, 2.3vw, 1.08rem);
-  color: var(--ink-primary);
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-size: clamp(0.78rem, 2.8vw, 0.95rem);
+  color: var(--gold-dark);
+  margin-bottom: 4px;
 }
 
 .letter-divider {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 55%;
-  margin: 2px auto 4px;
-}
-
-.letter-divider span {
-  flex: 1;
+  width: 44px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--rose-gold-mid), transparent);
-}
-
-.div-diamond {
-  color: var(--rose-gold-mid);
-  font-size: 0.65rem;
+  background: linear-gradient(90deg, transparent, var(--gold-mid), transparent);
+  margin: 4px auto 6px;
 }
 
 .letter-kicker {
-  font-size: clamp(0.68rem, 1.8vw, 0.78rem);
-  color: var(--rose-gold-rich);
-  font-weight: 700;
+  font-size: clamp(0.66rem, 2.3vw, 0.74rem);
+  color: var(--ink-muted);
+  font-weight: 500;
+  margin-bottom: 3px;
 }
 
 .letter-honoree {
-  font-size: clamp(1.05rem, 2.8vw, 1.38rem);
-  color: var(--ink-primary);
-  font-weight: 800;
-  margin: 1px 0;
+  font-family: var(--font-serif);
+  font-size: clamp(0.98rem, 3.6vw, 1.2rem);
+  font-weight: 700;
+  color: var(--ink-navy);
+  margin-bottom: 2px;
 }
 
 .letter-degree {
-  font-size: clamp(0.66rem, 1.7vw, 0.76rem);
-  color: var(--ink-muted);
+  font-size: clamp(0.65rem, 2.2vw, 0.72rem);
+  color: var(--gold-dark);
   font-weight: 600;
 }
 
-.letter-seal-mark {
-  margin-top: 4px;
-  font-size: 0.64rem;
-  color: var(--rose-gold-mid);
-  font-weight: 600;
-}
-
-/* LAYER 3: ENVELOPE FRONT POCKET */
+/* Layer 3: Front Pocket (Always z-index: 3 to mask lower letter) */
 .env-layer-pocket {
   position: absolute;
   inset: 0;
-  z-index: 3; /* Strictly in front of .env-layer-letter at all times */
+  z-index: 3;
   pointer-events: none;
-  will-change: transform, opacity;
 }
 
-/* LAYER 4: 3D TOP HINGED FLAP */
+/* Layer 4: 3D Top Hinged Flap (Starts z-index: 4, switches to 1 at 90deg) */
 .env-layer-top-flap {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 61.666%;
+  right: 0;
+  height: 61.66%;
   z-index: 4;
-  perspective: 1500px;
+  perspective: 1100px;
   pointer-events: none;
-  will-change: transform, opacity;
 }
 
 .top-flap-3d {
-  position: relative;
   width: 100%;
   height: 100%;
+  position: relative;
   transform-origin: top center;
   transform-style: preserve-3d;
   will-change: transform;
@@ -444,31 +428,35 @@ body.is-locked {
   overflow: visible;
 }
 
-/* LAYER 5: DUSTY ROSE & GOLD TWO-PIECE SPLITTING WAX SEAL */
+/* Layer 5: Academic Gold Wax Seal */
 .wax-seal-stage {
   position: absolute;
-  top: 56%;
+  top: 54%;
   left: 50%;
+  width: clamp(74px, 21vw, 90px);
+  height: clamp(74px, 21vw, 90px);
   transform: translate(-50%, -50%);
-  width: clamp(76px, 18vw, 94px);
-  height: clamp(76px, 18vw, 94px);
   z-index: 5;
-  cursor: pointer;
+  pointer-events: none;
 }
 
 .wax-aura-ring {
   position: absolute;
-  inset: -12px;
+  inset: -6px;
   border-radius: 50%;
-  border: 1.5px solid rgba(224, 196, 186, 0.6);
-  box-shadow: 0 0 25px rgba(184, 142, 128, 0.4);
-  animation: waxPulseRing 2.4s infinite ease-in-out;
-  pointer-events: none;
+  border: 1.5px solid rgba(198, 166, 107, 0.45);
+  animation: sealPulse 2.4s infinite ease-in-out;
 }
 
-@keyframes waxPulseRing {
-  0%, 100% { transform: scale(0.94); opacity: 0.5; }
-  50% { transform: scale(1.1); opacity: 1; }
+@keyframes sealPulse {
+  0%, 100% {
+    transform: scale(0.96);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.75;
+  }
 }
 
 .wax-half {
@@ -476,718 +464,450 @@ body.is-locked {
   inset: 0;
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 6px 14px rgba(115, 82, 70, 0.35));
+  filter: drop-shadow(0 6px 12px rgba(30, 41, 59, 0.24));
   will-change: transform, opacity;
-  transition: transform 0.3s ease;
 }
 
-.envelope-assembly:hover .wax-half-left {
-  transform: scale(1.05);
-}
-.envelope-assembly:hover .wax-half-right {
-  transform: scale(1.05);
-}
-
-.wax-svg {
+.wax-svg,
+.wax-crack-svg {
   width: 100%;
   height: 100%;
   display: block;
-  overflow: visible;
 }
 
 .wax-crack-svg {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
   z-index: 6;
-  overflow: visible;
 }
 
 #wax-crack-path {
   stroke-dasharray: 140;
   stroke-dashoffset: 140;
-  filter: drop-shadow(0 0 6px #fff0f3);
+  opacity: 0;
 }
 
-/* Sanctuary Bottom Touch Prompt */
+/* Bottom Touch Prompt */
 .sanctuary-prompt {
-  z-index: 10;
   text-align: center;
-  will-change: transform, opacity;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .prompt-button {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 11px 24px;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1.5px solid var(--rose-gold-mid);
-  color: var(--rose-gold-rich);
-  font-family: var(--font-royal);
-  font-size: 0.92rem;
-  font-weight: 600;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid var(--border-gold);
+  color: var(--ink-navy);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
   cursor: pointer;
-  box-shadow: 0 8px 25px rgba(201, 164, 149, 0.25);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s ease;
 }
 
-.prompt-button:hover {
+.prompt-button:hover,
+.prompt-button:active {
   transform: translateY(-2px);
-  border-color: var(--rose-gold-rich);
-  box-shadow: 0 10px 28px rgba(201, 164, 149, 0.35);
-  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(181, 148, 86, 0.16);
 }
 
 .prompt-pulse {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--rose-gold-mid);
-  box-shadow: 0 0 10px var(--rose-gold-mid);
-  animation: dotPing 1.5s infinite ease-in-out;
+  background: var(--gold-primary);
+  box-shadow: 0 0 0 4px rgba(181, 148, 86, 0.2);
 }
-
-@keyframes dotPing {
-  0%, 100% { transform: scale(0.85); opacity: 0.6; }
-  50% { transform: scale(1.35); opacity: 1; }
-}
-
 
 /* ==========================================================================
-   ACT II: THE LUMINOUS LUXURY FOIL CARD INVITATION
+   5. SCREEN 2: THE ACADEMIC INVITATION CARD (MOBILE-FIRST)
    ========================================================================== */
 .royal-invitation {
   position: relative;
-  z-index: 30;
-  min-height: 500px;
-  padding: 4.2rem 1rem 4.5rem;
+  z-index: 10;
   display: none;
+  opacity: 0;
+  width: 100%;
+  padding: 58px 12px 44px;
+  transition: opacity 0.65s var(--ease-out-expo);
 }
 
-.royal-invitation.is-active {
+.royal-invitation.is-visible {
   display: block;
+  opacity: 1;
 }
 
-.scroll-container {
-  max-width: 860px;
+.mobile-card-wrapper {
+  width: 100%;
+  max-width: 520px;
   margin: 0 auto;
 }
 
-/* Master Luxury Foil Manuscript Card */
-.manuscript-sheet {
+.invitation-card {
   position: relative;
-  background-color: #ffffff;
-  background-image: 
-    radial-gradient(circle at 50% 0%, rgba(249, 240, 236, 0.45) 0%, transparent 55%),
-    radial-gradient(circle at 0% 50%, rgba(246, 236, 232, 0.3) 0%, transparent 45%),
-    radial-gradient(circle at 100% 50%, rgba(246, 236, 232, 0.3) 0%, transparent 45%),
-    radial-gradient(circle at 50% 100%, rgba(249, 240, 236, 0.45) 0%, transparent 55%);
+  background: var(--card-surface);
   border-radius: 24px;
-  padding: 3.5rem 1.5rem;
-  box-shadow: 
-    0 30px 80px -15px rgba(140, 102, 88, 0.18),
-    0 0 45px rgba(236, 220, 214, 0.35),
-    inset 0 0 40px rgba(249, 240, 236, 0.2);
+  padding: 32px 20px 28px;
+  box-shadow: var(--shadow-card);
   overflow: hidden;
-  will-change: transform, opacity;
 }
 
-@media (min-width: 768px) {
-  .manuscript-sheet {
-    padding: 5rem 4rem;
+@media (min-width: 480px) {
+  .invitation-card {
+    padding: 42px 32px 36px;
   }
 }
 
-/* Double Rose Gold Borders */
-.manuscript-frame-outer {
+/* Double Academic Hairline Borders */
+.card-border-outer {
   position: absolute;
-  inset: 14px;
-  border: 1.5px solid rgba(201, 164, 149, 0.4);
-  border-radius: 16px;
+  inset: 9px;
+  border: 1px solid rgba(181, 148, 86, 0.32);
+  border-radius: 17px;
   pointer-events: none;
 }
 
-.manuscript-frame-inner {
+.card-border-inner {
   position: absolute;
-  inset: 21px;
-  border: 1px solid rgba(201, 164, 149, 0.25);
-  border-radius: 12px;
+  inset: 13px;
+  border: 1px solid rgba(181, 148, 86, 0.14);
+  border-radius: 14px;
   pointer-events: none;
 }
 
-/* Corner Accents */
-.card-corner {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border-color: var(--rose-gold-mid);
-  border-style: solid;
-  pointer-events: none;
+/* Smart Scroll-Reveal Transitions for Mobile */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s var(--ease-out-expo), transform 0.65s var(--ease-out-expo);
 }
-.cc-tl { top: 18px; left: 18px; border-width: 2px 0 0 2px; }
-.cc-tr { top: 18px; right: 18px; border-width: 2px 2px 0 0; }
-.cc-bl { bottom: 18px; left: 18px; border-width: 0 0 2px 2px; }
-.cc-br { bottom: 18px; right: 18px; border-width: 0 2px 2px 0; }
 
+.scroll-reveal.is-inview {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* ==========================================================================
-   SECTION 1: SHAMSA & PROLOGUE
+   6. HEADER, BASMALA & INSTITUTION BADGE
    ========================================================================== */
-.manuscript-header {
+.inv-header {
   text-align: center;
-  margin-bottom: 3rem;
-  position: relative;
-}
-
-.shamsa-medallion {
-  position: relative;
-  width: 110px;
-  height: 110px;
-  margin: 0 auto 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.shamsa-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  animation: rotateShamsa 50s linear infinite;
-}
-
-@keyframes rotateShamsa {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.shamsa-center-icon {
+  margin-bottom: 22px;
   position: relative;
   z-index: 2;
-  width: 50px;
-  height: 50px;
+}
+
+.academic-emblem {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 12px;
   border-radius: 50%;
-  background: #ffffff;
-  border: 1.5px solid var(--rose-gold-mid);
+  background: var(--card-tinted);
+  border: 1px solid var(--border-gold);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(201, 164, 149, 0.2);
 }
 
-.basmala-calligraphy {
-  font-family: var(--font-classical);
-  font-size: clamp(1.85rem, 4.5vw, 2.65rem);
-  font-weight: 700;
-  color: var(--ink-primary);
-  letter-spacing: 0.5px;
-  margin-bottom: 0.4rem;
-}
-
-.quranic-verse {
-  font-family: var(--font-classical);
-  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-  color: var(--rose-gold-rich);
-  font-weight: 700;
-  margin-bottom: 1.2rem;
-}
-
-.royal-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  max-width: 320px;
-  margin: 0 auto 1.4rem;
-}
-
-.royal-divider .div-line {
-  flex: 1;
-  height: 1.5px;
-  background: var(--rose-gold-foil);
-}
-
-.royal-divider .div-motif {
-  color: var(--rose-gold-mid);
-  font-size: 0.95rem;
-  letter-spacing: 4px;
-}
-
-.academic-banner {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: rgba(249, 240, 236, 0.45);
-  border: 1px solid rgba(201, 164, 149, 0.35);
-  padding: 8px 24px;
-  border-radius: 50px;
-  font-size: 0.95rem;
-  color: var(--ink-secondary);
-  font-weight: 600;
-}
-
-.univ-name {
-  color: var(--rose-gold-rich);
-  font-weight: 700;
-}
-
-.univ-dot {
-  color: var(--rose-gold-mid);
-}
-
-
-/* ==========================================================================
-   SECTION 2: POETIC PRELUDE & HONOREE CARTOUCHE
-   ========================================================================== */
-.proclamation-section {
-  text-align: center;
-  margin-bottom: 3.2rem;
-}
-
-.poetic-prelude {
-  font-family: var(--font-classical);
-  font-style: italic;
-  font-size: clamp(1.1rem, 2.6vw, 1.32rem);
-  color: var(--ink-muted);
-  max-width: 640px;
-  margin: 0 auto 1.6rem;
-  line-height: 2;
-}
-
-.formal-salutation {
-  font-size: clamp(1.08rem, 2.5vw, 1.25rem);
-  color: var(--ink-secondary);
-  max-width: 660px;
-  margin: 0 auto 2rem;
-  line-height: 2;
-}
-
-.formal-salutation strong {
-  color: var(--rose-gold-rich);
-  font-weight: 800;
-}
-
-/* The Royal Cartouche of the Honoree */
-.honoree-cartouche {
-  position: relative;
-  background: linear-gradient(135deg, #ffffff 0%, #fdfbfa 50%, #fbf7f5 100%);
-  border: 2px solid var(--rose-gold-mid);
-  border-radius: 20px;
-  padding: 2.4rem 1.5rem;
-  max-width: 640px;
-  margin: 0 auto;
-  box-shadow: 
-    0 15px 40px rgba(140, 102, 88, 0.12),
-    inset 0 0 0 4px rgba(249, 240, 236, 0.4);
-  overflow: hidden;
-}
-
-.cartouche-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 20%, rgba(201, 164, 149, 0.08), transparent 65%);
-  pointer-events: none;
-}
-
-.honoree-title-prefix {
-  display: block;
-  font-size: 1rem;
-  color: var(--rose-gold-mid);
-  font-weight: 600;
-  letter-spacing: 0.5px;
+.basmala-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 4.5vw, 1.45rem);
+  color: var(--ink-navy);
   margin-bottom: 6px;
 }
 
-.honoree-full-name {
-  font-size: clamp(2.2rem, 5.5vw, 3.4rem);
-  font-weight: 800;
-  color: var(--ink-primary);
-  line-height: 1.35;
-  margin-bottom: 1.2rem;
-  letter-spacing: -0.5px;
+.quran-verse {
+  font-family: var(--font-serif);
+  font-size: clamp(0.92rem, 3.4vw, 1.05rem);
+  color: var(--gold-dark);
+  margin-bottom: 14px;
+  line-height: 1.6;
 }
 
-.specialization-badge {
+.institution-badge {
   display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
-  background: #ffffff;
-  border: 1px solid var(--rose-gold-mid);
-  padding: 8px 22px;
-  border-radius: 40px;
-  color: var(--rose-gold-rich);
-  font-size: 0.96rem;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(30, 41, 59, 0.04);
+  border: 1px solid rgba(30, 41, 59, 0.08);
+  font-size: 0.75rem;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(201, 164, 149, 0.12);
+  color: var(--ink-slate);
 }
 
+.institution-badge .sep {
+  color: var(--gold-primary);
+}
 
 /* ==========================================================================
-   SECTION 3: CELEBRATORY BANQUET INVITATION
+   7. HERO STATEMENT, RESEARCHER BOX & LUNCH INVITATION
    ========================================================================== */
-.banquet-sanctuary {
-  margin-bottom: 3.5rem;
-}
-
-.banquet-box {
+.inv-hero {
+  text-align: center;
+  margin-bottom: 26px;
   position: relative;
-  background: linear-gradient(180deg, #ffffff 0%, #fcf9f8 100%);
-  border: 1.5px solid rgba(201, 164, 149, 0.35);
+  z-index: 2;
+}
+
+.inv-intro {
+  font-size: clamp(0.9rem, 3.5vw, 0.98rem);
+  color: var(--ink-secondary);
+  line-height: 1.85;
+  margin-bottom: 18px;
+  padding: 0 4px;
+}
+
+.inv-intro strong {
+  color: var(--ink-navy);
+  font-weight: 600;
+}
+
+/* Researcher Highlight Box */
+.researcher-box {
+  background: linear-gradient(180deg, #fcfaf6 0%, #f6f1e7 100%);
+  border: 1px solid var(--border-gold);
   border-radius: 18px;
-  padding: 2.5rem 1.8rem 2rem;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(140, 102, 88, 0.06);
+  padding: 20px 16px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
 }
 
-.banquet-arch-top {
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--rose-gold-rich);
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 700;
-  padding: 5px 24px;
-  border-radius: 30px;
-  border: 1.5px solid #ffffff;
-  white-space: nowrap;
-  box-shadow: 0 4px 14px rgba(115, 82, 70, 0.25);
-}
-
-.banquet-prose {
-  font-size: clamp(1.08rem, 2.5vw, 1.24rem);
-  color: var(--ink-primary);
-  line-height: 2.1;
-  max-width: 650px;
-  margin: 0.5rem auto 1.4rem;
-}
-
-.banquet-prose strong {
-  color: var(--rose-gold-rich);
-  font-weight: 800;
-  border-bottom: 2px dotted var(--rose-gold-mid);
-}
-
-.banquet-poetry {
-  font-family: var(--font-classical);
-  font-size: clamp(1.15rem, 2.6vw, 1.35rem);
-  font-weight: 700;
-  color: var(--rose-gold-rich);
-  padding-top: 1rem;
-  border-top: 1px dashed rgba(201, 164, 149, 0.35);
-}
-
-
-/* ==========================================================================
-   SECTION HEADING LOCKUP
-   ========================================================================== */
-.section-heading-lockup {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.heading-kicker {
+.researcher-label {
   display: block;
-  font-size: 0.85rem;
-  color: var(--rose-gold-mid);
+  font-size: 0.78rem;
+  color: var(--gold-dark);
   font-weight: 600;
   margin-bottom: 4px;
 }
 
-.heading-main {
-  font-size: clamp(1.5rem, 3.6vw, 1.95rem);
-  color: var(--ink-primary);
+.researcher-name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.65rem, 6.2vw, 2.1rem);
   font-weight: 700;
-  margin-bottom: 8px;
+  color: var(--ink-navy);
+  line-height: 1.35;
+  margin-bottom: 10px;
 }
 
-.heading-underline {
-  width: 80px;
-  height: 2.5px;
-  background: var(--rose-gold-foil);
-  margin: 0 auto;
-  border-radius: 3px;
-}
-
-.heading-desc {
-  font-size: 0.96rem;
-  color: var(--ink-muted);
-  max-width: 560px;
-  margin: 10px auto 0;
-}
-
-
-/* ==========================================================================
-   SECTION 4: COMMITTEE TRIBUTE
-   ========================================================================== */
-.committee-section {
-  margin-bottom: 3.5rem;
-}
-
-.committee-scroll-card {
-  background: #ffffff;
-  border: 1px solid rgba(201, 164, 149, 0.3);
-  border-radius: 16px;
-  padding: 2rem 1.8rem;
-  text-align: center;
-  box-shadow: 0 6px 20px rgba(140, 102, 88, 0.05);
-}
-
-.committee-icon-medallion {
-  width: 52px;
-  height: 52px;
-  margin: 0 auto 1rem;
-  border-radius: 50%;
-  background: var(--blush-powder-soft);
-  border: 1.5px solid var(--rose-gold-mid);
-  display: flex;
+.researcher-field {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-}
-
-.committee-tribute-text {
-  font-size: 1.05rem;
-  color: var(--ink-secondary);
-  line-height: 2;
-  max-width: 620px;
-  margin: 0 auto;
-}
-
-.committee-tribute-text strong {
-  color: var(--ink-primary);
-}
-
-
-/* ==========================================================================
-   SECTION 5: MOSUL ARCHES OF TIME & PLACE
-   ========================================================================== */
-.arches-section {
-  margin-bottom: 3.5rem;
-}
-
-.mosul-arches-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.4rem;
-  margin-bottom: 1.8rem;
-}
-
-@media (min-width: 680px) {
-  .mosul-arches-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.mosul-arch-card {
+  gap: 6px;
+  padding: 5px 13px;
+  border-radius: 999px;
   background: #ffffff;
-  border-radius: 90px 90px 16px 16px;
-  padding: 2.2rem 1.2rem 1.6rem;
-  text-align: center;
-  border: 1.5px solid rgba(201, 164, 149, 0.35);
-  box-shadow: 0 8px 24px rgba(140, 102, 88, 0.05);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.mosul-arch-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 32px var(--rose-gold-glow);
-  border-color: var(--rose-gold-mid);
-}
-
-.arch-featured {
-  background: linear-gradient(180deg, #ffffff 0%, #fcf9f7 100%);
-  border-width: 2px;
-  border-color: var(--rose-gold-mid);
-}
-
-.arch-dome {
-  width: 54px;
-  height: 54px;
-  margin: 0 auto 12px;
-  border-radius: 50%;
-  background: var(--blush-powder-soft);
-  border: 1.5px solid var(--rose-gold-mid);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--rose-gold-rich);
-}
-
-.arch-label {
-  display: block;
-  font-size: 0.88rem;
-  color: var(--ink-muted);
+  border: 1px solid rgba(181, 148, 86, 0.3);
+  color: var(--ink-slate);
+  font-size: 0.78rem;
   font-weight: 600;
-  margin-bottom: 6px;
 }
 
-.arch-value {
-  font-size: 1.35rem;
-  color: var(--ink-primary);
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.arch-sub {
-  font-size: 0.85rem;
-  color: var(--ink-muted);
-}
-
-.arch-badge-gold {
-  display: inline-block;
-  background: rgba(201, 164, 149, 0.15);
-  color: var(--rose-gold-rich);
-  padding: 3px 12px;
-  border-radius: 20px;
-  font-weight: 700;
-  font-size: 0.8rem;
-}
-
-/* Day Flow Bar */
-.day-journey-bar {
-  background: #ffffff;
-  border: 1px solid rgba(201, 164, 149, 0.3);
-  border-radius: 16px;
-  padding: 1.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-  justify-content: space-between;
-}
-
-@media (min-width: 720px) {
-  .day-journey-bar {
-    flex-direction: row;
-    padding: 1.4rem 1.8rem;
-  }
-}
-
-.journey-step {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-align: right;
-  width: 100%;
-}
-
-@media (min-width: 720px) {
-  .journey-step {
-    width: auto;
-  }
-}
-
-.step-num {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--blush-powder-soft);
-  border: 1.5px solid var(--rose-gold-mid);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--rose-gold-rich);
+.researcher-field svg {
+  color: var(--gold-primary);
   flex-shrink: 0;
 }
 
-.step-highlight .step-num {
-  background: var(--rose-gold-rich);
-  color: #ffffff;
-  border-color: var(--rose-gold-rich);
+/* Celebratory Lunch Invitation Box */
+.lunch-invitation-box {
+  background: var(--card-surface-soft);
+  border: 1px solid var(--border-subtle);
+  border-right: 3px solid var(--gold-primary);
+  border-radius: 14px;
+  padding: 16px 15px;
+  text-align: center;
 }
 
-.step-info {
-  display: flex;
-  flex-direction: column;
+.lunch-tag {
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--gold-dark);
+  background: var(--gold-pale);
+  padding: 3px 12px;
+  border-radius: 999px;
+  margin-bottom: 8px;
 }
 
-.step-info strong {
-  font-size: 0.96rem;
-  color: var(--ink-primary);
+.lunch-text {
+  font-size: 0.88rem;
+  color: var(--ink-slate);
+  line-height: 1.8;
+  margin-bottom: 8px;
 }
 
-.step-info span {
-  font-size: 0.82rem;
-  color: var(--ink-muted);
+.lunch-text strong {
+  color: var(--ink-navy);
+  font-weight: 600;
 }
 
-.journey-connector {
-  color: var(--rose-gold-mid);
-  font-size: 1.4rem;
-  font-weight: bold;
-  display: none;
+.lunch-welcome {
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--gold-dark);
 }
-
-@media (min-width: 720px) {
-  .journey-connector {
-    display: block;
-  }
-}
-
 
 /* ==========================================================================
-   SECTION 6: ROSE GOLD COUNTDOWN DIALS
-   ========================================================================= */
-.astrolabe-countdown-section {
-  margin-bottom: 3.5rem;
-}
-
-.astrolabe-panel {
-  background: linear-gradient(135deg, #ffffff 0%, #fcf9f7 50%, #f9f3f0 100%);
-  border: 1.5px solid var(--rose-gold-mid);
-  border-radius: 22px;
-  padding: 2.5rem 1.2rem;
+   8. SECTION TITLES & EVENT DETAILS CARDS
+   ========================================================================== */
+.sec-title-wrap {
   text-align: center;
-  box-shadow: 0 15px 35px rgba(140, 102, 88, 0.08);
+  margin-bottom: 14px;
 }
 
-.astrolabe-title {
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  color: var(--rose-gold-rich);
+.sec-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 2rem;
+  color: var(--ink-navy);
+  margin-bottom: 5px;
+}
+
+.sec-line {
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  margin: 0 auto;
+}
+
+.sec-subtitle {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  margin-top: 6px;
+}
+
+.inv-details-section {
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.details-cards-grid {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   gap: 10px;
 }
 
-.astrolabe-rings-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.2rem;
-  max-width: 580px;
-  margin: 0 auto;
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: var(--card-surface-soft);
+  border: 1px solid var(--border-subtle);
+  transition: border-color 0.25s ease, transform 0.25s ease;
 }
 
-@media (min-width: 560px) {
-  .astrolabe-rings-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+.info-card:hover {
+  border-color: var(--border-gold);
 }
 
-.astrolabe-dial {
-  position: relative;
-  width: 118px;
-  height: 118px;
-  margin: 0 auto;
+.info-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: var(--gold-pale);
+  color: var(--gold-dark);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
-.dial-svg {
+.info-text {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.info-label {
+  font-size: 0.73rem;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+.info-value {
+  font-size: 0.93rem;
+  color: var(--ink-navy);
+  font-weight: 700;
+  margin: 1px 0;
+}
+
+.info-note {
+  font-size: 0.74rem;
+  color: var(--ink-secondary);
+}
+
+.info-badge {
+  display: inline-block;
+  color: var(--gold-dark);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   9. COMPACT SINGLE-ROW COUNTDOWN (OPTIMIZED FOR MOBILE)
+   ========================================================================== */
+.inv-countdown-section {
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.countdown-box {
+  background: linear-gradient(180deg, #1e293b 0%, #172030 100%);
+  border-radius: 18px;
+  padding: 18px 12px;
+  text-align: center;
+  color: #ffffff;
+  border: 1px solid rgba(198, 166, 107, 0.35);
+  box-shadow: 0 10px 25px -8px rgba(30, 41, 59, 0.25);
+}
+
+.countdown-heading {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--gold-light);
+  font-weight: 500;
+  margin-bottom: 12px;
+  letter-spacing: 0.3px;
+}
+
+.countdown-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.cd-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cd-ring-wrap {
+  position: relative;
+  width: clamp(56px, 15vw, 66px);
+  height: clamp(56px, 15vw, 66px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.cd-svg {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -1195,573 +915,456 @@ body.is-locked {
   transform: rotate(-90deg);
 }
 
-.dial-track {
-  fill: #ffffff;
-  stroke: rgba(201, 164, 149, 0.2);
-  stroke-width: 4;
+.cd-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 3.5;
 }
 
-.dial-progress {
+.cd-bar {
   fill: none;
-  stroke: url(#rose-gold-foil);
-  stroke-width: 4.5;
+  stroke: var(--gold-mid);
+  stroke-width: 3.5;
   stroke-linecap: round;
-  stroke-dasharray: 326.72;
-  stroke-dashoffset: 60;
+  stroke-dasharray: 219.91;
+  stroke-dashoffset: 0;
   transition: stroke-dashoffset 0.5s ease;
 }
 
-.dial-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.dial-number {
-  font-size: 1.85rem;
-  font-weight: 800;
-  color: var(--rose-gold-rich);
-  line-height: 1.1;
-}
-
-.dial-label {
-  font-size: 0.82rem;
-  color: var(--ink-muted);
-  font-weight: 600;
-  margin-top: 2px;
-}
-
-
-/* ==========================================================================
-   SECTION 7: VENUE CARD & MAP
-   ========================================================================== */
-.venue-compass-section {
-  margin-bottom: 3.5rem;
-}
-
-.compass-card {
-  background: #ffffff;
-  border: 1.5px dashed var(--rose-gold-mid);
-  border-radius: 18px;
-  padding: 1.8rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 6px 20px rgba(140, 102, 88, 0.05);
-}
-
-@media (min-width: 680px) {
-  .compass-card {
-    flex-direction: row;
-    text-align: right;
-    justify-content: space-between;
-  }
-}
-
-.compass-rose-wrap {
-  position: relative;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--blush-powder-soft);
-  border: 1.5px solid var(--rose-gold-mid);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.compass-pin {
-  position: relative;
-  z-index: 2;
-}
-
-.compass-pin-pulse {
-  position: absolute;
-  inset: 6px;
-  border-radius: 50%;
-  background: rgba(201, 164, 149, 0.2);
-  animation: dotPing 2s infinite ease-in-out;
-}
-
-.compass-details {
-  flex: 1;
-}
-
-.compass-tag {
-  display: inline-block;
-  font-size: 0.8rem;
+.cd-num {
+  font-size: clamp(0.95rem, 3.8vw, 1.12rem);
   font-weight: 700;
-  color: var(--rose-gold-rich);
-  margin-bottom: 4px;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
 }
 
-.compass-details h4 {
-  font-size: 1.25rem;
-  color: var(--ink-primary);
-  margin-bottom: 4px;
+.cd-lbl {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.78);
 }
-
-.compass-details p {
-  font-size: 0.92rem;
-  color: var(--ink-muted);
-}
-
 
 /* ==========================================================================
-   ROYAL BUTTONS
+   10. COMMITTEE & RESTAURANT LOCATION MAP CARDS
    ========================================================================== */
-.royal-btn {
+.inv-committee-section,
+.inv-map-section {
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.committee-card {
+  background: var(--card-tinted);
+  border: 1px solid var(--border-gold);
+  border-radius: 16px;
+  padding: 16px 15px;
+  text-align: center;
+}
+
+.committee-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink-navy);
+  margin-bottom: 6px;
+}
+
+.committee-header svg {
+  color: var(--gold-primary);
+}
+
+.committee-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  font-weight: 700;
+}
+
+.committee-card p {
+  font-size: 0.82rem;
+  color: var(--ink-secondary);
+  line-height: 1.75;
+}
+
+.map-card {
+  background: var(--card-surface-soft);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 18px 16px;
+  text-align: center;
+}
+
+.map-kicker {
+  display: inline-block;
+  font-size: 0.72rem;
+  color: var(--gold-dark);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.map-card-info h4 {
+  font-size: 0.96rem;
+  color: var(--ink-navy);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.map-card-info p {
+  font-size: 0.79rem;
+  color: var(--ink-muted);
+  margin-bottom: 14px;
+}
+
+/* ==========================================================================
+   11. BUTTONS & INTERACTIVE CONTROLS
+   ========================================================================== */
+.btn-action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  font-family: var(--font-royal);
-  font-size: 0.94rem;
-  font-weight: 700;
-  padding: 13px 26px;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 18px;
   border-radius: 12px;
-  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
   text-decoration: none;
-  border: none;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.2s var(--ease-out-expo), box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.royal-btn-rose {
-  background: var(--rose-gold-foil);
+.btn-action:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--ink-navy);
   color: #ffffff;
-  box-shadow: 0 6px 20px rgba(140, 102, 88, 0.25);
+  border-color: var(--ink-navy);
 }
 
-.royal-btn-rose:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(140, 102, 88, 0.38);
+.btn-primary:hover {
+  background: #0f172a;
 }
 
-.royal-btn-outline {
+.btn-outline {
   background: #ffffff;
-  border: 1.5px solid var(--rose-gold-mid);
-  color: var(--rose-gold-rich);
+  color: var(--ink-navy);
+  border-color: var(--border-gold);
 }
 
-.royal-btn-outline:hover {
-  background: var(--blush-powder-soft);
-  transform: translateY(-2px);
+.btn-outline:hover {
+  background: var(--card-tinted);
 }
 
-.royal-btn-whatsapp {
-  background: #1f8e46;
-  color: #ffffff;
-  box-shadow: 0 6px 20px rgba(31, 142, 70, 0.25);
+.btn-whatsapp {
+  background: #f0fdf4;
+  color: #166534;
+  border-color: rgba(22, 101, 52, 0.25);
 }
 
-.royal-btn-whatsapp:hover {
-  background: #187338;
-  transform: translateY(-2px);
+.btn-whatsapp:hover {
+  background: #dcfce7;
 }
 
 .btn-sm {
-  padding: 10px 20px;
-  font-size: 0.88rem;
+  padding: 10px 14px;
+  font-size: 0.8rem;
 }
-
 
 /* ==========================================================================
-   SECTION 8: RSVP & VIP PASS GENERATOR
+   12. RSVP FORM & CONFIRMATION PASS
    ========================================================================== */
-.rsvp-sanctuary {
-  margin-bottom: 3.5rem;
+.inv-rsvp-section {
+  margin-bottom: 26px;
+  position: relative;
+  z-index: 2;
 }
 
-.rsvp-ledger-box {
-  background: #ffffff;
-  border: 1.5px solid rgba(201, 164, 149, 0.35);
-  border-radius: 20px;
-  padding: 2rem 1.4rem;
-  box-shadow: 0 10px 30px rgba(140, 102, 88, 0.05);
-}
-
-@media (min-width: 768px) {
-  .rsvp-ledger-box {
-    padding: 2.8rem 2.5rem;
-  }
+.rsvp-card {
+  background: var(--card-surface-soft);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 18px 15px;
 }
 
 .rsvp-form {
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+  gap: 14px;
 }
 
-.ledger-field {
+.form-field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   text-align: right;
 }
 
-.ledger-field label {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--ink-primary);
+.form-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-navy);
 }
 
-.ledger-input {
+.form-input {
   width: 100%;
-  font-family: var(--font-royal);
-  font-size: 0.96rem;
-  padding: 13px 16px;
-  border-radius: 12px;
-  border: 1.5px solid #eae0dc;
-  background: #fefcfb;
-  color: var(--ink-primary);
-  outline: none;
-  transition: all 0.25s ease;
-}
-
-.ledger-textarea {
-  resize: vertical;
-}
-
-.ledger-input:focus {
-  border-color: var(--rose-gold-mid);
+  padding: 11px 13px;
+  border-radius: 11px;
+  border: 1px solid rgba(30, 41, 59, 0.14);
   background: #ffffff;
-  box-shadow: 0 0 0 4px var(--rose-gold-glow);
+  color: var(--ink-navy);
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Attendance Choice Cards */
-.choice-cards-grid {
+.form-input:focus {
+  outline: none;
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 0 3px rgba(181, 148, 86, 0.15);
+}
+
+.radio-cards {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
 
-@media (min-width: 600px) {
-  .choice-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 350px) {
+  .radio-cards {
+    grid-template-columns: 1fr;
   }
 }
 
-.choice-card {
+.radio-card {
   cursor: pointer;
 }
 
-.choice-card input[type="radio"] {
-  display: none;
+.radio-card input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.choice-card-body {
+.radio-card-inner {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border-radius: 14px;
-  border: 1.5px solid #eae0dc;
-  background: #fefcfb;
-  transition: all 0.25s ease;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 11px 10px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(30, 41, 59, 0.12);
+  transition: all 0.2s ease;
 }
 
-.choice-icon {
-  width: 42px;
-  height: 42px;
+.radio-card input:checked + .radio-card-inner {
+  border-color: var(--gold-primary);
+  background: var(--gold-pale);
+}
+
+.radio-dot {
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: var(--blush-powder-soft);
-  color: var(--rose-gold-rich);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
+  border: 2px solid var(--ink-muted);
+  margin-top: 2px;
   flex-shrink: 0;
+  position: relative;
 }
 
-.choice-text {
-  flex: 1;
+.radio-card input:checked + .radio-card-inner .radio-dot {
+  border-color: var(--gold-dark);
+}
+
+.radio-card input:checked + .radio-card-inner .radio-dot::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--gold-dark);
+}
+
+.radio-txt {
   display: flex;
   flex-direction: column;
 }
 
-.choice-text strong {
-  font-size: 0.94rem;
-  color: var(--ink-primary);
+.radio-txt strong {
+  font-size: 0.8rem;
+  color: var(--ink-navy);
 }
 
-.choice-text span {
-  font-size: 0.8rem;
+.radio-txt span {
+  font-size: 0.68rem;
   color: var(--ink-muted);
 }
 
-.choice-check {
-  color: #d4c4be;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.choice-card input[type="radio"]:checked + .choice-card-body {
-  border-color: var(--rose-gold-mid);
-  background: #fffcfb;
-  box-shadow: 0 6px 18px var(--rose-gold-glow);
-}
-
-.choice-card input[type="radio"]:checked + .choice-card-body .choice-icon {
-  background: var(--rose-gold-rich);
-  color: #ffffff;
-}
-
-.choice-card input[type="radio"]:checked + .choice-card-body .choice-check {
-  color: var(--rose-gold-rich);
-}
-
-.ledger-actions {
+.form-buttons {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 0.6rem;
+  gap: 8px;
+  margin-top: 4px;
 }
 
-@media (min-width: 560px) {
-  .ledger-actions {
-    flex-direction: row;
-  }
-  .ledger-actions .royal-btn {
-    flex: 1;
-  }
-}
-
-/* VIP Generated Guest Pass */
-.vip-pass-container {
-  animation: fadeInScale 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes fadeInScale {
-  from { opacity: 0; transform: scale(0.94); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.vip-pass-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fcf9f8 50%, #f9f3f0 100%);
-  border: 2px solid var(--rose-gold-mid);
-  border-radius: 18px;
-  padding: 2rem 1.5rem;
-  color: var(--ink-primary);
+/* Confirmation Pass */
+.confirm-pass {
   text-align: center;
-  box-shadow: 0 15px 40px rgba(140, 102, 88, 0.12);
+  padding: 12px 6px;
 }
 
-.vip-pass-header {
-  border-bottom: 1px dashed rgba(201, 164, 149, 0.4);
-  padding-bottom: 1.2rem;
-  margin-bottom: 1.2rem;
-}
-
-.vip-crest {
-  display: inline-flex;
-  width: 48px;
-  height: 48px;
+.confirm-check-icon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 10px;
   border-radius: 50%;
-  background: var(--rose-gold-foil);
-  color: #ffffff;
+  background: var(--gold-pale);
+  color: var(--gold-dark);
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
-  margin-bottom: 8px;
+  border: 1px solid var(--border-gold);
 }
 
-.vip-pass-header h4 {
-  font-size: 1.5rem;
-  color: var(--rose-gold-rich);
-  font-weight: 800;
+.confirm-pass h4 {
+  font-size: 0.95rem;
+  color: var(--ink-navy);
+  margin-bottom: 12px;
 }
 
-.vip-pass-header p {
-  font-size: 0.88rem;
-  color: var(--ink-secondary);
+.confirm-details {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.vip-pass-body {
+.c-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+}
+
+.c-row span {
+  color: var(--ink-muted);
+}
+
+.c-row strong {
+  color: var(--ink-navy);
+}
+
+.btn-text-link {
+  background: none;
+  border: none;
+  color: var(--gold-dark);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   13. CONGRATULATIONS & WISHES LIST
+   ========================================================================== */
+.inv-wishes-section {
+  margin-bottom: 26px;
+  position: relative;
+  z-index: 2;
+}
+
+.wishes-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 420px;
-  margin: 0 auto 1.4rem;
-  background: #ffffff;
-  padding: 1.2rem;
-  border-radius: 12px;
-  border: 1px solid rgba(201, 164, 149, 0.3);
 }
 
-.vip-row {
+.wish-card {
+  background: var(--card-surface-soft);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 14px 15px;
+  text-align: right;
+}
+
+.wish-body {
+  font-size: 0.84rem;
+  color: var(--ink-slate);
+  line-height: 1.75;
+  margin-bottom: 8px;
+}
+
+.wish-footer {
   display: flex;
   justify-content: space-between;
-  font-size: 0.95rem;
-}
-
-.vip-label {
-  color: var(--ink-muted);
-}
-
-.vip-val {
-  color: var(--rose-gold-rich);
-}
-
-.vip-pass-footer {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  font-size: 0.88rem;
-  color: var(--rose-gold-rich);
+  font-size: 0.74rem;
+  border-top: 1px solid rgba(30, 41, 59, 0.06);
+  padding-top: 7px;
 }
 
-.vip-edit-link {
-  background: none;
-  border: none;
-  color: var(--ink-muted);
-  text-decoration: underline;
-  cursor: pointer;
-  font-family: var(--font-royal);
-  font-size: 0.85rem;
+.wish-author {
+  font-weight: 700;
+  color: var(--ink-navy);
 }
 
+.wish-meta {
+  color: var(--gold-dark);
+}
 
 /* ==========================================================================
-   SECTION 9: BLESSINGS WALL
+   14. SHARE & FOOTER
    ========================================================================== */
-.blessings-wall-section {
-  margin-bottom: 3.5rem;
-}
-
-.blessings-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.2rem;
-  max-height: 420px;
-  overflow-y: auto;
-  padding: 4px;
-}
-
-@media (min-width: 680px) {
-  .blessings-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.blessing-parchment {
-  background: #ffffff;
-  border: 1px solid rgba(201, 164, 149, 0.3);
-  border-radius: 16px;
-  padding: 1.5rem;
+.inv-footer {
   position: relative;
-  text-align: right;
-  box-shadow: 0 4px 16px rgba(140, 102, 88, 0.04);
+  z-index: 2;
+  text-align: center;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 20px;
 }
 
-.blessing-quote-mark {
-  font-family: var(--font-classical);
-  font-size: 2rem;
-  color: var(--rose-gold-mid);
-  line-height: 1;
-  margin-bottom: 4px;
+.share-box {
+  margin-bottom: 20px;
 }
 
-.blessing-body {
-  font-size: 0.95rem;
-  color: var(--ink-secondary);
-  line-height: 1.85;
-  margin-bottom: 1rem;
-}
-
-.blessing-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px dashed rgba(201, 164, 149, 0.25);
-  padding-top: 8px;
-}
-
-.blessing-author {
-  font-weight: 700;
-  color: var(--rose-gold-rich);
-  font-size: 0.9rem;
-}
-
-.blessing-time {
+.share-box > span {
+  display: block;
   font-size: 0.78rem;
   color: var(--ink-muted);
+  margin-bottom: 8px;
 }
 
-
-/* ==========================================================================
-   SECTION 10: SHARE & COLOPHON FOOTER
-   ========================================================================== */
-.manuscript-footer {
-  text-align: center;
+.share-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
 
-.share-ribbon {
-  background: var(--blush-powder-soft);
-  border: 1px solid rgba(201, 164, 149, 0.3);
-  border-radius: 16px;
-  padding: 1.5rem;
-  margin-bottom: 2.5rem;
-}
-
-.share-ribbon p {
-  font-weight: 700;
-  color: var(--ink-primary);
-  margin-bottom: 1rem;
-}
-
-.share-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
-
-.colophon {
-  padding-top: 1.5rem;
-  border-top: 1.5px solid rgba(201, 164, 149, 0.25);
-}
-
-.colophon-ornament {
-  color: var(--rose-gold-mid);
-  font-size: 1.2rem;
-  letter-spacing: 6px;
-  margin-bottom: 0.8rem;
-}
-
-.colophon-verse {
-  font-family: var(--font-classical);
-  font-size: clamp(1.2rem, 3vw, 1.55rem);
-  font-weight: 700;
-  color: var(--ink-primary);
-  margin-bottom: 1.2rem;
-}
-
-.colophon-signature {
+.footer-signoff {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-bottom: 1rem;
+  gap: 2px;
 }
 
-.colophon-signature span {
+.signoff-text {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--gold-dark);
+}
+
+.signoff-name {
   font-size: 0.88rem;
+  color: var(--ink-navy);
+}
+
+.signoff-place {
+  font-size: 0.72rem;
   color: var(--ink-muted);
-}
-
-.colophon-signature strong {
-  font-size: 1.25rem;
-  color: var(--rose-gold-rich);
-  font-weight: 800;
-}
-
-.colophon-location {
-  font-size: 0.82rem;
-  color: var(--rose-gold-mid);
-  letter-spacing: 0.5px;
 }

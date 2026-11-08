@@ -1,20 +1,100 @@
 /**
  * ============================================================================
- * ROYAL INVITATION — SOFT BLUSH & ROSE GOLD INTERACTIVE ENGINE
- * Honoree: Researcher Ibtisam Mahmoud Saleh — University of Mosul
- * Featuring: Drifting Rose Petals, Ethereal Piano/Harp Chords, 3D Velvet Envelope
+ * MASTER'S DEFENSE CELEBRATORY LUNCHEON — INTERACTIVE ENGINE
+ * Researcher: Ibtisam Mahmoud Saleh | University of Mosul
  * ============================================================================
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initAmbientCanvas();
+  const audioEngine = initSynthesizedAudio();
+  initScrollReveal();
+  initEnvelopeChoreography(audioEngine);
+  initCountdownTimer();
+  initRSVPAndWishes(audioEngine);
+  initShareTools(audioEngine);
+});
 
-  // ==========================================================================
-  // 1. ETHEREAL PIANO & HARP SYNTHESIZER (Celebratory E-Flat Major Warm Chords)
-  // ==========================================================================
+/* ==========================================================================
+   1. CALM ACADEMIC AMBIENT CANVAS (Subtle Floating Gold Dust & Warm Bokeh)
+   ========================================================================== */
+function initAmbientCanvas() {
+  const canvas = document.getElementById('ambient-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  let width = (canvas.width = window.innerWidth);
+  let height = (canvas.height = window.innerHeight);
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  const count = Math.min(28, Math.floor((width * height) / 28000));
+  const particles = [];
+
+  const colors = [
+    'rgba(198, 166, 107, 0.22)', // Soft academic gold
+    'rgba(181, 148, 86, 0.16)',  // Antique champagne
+    'rgba(224, 182, 188, 0.14)', // Very faint warm blush hint
+    'rgba(30, 41, 59, 0.06)'     // Subtle slate mote
+  ];
+
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      r: Math.random() * 2.4 + 0.8,
+      vx: (Math.random() - 0.5) * 0.22,
+      vy: -Math.random() * 0.28 - 0.08,
+      alpha: Math.random() * 0.6 + 0.2,
+      phase: Math.random() * Math.PI * 2,
+      color: colors[i % colors.length]
+    });
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, width, height);
+
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.phase += 0.015;
+
+      if (p.y < -10) p.y = height + 10;
+      if (p.x < -10) p.x = width + 10;
+      if (p.x > width + 10) p.x = -10;
+
+      const pulse = 0.65 + 0.35 * Math.sin(p.phase);
+
+      ctx.save();
+      ctx.globalAlpha = p.alpha * pulse;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    requestAnimationFrame(render);
+  }
+
+  render();
+}
+
+/* ==========================================================================
+   2. WEB AUDIO SYNTHESIZER (Gentle Chime & Paper Rustle)
+   ========================================================================== */
+function initSynthesizedAudio() {
   let audioCtx = null;
   let isMuted = false;
 
-  function ensureAudioContext() {
+  const toggleBtn = document.getElementById('audio-toggle-btn');
+  const iconOn = document.getElementById('icon-vol-on');
+  const iconOff = document.getElementById('icon-vol-off');
+
+  function ensureContext() {
     if (!audioCtx) {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       if (AudioContextClass) {
@@ -26,57 +106,54 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Delicate Wax Seal Snap
-  function playWaxCrackSound() {
-    if (isMuted || !audioCtx) return;
-    try {
-      const now = audioCtx.currentTime;
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      if (iconOn && iconOff) {
+        iconOn.classList.toggle('hidden', isMuted);
+        iconOff.classList.toggle('hidden', !isMuted);
+      }
+      if (!isMuted) {
+        playSoftChime();
+      }
+    });
+  }
 
-      // Brittle snap
+  function playSealCrack() {
+    if (isMuted) return;
+    try {
+      ensureContext();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(480, now);
-      osc.frequency.exponentialRampToValueAtTime(75, now + 0.12);
+      osc.frequency.setValueAtTime(160, now);
+      osc.frequency.exponentialRampToValueAtTime(48, now + 0.12);
 
-      gain.gain.setValueAtTime(0.24, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+      gain.gain.setValueAtTime(0.16, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
 
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start(now);
-      osc.stop(now + 0.13);
-
-      // Warm velvet release thump
-      const subOsc = audioCtx.createOscillator();
-      const subGain = audioCtx.createGain();
-      subOsc.type = 'sine';
-      subOsc.frequency.setValueAtTime(140, now + 0.03);
-      subOsc.frequency.exponentialRampToValueAtTime(45, now + 0.18);
-
-      subGain.gain.setValueAtTime(0.28, now + 0.03);
-      subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
-
-      subOsc.connect(subGain);
-      subGain.connect(audioCtx.destination);
-      subOsc.start(now + 0.03);
-      subOsc.stop(now + 0.19);
-    } catch (e) {}
+      osc.stop(now + 0.14);
+    } catch (_) {}
   }
 
-  // Soft Cotton Paper Sliding
-  function playPaperSlideSound() {
-    if (isMuted || !audioCtx) return;
+  function playPaperSlide() {
+    if (isMuted) return;
     try {
+      ensureContext();
+      if (!audioCtx) return;
+
       const now = audioCtx.currentTime;
-      const duration = 0.6;
-      const bufferSize = Math.floor(audioCtx.sampleRate * duration);
+      const bufferSize = audioCtx.sampleRate * 0.35;
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
-
       for (let i = 0; i < bufferSize; i++) {
-        const env = Math.sin((i / bufferSize) * Math.PI);
-        data[i] = (Math.random() * 2 - 1) * env * 0.12;
+        data[i] = (Math.random() * 2 - 1) * Math.sin((i / bufferSize) * Math.PI);
       }
 
       const noise = audioCtx.createBufferSource();
@@ -84,702 +161,482 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(750, now);
-      filter.frequency.linearRampToValueAtTime(1200, now + duration * 0.7);
-      filter.Q.value = 1.2;
+      filter.frequency.setValueAtTime(950, now);
+      filter.Q.setValueAtTime(1.8, now);
 
       const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.01, now);
-      gain.gain.linearRampToValueAtTime(0.2, now + 0.15);
-      gain.gain.exponentialRampToValueAtTime(0.005, now + duration);
+      gain.gain.setValueAtTime(0.05, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.34);
 
       noise.connect(filter);
       filter.connect(gain);
       gain.connect(audioCtx.destination);
       noise.start(now);
-    } catch (e) {}
+    } catch (_) {}
   }
 
-  // Ethereal Piano & Harp Celebratory Arpeggio (Warm E-flat / A-flat harmony)
-  function playEtherealChords() {
-    if (isMuted || !audioCtx) return;
+  function playSoftChime() {
+    if (isMuted) return;
     try {
+      ensureContext();
+      if (!audioCtx) return;
+
       const now = audioCtx.currentTime;
-      // Frequencies for Eb4, G4, Bb4, C5, Eb5, G5, Bb5 (Luminous Piano Harp)
-      const freqs = [311.13, 392.00, 466.16, 523.25, 622.25, 783.99, 932.33];
-
+      const freqs = [523.25, 659.25, 783.99, 1046.5];
       freqs.forEach((f, idx) => {
-        const start = now + idx * 0.085;
         const osc = audioCtx.createOscillator();
-        const overtone = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-        const overGain = audioCtx.createGain();
-
         osc.type = 'sine';
-        overtone.type = 'triangle';
-        osc.frequency.setValueAtTime(f, start);
-        overtone.frequency.setValueAtTime(f * 2, start);
+        osc.frequency.setValueAtTime(f, now + idx * 0.08);
 
-        overGain.gain.value = 0.12;
-        gain.gain.setValueAtTime(0.001, start);
-        gain.gain.linearRampToValueAtTime(0.12, start + 0.025);
-        gain.gain.exponentialRampToValueAtTime(0.0006, start + 2.1);
+        gain.gain.setValueAtTime(0.001, now + idx * 0.08);
+        gain.gain.linearRampToValueAtTime(0.05, now + idx * 0.08 + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0005, now + idx * 0.08 + 1.1);
 
         osc.connect(gain);
-        overtone.connect(overGain);
-        overGain.connect(gain);
         gain.connect(audioCtx.destination);
-
-        osc.start(start);
-        overtone.start(start);
-        osc.stop(start + 2.15);
-        overtone.stop(start + 2.15);
+        osc.start(now + idx * 0.08);
+        osc.stop(now + idx * 0.08 + 1.15);
       });
-    } catch (e) {}
+    } catch (_) {}
   }
 
-  // Audio Toggle
-  const audioToggleBtn = document.getElementById('audio-toggle-btn');
-  const iconVolOn = document.getElementById('icon-vol-on');
-  const iconVolOff = document.getElementById('icon-vol-off');
+  return { playSealCrack, playPaperSlide, playSoftChime };
+}
 
-  if (audioToggleBtn) {
-    audioToggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      ensureAudioContext();
-      isMuted = !isMuted;
-      if (isMuted) {
-        iconVolOn.classList.add('hidden');
-        iconVolOff.classList.remove('hidden');
-        audioToggleBtn.style.opacity = '0.6';
-      } else {
-        iconVolOff.classList.add('hidden');
-        iconVolOn.classList.remove('hidden');
-        audioToggleBtn.style.opacity = '1';
-        playEtherealChords();
-      }
-    });
+/* ==========================================================================
+   3. SMART SCROLL-REVEAL TRANSITIONS FOR MOBILE
+   ========================================================================== */
+let revealObserver = null;
+
+function initScrollReveal() {
+  const revealEls = document.querySelectorAll('.scroll-reveal');
+  if (!('IntersectionObserver' in window)) {
+    revealEls.forEach((el) => el.classList.add('is-inview'));
+    return;
   }
 
-
-  // ==========================================================================
-  // 2. DRIFTING ROSE PETALS & SILK WAVE CANVAS ENGINE
-  // ==========================================================================
-  const canvas = document.getElementById('silk-canvas');
-  const ctx = canvas ? canvas.getContext('2d') : null;
-  let width = window.innerWidth;
-  let height = window.innerHeight;
-
-  const rosePetals = [];
-  const diamondGlints = [];
-  let pointerX = 0;
-  let pointerY = 0;
-
-  function resizeCanvas() {
-    if (!canvas) return;
-    width = window.innerWidth;
-    height = window.innerHeight;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  // Draw an organic curved rose petal
-  function drawRosePetal(c, x, y, size, angle, tilt, color, alpha) {
-    c.save();
-    c.translate(x, y);
-    c.rotate(angle);
-    c.scale(1, Math.cos(tilt));
-    c.globalAlpha = Math.max(0, Math.min(1, alpha));
-
-    c.beginPath();
-    // Heart-shaped organic petal
-    c.moveTo(0, -size);
-    c.bezierCurveTo(size * 0.9, -size * 0.8, size * 0.8, size * 0.7, 0, size);
-    c.bezierCurveTo(-size * 0.8, size * 0.7, -size * 0.9, -size * 0.8, 0, -size);
-    c.fillStyle = color;
-    c.fill();
-
-    // Subtle petal vein highlight
-    c.beginPath();
-    c.moveTo(0, -size * 0.8);
-    c.quadraticCurveTo(size * 0.1, 0, 0, size * 0.7);
-    c.strokeStyle = 'rgba(255, 255, 255, 0.45)';
-    c.lineWidth = 0.8;
-    c.stroke();
-
-    c.restore();
-  }
-
-  function initAmbientPetals() {
-    rosePetals.length = 0;
-    diamondGlints.length = 0;
-
-    // Drifting ambient petals (Whisper-soft pearl & silk blush)
-    const petalPalette = ['#fbf2f0', '#f7e8e4', '#f3ded9', '#fcf7f5', '#eed6d0'];
-    for (let i = 0; i < 18; i++) {
-      rosePetals.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: 0.5 + Math.random() * 0.65,
-        size: 8 + Math.random() * 7,
-        angle: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.02,
-        tilt: Math.random() * Math.PI * 2,
-        tiltSpeed: 0.02 + Math.random() * 0.03,
-        color: petalPalette[Math.floor(Math.random() * petalPalette.length)],
-        alpha: 0.25 + Math.random() * 0.25,
-        swayPhase: Math.random() * Math.PI * 2,
-        swaySpeed: 0.012 + Math.random() * 0.02
-      });
-    }
-
-    // Sparkle glints
-    for (let i = 0; i < 40; i++) {
-      diamondGlints.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: 1.2 + Math.random() * 2.0,
-        speedY: -(0.1 + Math.random() * 0.22),
-        alpha: 0.18 + Math.random() * 0.4,
-        phase: Math.random() * Math.PI * 2
-      });
-    }
-  }
-
-  // Spawn a celebratory flurry of soft pearl-blush petals
-  function spawnRosePetalFlurry(normX, normY, count) {
-    const originX = normX * width;
-    const originY = normY * height;
-    const petalPalette = ['#f7e6e2', '#f2dad5', '#e8c8c0', '#fbf3f1', '#dfc0b8'];
-
-    for (let i = 0; i < count; i++) {
-      const angle = -Math.PI / 2 + (Math.random() - 0.5) * 2.2;
-      const speed = 4 + Math.random() * 8;
-      rosePetals.push({
-        x: originX,
-        y: originY,
-        vx: Math.cos(angle) * speed + (Math.random() - 0.5) * 3,
-        vy: Math.sin(angle) * speed - Math.random() * 3,
-        size: 10 + Math.random() * 9,
-        angle: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.07,
-        tilt: Math.random() * Math.PI * 2,
-        tiltSpeed: 0.05 + Math.random() * 0.08,
-        color: petalPalette[Math.floor(Math.random() * petalPalette.length)],
-        alpha: 0.68,
-        swayPhase: Math.random() * Math.PI * 2,
-        swaySpeed: 0.03,
-        isFlurry: true
-      });
-    }
-  }
-
-  window.addEventListener('pointermove', (e) => {
-    pointerX = (e.clientX / width - 0.5) * 20;
-    pointerY = (e.clientY / height - 0.5) * 20;
-  });
-
-  function renderSilkLoop() {
-    if (ctx) {
-      ctx.clearRect(0, 0, width, height);
-
-      // 1. Diamond Sparkle Glints
-      for (let i = 0; i < diamondGlints.length; i++) {
-        const g = diamondGlints[i];
-        g.y += g.speedY;
-        g.phase += 0.03;
-        if (g.y < -10) g.y = height + 10;
-
-        const pulse = 0.5 + Math.sin(g.phase) * 0.5;
-        const drawAlpha = g.alpha * pulse;
-
-        ctx.beginPath();
-        ctx.arc(g.x, g.y, g.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(197, 125, 135, ${drawAlpha * 0.45})`;
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(g.x, g.y, g.radius * 0.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${drawAlpha})`;
-        ctx.fill();
-      }
-
-      // 2. Drifting & Falling Rose Petals
-      for (let i = rosePetals.length - 1; i >= 0; i--) {
-        const p = rosePetals[i];
-
-        if (p.isFlurry) {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += 0.12; // Gravity
-          p.vx *= 0.985;
-          p.alpha -= 0.005;
-
-          if (p.alpha <= 0 || p.y > height + 50) {
-            rosePetals.splice(i, 1);
-            continue;
-          }
-        } else {
-          p.swayPhase += p.swaySpeed;
-          p.x += p.vx + Math.sin(p.swayPhase) * 0.7;
-          p.y += p.vy;
-
-          if (p.y > height + 30) p.y = -30;
-          if (p.x < -30) p.x = width + 30;
-          if (p.x > width + 30) p.x = -30;
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-inview');
         }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -24px 0px' }
+  );
 
-        p.angle += p.rotSpeed;
-        p.tilt += p.tiltSpeed;
+  revealEls.forEach((el) => revealObserver.observe(el));
+}
 
-        drawRosePetal(ctx, p.x, p.y, p.size, p.angle, p.tilt, p.color, p.alpha);
-      }
+function triggerInitialReveals() {
+  const revealEls = document.querySelectorAll('.scroll-reveal');
+  revealEls.forEach((el, idx) => {
+    if (idx < 3) {
+      setTimeout(() => {
+        el.classList.add('is-inview');
+      }, idx * 110);
     }
-    requestAnimationFrame(renderSilkLoop);
-  }
+  });
+}
 
-  resizeCanvas();
-  initAmbientPetals();
-  renderSilkLoop();
-  window.addEventListener('resize', resizeCanvas);
-
-
-  // ==========================================================================
-  // 3. PRECISION 3D ENVELOPE CHOREOGRAPHY (WEB ANIMATIONS API)
-  // ==========================================================================
+/* ==========================================================================
+   4. DETERMINISTIC 5-LAYER ENVELOPE CHOREOGRAPHY
+   ========================================================================== */
+function initEnvelopeChoreography(audioEngine) {
   const sanctuary = document.getElementById('envelope-sanctuary');
-  const sanctuaryHeader = document.getElementById('sanctuary-header');
-  const sanctuaryPrompt = document.getElementById('sanctuary-prompt');
-  const envelopeTiltZone = document.getElementById('envelope-tilt-zone');
-  const envelopeAssembly = document.getElementById('envelope-assembly');
-  const envelopeAura = document.getElementById('envelope-aura');
-  const envBack = document.getElementById('env-back');
-  const envPocket = document.getElementById('env-pocket');
-  const topFlapWrap = document.getElementById('env-top-flap-wrap');
-  const topFlap3d = document.getElementById('env-top-flap');
-  const envLetter = document.getElementById('env-letter');
-  const waxAuraRing = document.getElementById('wax-aura-ring');
-  const waxHalfLeft = document.getElementById('wax-half-left');
-  const waxHalfRight = document.getElementById('wax-half-right');
-  const waxCrackPath = document.getElementById('wax-crack-path');
+  const assembly = document.getElementById('envelope-assembly');
+  const openBtn = document.getElementById('open-trigger-btn');
+  const replayBtn = document.getElementById('replay-envelope-btn');
   const royalInvitation = document.getElementById('royal-invitation');
   const manuscriptSheet = document.getElementById('manuscript-sheet');
-  const replayBtn = document.getElementById('replay-envelope-btn');
-  const openTriggerBtn = document.getElementById('open-trigger-btn');
 
-  let isOpeningOrOpen = false;
+  const sanctuaryHeader = document.getElementById('sanctuary-header');
+  const sanctuaryPrompt = document.getElementById('sanctuary-prompt');
+  const waxAuraRing = document.getElementById('wax-aura-ring');
+  const waxCrackPath = document.getElementById('wax-crack-path');
+  const waxHalfLeft = document.getElementById('wax-half-left');
+  const waxHalfRight = document.getElementById('wax-half-right');
+  const topFlapWrap = document.getElementById('env-top-flap-wrap');
+  const topFlap = document.getElementById('env-top-flap');
+  const envLetter = document.getElementById('env-letter');
+  const envBack = document.getElementById('env-back');
+  const envPocket = document.getElementById('env-pocket');
+  const envAura = document.getElementById('envelope-aura');
+
+  let isOpening = false;
   let activeAnimations = [];
-  let activeTimeouts = [];
 
-  function clearChoreography() {
-    activeTimeouts.forEach((id) => clearTimeout(id));
-    activeTimeouts = [];
+  function clearAnimations() {
     activeAnimations.forEach((anim) => {
-      try { anim.cancel(); } catch (e) {}
+      try {
+        anim.cancel();
+      } catch (_) {}
     });
     activeAnimations = [];
   }
 
   function animateEl(el, keyframes, options) {
     if (!el || !el.animate) return null;
-    const anim = el.animate(keyframes, {
-      fill: 'forwards',
-      ...options
-    });
+    const anim = el.animate(keyframes, { fill: 'forwards', ...options });
     activeAnimations.push(anim);
     return anim;
   }
 
-  function scheduleStep(fn, delayMs) {
-    const id = setTimeout(fn, delayMs);
-    activeTimeouts.push(id);
-  }
+  function openEnvelope() {
+    if (isOpening) return;
+    isOpening = true;
+    clearAnimations();
 
-  // Interactive 3D Tilt on Closed Envelope
-  if (envelopeTiltZone && envelopeAssembly) {
-    envelopeTiltZone.addEventListener('pointermove', (e) => {
-      if (isOpeningOrOpen) return;
-      const rect = envelopeAssembly.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / (rect.width / 2)));
-      const dy = Math.max(-1, Math.min(1, (e.clientY - cy) / (rect.height / 2)));
-
-      envelopeAssembly.style.transform = `rotateY(${dx * 10}deg) rotateX(${-dy * 8}deg)`;
+    // Hide prompt & header smoothly
+    if (waxAuraRing) waxAuraRing.style.opacity = '0';
+    animateEl(sanctuaryPrompt, [{ opacity: 1 }, { opacity: 0, transform: 'translateY(10px)' }], {
+      duration: 280,
+      easing: 'ease-out'
+    });
+    animateEl(sanctuaryHeader, [{ opacity: 1 }, { opacity: 0, transform: 'translateY(-10px)' }], {
+      duration: 320,
+      easing: 'ease-out'
     });
 
-    envelopeTiltZone.addEventListener('pointerleave', () => {
-      if (isOpeningOrOpen) return;
-      envelopeAssembly.style.transform = 'rotateY(0deg) rotateX(0deg)';
-    });
-  }
+    // STAGE 1: Seal fracture (0ms -> 240ms)
+    audioEngine.playSealCrack();
+    if (waxCrackPath) {
+      waxCrackPath.style.opacity = '1';
+      animateEl(
+        waxCrackPath,
+        [{ strokeDashoffset: 140 }, { strokeDashoffset: 0 }],
+        { duration: 220, easing: 'ease-out' }
+      );
+    }
 
-  // Master Envelope Opening Sequence
-  function triggerEnvelopeOpen() {
-    if (isOpeningOrOpen) return;
-    isOpeningOrOpen = true;
-    clearChoreography();
-    ensureAudioContext();
+    // STAGE 2: Split wax seal halves (200ms -> 580ms)
+    setTimeout(() => {
+      if (waxCrackPath) waxCrackPath.style.opacity = '0';
+      animateEl(
+        waxHalfLeft,
+        [
+          { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+          { transform: 'translate(-26px, 14px) rotate(-18deg)', opacity: 0 }
+        ],
+        { duration: 380, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+      );
+      animateEl(
+        waxHalfRight,
+        [
+          { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+          { transform: 'translate(26px, 14px) rotate(18deg)', opacity: 0 }
+        ],
+        { duration: 380, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+      );
+    }, 200);
 
-    // Reset tilt smoothly
-    envelopeAssembly.style.transition = 'transform 0.3s ease';
-    envelopeAssembly.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    // STAGE 3: Open 3D Top Flap (420ms -> 1120ms)
+    // Switch z-index from 4 to 1 at exact 90deg midpoint (770ms)
+    setTimeout(() => {
+      audioEngine.playPaperSlide();
+      animateEl(
+        topFlap,
+        [
+          { transform: 'rotateX(0deg)' },
+          { transform: 'rotateX(180deg)' }
+        ],
+        { duration: 700, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' }
+      );
+    }, 420);
 
-    // Hide header and touch prompt
-    animateEl(sanctuaryHeader, [
-      { opacity: 1, transform: 'translateY(0)' },
-      { opacity: 0, transform: 'translateY(-14px)' }
-    ], { duration: 380, easing: 'ease-in-out' });
+    setTimeout(() => {
+      if (topFlapWrap) topFlapWrap.style.zIndex = '1';
+    }, 770);
 
-    animateEl(sanctuaryPrompt, [
-      { opacity: 1, transform: 'translateY(0)' },
-      { opacity: 0, transform: 'translateY(14px)' }
-    ], { duration: 340, easing: 'ease-in-out' });
+    // STAGE 4: Letter rises gently while envelope pocket slides downward (1020ms -> 1780ms)
+    setTimeout(() => {
+      audioEngine.playSoftChime();
 
-    // PHASE 1 (100ms -> 680ms): Wax Seal Fracture & Two-Piece Split
-    scheduleStep(() => {
-      playWaxCrackSound();
+      animateEl(
+        envLetter,
+        [
+          { transform: 'translateY(0) scale(1)' },
+          { transform: 'translateY(-18%) scale(1.03)' }
+        ],
+        { duration: 720, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+      );
 
-      animateEl(waxCrackPath, [
-        { strokeDashoffset: 140, opacity: 1 },
-        { strokeDashoffset: 0, opacity: 1 }
-      ], { duration: 240, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' });
+      const pocketSlide = [
+        { transform: 'translateY(0)', opacity: 1 },
+        { transform: 'translateY(108%)', opacity: 0 }
+      ];
+      const slideOpts = { duration: 740, easing: 'cubic-bezier(0.32, 0, 0.2, 1)' };
 
-      animateEl(waxAuraRing, [
-        { opacity: 0.9, transform: 'scale(1)' },
-        { opacity: 0, transform: 'scale(1.4)' }
-      ], { duration: 300, easing: 'ease-out' });
-    }, 100);
+      animateEl(envBack, pocketSlide, slideOpts);
+      animateEl(envPocket, pocketSlide, slideOpts);
+      animateEl(topFlapWrap, pocketSlide, slideOpts);
+      animateEl(envAura, [{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
+    }, 1020);
 
-    scheduleStep(() => {
-      // Petals and spark flurry
-      spawnRosePetalFlurry(0.5, 0.54, 25);
-
-      animateEl(waxCrackPath, [
-        { opacity: 1 },
-        { opacity: 0 }
-      ], { duration: 140, easing: 'ease-out' });
-
-      // Left half splits & falls
-      animateEl(waxHalfLeft, [
-        { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1 },
-        { transform: 'translate(-12px, -4px) rotate(-8deg) scale(1.03)', opacity: 1, offset: 0.25 },
-        { transform: 'translate(-42px, 46px) rotate(-24deg) scale(0.8)', opacity: 0 }
-      ], { duration: 420, easing: 'cubic-bezier(0.32, 0, 0.67, 0)' });
-
-      // Right half splits & falls
-      animateEl(waxHalfRight, [
-        { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1 },
-        { transform: 'translate(12px, -4px) rotate(8deg) scale(1.03)', opacity: 1, offset: 0.25 },
-        { transform: 'translate(42px, 46px) rotate(24deg) scale(0.8)', opacity: 0 }
-      ], { duration: 420, easing: 'cubic-bezier(0.32, 0, 0.67, 0)' });
-    }, 320);
-
-    // PHASE 2 (650ms -> 1570ms): 3D Top Flap Unfolding
-    scheduleStep(() => {
-      playPaperSlideSound();
-
-      animateEl(topFlap3d, [
-        { transform: 'rotateX(0deg)' },
-        { transform: 'rotateX(180deg)' }
-      ], { duration: 900, easing: 'cubic-bezier(0.65, 0, 0.35, 1)' });
-    }, 650);
-
-    // Z-index handoff at 90deg midpoint
-    scheduleStep(() => {
-      topFlapWrap.style.zIndex = '1';
-    }, 1100);
-
-    // PHASE 3 (1500ms -> 2720ms): Pocket glides down, card glides up
-    scheduleStep(() => {
-      playPaperSlideSound();
-
-      animateEl(envLetter, [
-        { transform: 'translateY(0%) scale(1)' },
-        { transform: 'translateY(-22%) scale(1.05)' }
-      ], { duration: 1180, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
-
-      const envParts = [envBack, envPocket, topFlapWrap, envelopeAura];
-      envParts.forEach((part) => {
-        animateEl(part, [
-          { transform: 'translateY(0%) scale(1)', opacity: 1 },
-          { transform: 'translateY(70%) scale(0.96)', opacity: 1, offset: 0.6 },
-          { transform: 'translateY(120%) scale(0.90)', opacity: 0 }
-        ], { duration: 1200, easing: 'cubic-bezier(0.33, 1, 0.68, 1)' });
-      });
-    }, 1500);
-
-    // PHASE 4 (2700ms): Ethereal Chords, Rose Flurry & Unfurl
-    scheduleStep(() => {
-      playEtherealChords();
-      spawnRosePetalFlurry(0.2, 0.45, 30);
-      spawnRosePetalFlurry(0.8, 0.45, 30);
-
-      animateEl(envLetter, [
-        { transform: 'translateY(-22%) scale(1.05)', opacity: 1 },
-        { transform: 'translateY(-8%) scale(1.24)', opacity: 0 }
-      ], { duration: 500, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' });
-
+    // STAGE 5: Morph into full mobile-optimized academic invitation card (1650ms)
+    setTimeout(() => {
       document.body.classList.remove('is-locked');
-      royalInvitation.classList.add('is-active');
+      sanctuary.classList.add('is-dismissed');
+
+      royalInvitation.classList.add('is-visible');
       royalInvitation.setAttribute('aria-hidden', 'false');
-      sanctuary.classList.add('hidden');
-      replayBtn.classList.remove('hidden');
 
-      animateEl(manuscriptSheet, [
-        { opacity: 0, transform: 'translateY(40px) scale(0.96)' },
-        { opacity: 1, transform: 'translateY(0px) scale(1)' }
-      ], { duration: 800, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+      if (replayBtn) replayBtn.classList.remove('hidden');
 
-      const sections = document.querySelectorAll('.reveal-section');
-      sections.forEach((sec, idx) => {
-        animateEl(sec, [
-          { opacity: 0, transform: 'translateY(20px)' },
-          { opacity: 1, transform: 'translateY(0px)' }
-        ], {
-          duration: 650,
-          delay: 100 + idx * 95,
-          easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
-        });
-      });
-    }, 2700);
+      if (manuscriptSheet && manuscriptSheet.animate) {
+        manuscriptSheet.animate(
+          [
+            { opacity: 0, transform: 'translateY(24px) scale(0.97)' },
+            { opacity: 1, transform: 'translateY(0) scale(1)' }
+          ],
+          { duration: 620, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+        );
+      }
+
+      triggerInitialReveals();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1650);
   }
 
-  // Trigger Listeners
-  if (envelopeAssembly) {
-    envelopeAssembly.addEventListener('click', triggerEnvelopeOpen);
-    envelopeAssembly.addEventListener('keydown', (e) => {
+  function resetEnvelope() {
+    clearAnimations();
+    isOpening = false;
+
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.body.classList.add('is-locked');
+
+    royalInvitation.classList.remove('is-visible');
+    royalInvitation.setAttribute('aria-hidden', 'true');
+    sanctuary.classList.remove('is-dismissed');
+
+    if (replayBtn) replayBtn.classList.add('hidden');
+    if (topFlapWrap) topFlapWrap.style.zIndex = '4';
+    if (waxAuraRing) waxAuraRing.style.opacity = '1';
+    if (waxCrackPath) waxCrackPath.style.opacity = '0';
+  }
+
+  if (assembly) {
+    assembly.addEventListener('click', openEnvelope);
+    assembly.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        triggerEnvelopeOpen();
+        openEnvelope();
       }
     });
   }
-  if (openTriggerBtn) {
-    openTriggerBtn.addEventListener('click', triggerEnvelopeOpen);
-  }
 
-  // Replay Button
-  if (replayBtn) {
-    replayBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      setTimeout(() => {
-        clearChoreography();
-        royalInvitation.classList.remove('is-active');
-        royalInvitation.setAttribute('aria-hidden', 'true');
-        replayBtn.classList.add('hidden');
-        sanctuary.classList.remove('hidden');
-        document.body.classList.add('is-locked');
-
-        topFlapWrap.style.zIndex = '4';
-        envLetter.style.zIndex = '2';
-        envPocket.style.zIndex = '3';
-        envBack.style.zIndex = '1';
-        envelopeAssembly.style.transform = 'rotateY(0deg) rotateX(0deg)';
-
-        isOpeningOrOpen = false;
-      }, 250);
+  if (openBtn) {
+    openBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openEnvelope();
     });
   }
 
+  if (replayBtn) {
+    replayBtn.addEventListener('click', resetEnvelope);
+  }
+}
 
-  // ==========================================================================
-  // 4. COUNTDOWN TIMER (Target: 29 November 2026)
-  // ==========================================================================
-  const cdDays = document.getElementById('cd-days');
-  const cdHours = document.getElementById('cd-hours');
-  const cdMinutes = document.getElementById('cd-minutes');
-  const cdSeconds = document.getElementById('cd-seconds');
+/* ==========================================================================
+   5. COUNTDOWN TIMER (Target: Sunday, Nov 29, 2026 - r="35" -> 219.91)
+   ========================================================================== */
+function initCountdownTimer() {
+  const targetDate = new Date('2026-11-29T13:00:00+03:00').getTime();
+  const CIRCUMFERENCE = 2 * Math.PI * 35; // 219.91
+
+  const elDays = document.getElementById('cd-days');
+  const elHours = document.getElementById('cd-hours');
+  const elMinutes = document.getElementById('cd-minutes');
+  const elSeconds = document.getElementById('cd-seconds');
 
   const ringDays = document.getElementById('ring-days');
   const ringHours = document.getElementById('ring-hours');
   const ringMinutes = document.getElementById('ring-minutes');
   const ringSeconds = document.getElementById('ring-seconds');
 
-  const CIRCUMFERENCE = 2 * Math.PI * 52;
-  const targetTimestamp = new Date('2026-11-29T13:00:00+03:00').getTime();
-
-  function setRingProgress(circleEl, fraction) {
-    if (!circleEl) return;
+  function setProgress(circle, fraction) {
+    if (!circle) return;
     const clamped = Math.max(0, Math.min(1, fraction));
-    circleEl.style.strokeDashoffset = CIRCUMFERENCE - clamped * CIRCUMFERENCE;
+    const offset = CIRCUMFERENCE * (1 - clamped);
+    circle.style.strokeDasharray = `${CIRCUMFERENCE}`;
+    circle.style.strokeDashoffset = `${offset}`;
   }
 
-  function updateCountdown() {
+  function update() {
     const now = Date.now();
-    const diff = Math.max(0, targetTimestamp - now);
+    const diff = Math.max(0, targetDate - now);
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((diff / 1000 / 60) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
 
-    if (cdDays) cdDays.textContent = String(days).padStart(2, '0');
-    if (cdHours) cdHours.textContent = String(hours).padStart(2, '0');
-    if (cdMinutes) cdMinutes.textContent = String(minutes).padStart(2, '0');
-    if (cdSeconds) cdSeconds.textContent = String(seconds).padStart(2, '0');
+    if (elDays) elDays.textContent = String(days).padStart(2, '0');
+    if (elHours) elHours.textContent = String(hours).padStart(2, '0');
+    if (elMinutes) elMinutes.textContent = String(minutes).padStart(2, '0');
+    if (elSeconds) elSeconds.textContent = String(seconds).padStart(2, '0');
 
-    setRingProgress(ringDays, Math.min(1, days / 30));
-    setRingProgress(ringHours, hours / 24);
-    setRingProgress(ringMinutes, minutes / 60);
-    setRingProgress(ringSeconds, seconds / 60);
+    setProgress(ringDays, Math.min(1, days / 365));
+    setProgress(ringHours, hours / 24);
+    setProgress(ringMinutes, minutes / 60);
+    setProgress(ringSeconds, seconds / 60);
   }
 
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  update();
+  setInterval(update, 1000);
+}
 
+/* ==========================================================================
+   6. RSVP CONFIRMATION & CONGRATULATIONS BOARD
+   ========================================================================== */
+function initRSVPAndWishes(audioEngine) {
+  const form = document.getElementById('rsvp-form');
+  const guestNameInput = document.getElementById('guest-name');
+  const guestCountSelect = document.getElementById('guest-count');
+  const companionsWrap = document.getElementById('companions-field-wrap');
+  const guestWishesInput = document.getElementById('guest-wishes');
+  const whatsappBtn = document.getElementById('whatsapp-direct-btn');
 
-  // ==========================================================================
-  // 5. RSVP & VIP PASS GENERATOR & BLESSINGS WALL
-  // ==========================================================================
-  const rsvpForm = document.getElementById('rsvp-form');
-  const companionsFieldWrap = document.getElementById('companions-field-wrap');
-  const vipPassContainer = document.getElementById('vip-pass-container');
-  const vipGuestName = document.getElementById('vip-guest-name');
-  const vipGuestStatus = document.getElementById('vip-guest-status');
-  const editRsvpBtn = document.getElementById('edit-rsvp-btn');
-  const whatsappDirectBtn = document.getElementById('whatsapp-direct-btn');
+  const passContainer = document.getElementById('vip-pass-container');
+  const passName = document.getElementById('vip-guest-name');
+  const passStatus = document.getElementById('vip-guest-status');
+  const editBtn = document.getElementById('edit-rsvp-btn');
   const blessingsGrid = document.getElementById('blessings-grid');
 
+  // Toggle companions dropdown based on attendance radio
   const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
   attendanceRadios.forEach((radio) => {
     radio.addEventListener('change', () => {
-      if (radio.value === 'declined' && radio.checked) {
-        companionsFieldWrap.style.display = 'none';
-      } else {
-        companionsFieldWrap.style.display = 'flex';
+      if (companionsWrap) {
+        companionsWrap.classList.toggle('hidden', radio.value === 'declined' && radio.checked);
       }
     });
   });
 
-  function escapeHTML(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
-
-  function prependBlessingCard(author, text, timeLabel) {
-    if (!blessingsGrid) return;
-    const card = document.createElement('div');
-    card.className = 'blessing-parchment';
-    card.innerHTML = `
-      <div class="blessing-quote-mark">❝</div>
-      <p class="blessing-body">${escapeHTML(text)}</p>
-      <div class="blessing-meta">
-        <span class="blessing-author">${escapeHTML(author)}</span>
-        <span class="blessing-time">${escapeHTML(timeLabel || 'الآن')}</span>
-      </div>
-    `;
-    blessingsGrid.prepend(card);
-  }
-
-  try {
-    const savedBlessings = JSON.parse(localStorage.getItem('ibtisam_rose_blessings') || '[]');
-    savedBlessings.forEach((item) => {
-      prependBlessingCard(item.author, item.text, item.time);
-    });
-  } catch (e) {}
-
-  if (rsvpForm) {
-    rsvpForm.addEventListener('submit', (e) => {
+  if (form) {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
+      const name = guestNameInput ? guestNameInput.value.trim() : '';
+      if (!name) return;
 
-      const nameVal = document.getElementById('guest-name').value.trim();
-      if (!nameVal) return;
+      const selectedRadio = document.querySelector('input[name="attendance"]:checked');
+      const isAttending = !selectedRadio || selectedRadio.value === 'attending';
+      const countText = guestCountSelect ? guestCountSelect.value : 'شخص واحد';
+      const wishText = guestWishesInput ? guestWishesInput.value.trim() : '';
 
-      const attChecked = document.querySelector('input[name="attendance"]:checked');
-      const isAttending = attChecked ? attChecked.value === 'attending' : true;
-      const countVal = document.getElementById('guest-count').value;
-      const wishesVal = document.getElementById('guest-wishes').value.trim();
+      audioEngine.playSoftChime();
 
-      ensureAudioContext();
-      playEtherealChords();
-      spawnRosePetalFlurry(0.5, 0.7, 40);
+      if (passName) passName.textContent = name;
+      if (passStatus) {
+        passStatus.textContent = isAttending
+          ? `مؤكد بإذن الله (${countText})`
+          : 'معتذر عن الحضور';
+      }
 
-      vipGuestName.textContent = nameVal;
-      vipGuestStatus.textContent = isAttending
-        ? `يشرفنا حضوركم الكريم (${countVal})`
-        : 'معتذر بكل محبة وتقدير';
+      form.classList.add('hidden');
+      if (passContainer) passContainer.classList.remove('hidden');
 
-      rsvpForm.classList.add('hidden');
-      vipPassContainer.classList.remove('hidden');
+      if (wishText && blessingsGrid) {
+        const card = document.createElement('div');
+        card.className = 'wish-card';
 
-      if (wishesVal) {
-        prependBlessingCard(nameVal, wishesVal, 'مؤخراً');
-        try {
-          const current = JSON.parse(localStorage.getItem('ibtisam_rose_blessings') || '[]');
-          current.push({ author: nameVal, text: wishesVal, time: '٢٠٢٦' });
-          localStorage.setItem('ibtisam_rose_blessings', JSON.stringify(current));
-        } catch (err) {}
+        const p = document.createElement('p');
+        p.className = 'wish-body';
+        p.textContent = wishText;
+
+        const footer = document.createElement('div');
+        footer.className = 'wish-footer';
+
+        const author = document.createElement('span');
+        author.className = 'wish-author';
+        author.textContent = name;
+
+        const meta = document.createElement('span');
+        meta.className = 'wish-meta';
+        meta.textContent = 'تهنئة مضافة الآن';
+
+        footer.appendChild(author);
+        footer.appendChild(meta);
+        card.appendChild(p);
+        card.appendChild(footer);
+
+        blessingsGrid.prepend(card);
       }
     });
   }
 
-  if (editRsvpBtn) {
-    editRsvpBtn.addEventListener('click', () => {
-      vipPassContainer.classList.add('hidden');
-      rsvpForm.classList.remove('hidden');
+  if (editBtn) {
+    editBtn.addEventListener('click', () => {
+      if (passContainer) passContainer.classList.add('hidden');
+      if (form) form.classList.remove('hidden');
     });
   }
 
-  if (whatsappDirectBtn) {
-    whatsappDirectBtn.addEventListener('click', () => {
-      const nameVal = document.getElementById('guest-name').value.trim() || 'ضيف كريم';
-      const attChecked = document.querySelector('input[name="attendance"]:checked');
-      const isAttending = attChecked ? attChecked.value === 'attending' : true;
-      const countVal = document.getElementById('guest-count').value;
-      const wishesVal = document.getElementById('guest-wishes').value.trim();
+  if (whatsappBtn) {
+    whatsappBtn.addEventListener('click', () => {
+      const name = (guestNameInput && guestNameInput.value.trim()) || 'ضيف كريم';
+      const selectedRadio = document.querySelector('input[name="attendance"]:checked');
+      const isAttending = !selectedRadio || selectedRadio.value === 'attending';
+      const countText = guestCountSelect ? guestCountSelect.value : 'شخص واحد';
+      const wishText = guestWishesInput ? guestWishesInput.value.trim() : '';
 
-      const statusLine = isAttending
-        ? `يشرفني الحضور بكل سرور (${countVal})`
-        : 'أعتذر بكل محبة لظرف طارئ';
-
-      let msg = `✨ *بطاقة تأكيد حضور — مأدبة تتويج الباحثة ابتسام محمود صالح* ✨\n\n`;
-      msg += `• *الاسم الكريم:* ${nameVal}\n`;
-      msg += `• *حالة الحضور:* ${statusLine}\n`;
-      msg += `• *الموعد:* الأحد ٢٩ تشرين الثاني ٢٠٢٦\n`;
-      if (wishesVal) {
-        msg += `\n💌 *كلمة التهنئة:*\n"${wishesVal}"\n`;
+      let msg = `السلام عليكم،\nمعكم ${name}.\n`;
+      if (isAttending) {
+        msg += `يسعدني تأكيد الحضور لمأدبة الغداء بمناسبة مناقشة الماجستير للباحثة ابتسام محمود صالح يوم الأحد 29 / 11 / 2026 (${countText}).`;
+      } else {
+        msg += `أعتذر عن عدم التمكن من الحضور، مع خالص التهاني والتمنيات للباحثة ابتسام محمود صالح بالتوفيق والنجاح.`;
       }
-      msg += `\nألف مبارك نيل درجة الماجستير ومنها للأعلى بإذن الله.`;
+      if (wishText) {
+        msg += `\n\nتهنئة: ${wishText}`;
+      }
 
-      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+      const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
     });
   }
+}
 
+/* ==========================================================================
+   7. SHARE TOOLS (Copy Link & Share on WhatsApp)
+   ========================================================================== */
+function initShareTools(audioEngine) {
+  const copyBtn = document.getElementById('copy-invitation-link');
+  const copyLabel = document.getElementById('copy-link-label');
+  const shareWaBtn = document.getElementById('share-whatsapp-btn');
 
-  // ==========================================================================
-  // 6. SHARE INVITATION ACTIONS
-  // ==========================================================================
-  const copyLinkBtn = document.getElementById('copy-invitation-link');
-  const copyLinkLabel = document.getElementById('copy-link-label');
-  const shareWhatsappBtn = document.getElementById('share-whatsapp-btn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      const shareUrl = window.location.href;
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+      } catch (_) {
+        const temp = document.createElement('input');
+        temp.value = shareUrl;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+      }
 
-  if (copyLinkBtn) {
-    copyLinkBtn.addEventListener('click', () => {
-      const url = window.location.href;
-      navigator.clipboard.writeText(url).then(() => {
-        const orig = copyLinkLabel.textContent;
-        copyLinkLabel.textContent = 'تم نسخ الرابط بنجاح ✓';
+      audioEngine.playSoftChime();
+      if (copyLabel) {
+        copyLabel.textContent = 'تم نسخ الرابط ✓';
         setTimeout(() => {
-          copyLinkLabel.textContent = orig;
-        }, 2500);
-      }).catch(() => {
-        prompt('انسخ رابط الدعوة:', url);
-      });
+          copyLabel.textContent = 'نسخ الرابط';
+        }, 2200);
+      }
     });
   }
 
-  if (shareWhatsappBtn) {
-    shareWhatsappBtn.addEventListener('click', () => {
-      const url = window.location.href;
-      const text = `🌸 *دعوة لحضور مأدبة غداء تكريمية* 🌸\n\nبمناسبة نيل الباحثة *ابتسام محمود صالح* درجة الماجستير في إدارة الأعمال (تخصص أمن المعلومات) — جامعة الموصل.\n\n📅 *الأحد ٢٩ / ١١ / ٢٠٢٦*\n\nيسعدنا ويشرفنا فتح بطاقة الدعوة التفاعلية من هنا:\n${url}`;
-      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+  if (shareWaBtn) {
+    shareWaBtn.addEventListener('click', () => {
+      const shareText =
+        'دعوة لحضور مأدبة الغداء بمناسبة مناقشة رسالة الماجستير للباحثة ابتسام محمود صالح (تخصص أمن المعلومات - كلية الإدارة والاقتصاد - جامعة الموصل) يوم الأحد 29 / 11 / 2026:\n' +
+        window.location.href;
+      const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
     });
   }
-
-});
+}
