@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * MASTER'S DEFENSE CELEBRATORY LUNCHEON — INTERACTIVE ENGINE
+ * MASTER'S DEFENSE CELEBRATORY LUNCHEON — BESPOKE TACTILE & MOTION ENGINE
  * Researcher: Ibtisam Mahmoud Saleh | University of Mosul
  * ============================================================================
  */
@@ -8,15 +8,16 @@
 document.addEventListener('DOMContentLoaded', () => {
   initAmbientCanvas();
   const audioEngine = initSynthesizedAudio();
-  initScrollReveal();
-  initEnvelopeChoreography(audioEngine);
-  initCountdownTimer();
+  const tiltController = initTiltAndFoilPhysics();
+  initParallaxAndScrollDrawing();
+  initEnvelopeChoreography(audioEngine, tiltController);
+  initOdometerCountdown();
   initRSVPAndWishes(audioEngine);
   initShareTools(audioEngine);
 });
 
 /* ==========================================================================
-   1. CALM ACADEMIC AMBIENT CANVAS (Subtle Floating Gold Dust & Warm Bokeh)
+   1. SUBTLE AMBIENT CANVAS (Calm Warm Gold Bokeh & Light Motes)
    ========================================================================== */
 function initAmbientCanvas() {
   const canvas = document.getElementById('ambient-canvas');
@@ -31,24 +32,24 @@ function initAmbientCanvas() {
     height = canvas.height = window.innerHeight;
   });
 
-  const count = Math.min(28, Math.floor((width * height) / 28000));
+  const count = Math.min(22, Math.floor((width * height) / 34000));
   const particles = [];
 
   const colors = [
-    'rgba(198, 166, 107, 0.22)', // Soft academic gold
-    'rgba(181, 148, 86, 0.16)',  // Antique champagne
-    'rgba(224, 182, 188, 0.14)', // Very faint warm blush hint
-    'rgba(30, 41, 59, 0.06)'     // Subtle slate mote
+    'rgba(181, 144, 75, 0.22)',
+    'rgba(235, 215, 171, 0.20)',
+    'rgba(218, 178, 180, 0.12)',
+    'rgba(24, 35, 56, 0.05)'
   ];
 
   for (let i = 0; i < count; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      r: Math.random() * 2.4 + 0.8,
-      vx: (Math.random() - 0.5) * 0.22,
-      vy: -Math.random() * 0.28 - 0.08,
-      alpha: Math.random() * 0.6 + 0.2,
+      r: Math.random() * 2.1 + 0.7,
+      vx: (Math.random() - 0.5) * 0.18,
+      vy: -Math.random() * 0.22 - 0.06,
+      alpha: Math.random() * 0.55 + 0.2,
       phase: Math.random() * Math.PI * 2,
       color: colors[i % colors.length]
     });
@@ -60,7 +61,7 @@ function initAmbientCanvas() {
     for (const p of particles) {
       p.x += p.vx;
       p.y += p.vy;
-      p.phase += 0.015;
+      p.phase += 0.014;
 
       if (p.y < -10) p.y = height + 10;
       if (p.x < -10) p.x = width + 10;
@@ -84,7 +85,7 @@ function initAmbientCanvas() {
 }
 
 /* ==========================================================================
-   2. WEB AUDIO SYNTHESIZER (Gentle Chime & Paper Rustle)
+   2. WEB AUDIO SYNTHESIZER (Wax Crack, Heavy Paper Slide & Warm Chime)
    ========================================================================== */
 function initSynthesizedAudio() {
   let audioCtx = null;
@@ -129,10 +130,10 @@ function initSynthesizedAudio() {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(160, now);
-      osc.frequency.exponentialRampToValueAtTime(48, now + 0.12);
+      osc.frequency.setValueAtTime(175, now);
+      osc.frequency.exponentialRampToValueAtTime(52, now + 0.11);
 
-      gain.gain.setValueAtTime(0.16, now);
+      gain.gain.setValueAtTime(0.15, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
 
       osc.connect(gain);
@@ -149,7 +150,7 @@ function initSynthesizedAudio() {
       if (!audioCtx) return;
 
       const now = audioCtx.currentTime;
-      const bufferSize = audioCtx.sampleRate * 0.35;
+      const bufferSize = Math.floor(audioCtx.sampleRate * 0.42);
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) {
@@ -161,12 +162,12 @@ function initSynthesizedAudio() {
 
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(950, now);
-      filter.Q.setValueAtTime(1.8, now);
+      filter.frequency.setValueAtTime(880, now);
+      filter.Q.setValueAtTime(1.6, now);
 
       const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.05, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.34);
+      gain.gain.setValueAtTime(0.055, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
 
       noise.connect(filter);
       filter.connect(gain);
@@ -187,16 +188,16 @@ function initSynthesizedAudio() {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(f, now + idx * 0.08);
+        osc.frequency.setValueAtTime(f, now + idx * 0.075);
 
-        gain.gain.setValueAtTime(0.001, now + idx * 0.08);
-        gain.gain.linearRampToValueAtTime(0.05, now + idx * 0.08 + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.0005, now + idx * 0.08 + 1.1);
+        gain.gain.setValueAtTime(0.001, now + idx * 0.075);
+        gain.gain.linearRampToValueAtTime(0.045, now + idx * 0.075 + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0005, now + idx * 0.075 + 1.05);
 
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-        osc.start(now + idx * 0.08);
-        osc.stop(now + idx * 0.08 + 1.15);
+        osc.start(now + idx * 0.075);
+        osc.stop(now + idx * 0.075 + 1.1);
       });
     } catch (_) {}
   }
@@ -205,46 +206,207 @@ function initSynthesizedAudio() {
 }
 
 /* ==========================================================================
-   3. SMART SCROLL-REVEAL TRANSITIONS FOR MOBILE
+   3. SPRING 3D TILT & DYNAMIC SPECULAR FOIL SHEEN PHYSICS
    ========================================================================== */
-let revealObserver = null;
+function initTiltAndFoilPhysics() {
+  const envelopeAssembly = document.getElementById('envelope-assembly');
+  const envelopeAura = document.getElementById('envelope-aura');
+  const tiltZone = document.getElementById('envelope-tilt-zone');
+  const keepsakeCard = document.getElementById('keepsake-pass-card');
 
-function initScrollReveal() {
+  let tiltEnabled = true;
+  let targetRx = 0;
+  let targetRy = 0;
+  let currentRx = 0;
+  let currentRy = 0;
+
+  // Smooth RAF spring loop for tactile 3D tilt on sealed envelope
+  function springLoop() {
+    if (tiltEnabled && envelopeAssembly) {
+      currentRx += (targetRx - currentRx) * 0.12;
+      currentRy += (targetRy - currentRy) * 0.12;
+
+      if (Math.abs(currentRx) > 0.01 || Math.abs(currentRy) > 0.01) {
+        envelopeAssembly.style.transform =
+          `rotateX(${currentRx.toFixed(2)}deg) rotateY(${currentRy.toFixed(2)}deg)`;
+        if (envelopeAura) {
+          envelopeAura.style.transform =
+            `translate3d(${(-currentRy * 1.4).toFixed(1)}px, ${(currentRx * 1.4).toFixed(1)}px, 0)`;
+        }
+      } else {
+        envelopeAssembly.style.transform = '';
+      }
+    }
+    requestAnimationFrame(springLoop);
+  }
+  requestAnimationFrame(springLoop);
+
+  function updateFoilCoords(xPct, yPct) {
+    document.documentElement.style.setProperty('--foil-x', `${xPct.toFixed(1)}%`);
+    document.documentElement.style.setProperty('--foil-y', `${yPct.toFixed(1)}%`);
+  }
+
+  // Pointer & touch response across page
+  function handlePointer(clientX, clientY) {
+    const xPct = Math.max(0, Math.min(100, (clientX / window.innerWidth) * 100));
+    const yPct = Math.max(0, Math.min(100, (clientY / window.innerHeight) * 100));
+    updateFoilCoords(xPct, yPct);
+
+    if (tiltEnabled && tiltZone) {
+      const rect = tiltZone.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        const relX = ((clientX - rect.left) / rect.width) * 2 - 1;
+        const relY = ((clientY - rect.top) / rect.height) * 2 - 1;
+        const clampedX = Math.max(-1, Math.min(1, relX));
+        const clampedY = Math.max(-1, Math.min(1, relY));
+        targetRy = clampedX * 6.5;
+        targetRx = -clampedY * 5.5;
+      }
+    }
+  }
+
+  window.addEventListener('pointermove', (e) => handlePointer(e.clientX, e.clientY), { passive: true });
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+      handlePointer(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  if (tiltZone) {
+    tiltZone.addEventListener('pointerleave', () => {
+      targetRx = 0;
+      targetRy = 0;
+    });
+  }
+
+  // Subtle mobile gyroscope foil & envelope response (when available without prompt)
+  window.addEventListener('deviceorientation', (e) => {
+    if (e.gamma === null || e.beta === null) return;
+    const normX = Math.max(-1, Math.min(1, e.gamma / 30));
+    const normY = Math.max(-1, Math.min(1, (e.beta - 40) / 30));
+
+    updateFoilCoords(50 + normX * 32, 35 + normY * 28);
+
+    if (tiltEnabled) {
+      targetRy = normX * 5.5;
+      targetRx = -normY * 4.5;
+    }
+  }, { passive: true });
+
+  // Keepsake Guest Pass 3D tilt interaction
+  if (keepsakeCard) {
+    const updatePassTilt = (clientX, clientY) => {
+      const rect = keepsakeCard.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const rx = ((clientX - rect.left) / rect.width) * 2 - 1;
+      const ry = ((clientY - rect.top) / rect.height) * 2 - 1;
+      keepsakeCard.style.transform = `rotateX(${(-ry * 5).toFixed(2)}deg) rotateY(${(rx * 5.5).toFixed(2)}deg)`;
+      keepsakeCard.style.setProperty('--pass-foil-x', `${((rx + 1) * 50).toFixed(1)}%`);
+      keepsakeCard.style.setProperty('--pass-foil-y', `${((ry + 1) * 50).toFixed(1)}%`);
+    };
+
+    keepsakeCard.addEventListener('pointermove', (e) => updatePassTilt(e.clientX, e.clientY), { passive: true });
+    keepsakeCard.addEventListener('touchmove', (e) => {
+      if (e.touches[0]) updatePassTilt(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    keepsakeCard.addEventListener('pointerleave', () => {
+      keepsakeCard.style.transition = 'transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
+      keepsakeCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      setTimeout(() => { keepsakeCard.style.transition = ''; }, 460);
+    });
+  }
+
+  return {
+    lockTilt() {
+      tiltEnabled = false;
+      targetRx = 0;
+      targetRy = 0;
+      currentRx = 0;
+      currentRy = 0;
+      if (envelopeAssembly) envelopeAssembly.style.transform = '';
+      if (envelopeAura) envelopeAura.style.transform = '';
+    },
+    unlockTilt() {
+      tiltEnabled = true;
+    }
+  };
+}
+
+/* ==========================================================================
+   4. SCROLL-LINKED WATERMARK PARALLAX & SVG PATH DRAWING
+   ========================================================================== */
+function initParallaxAndScrollDrawing() {
+  const watermark = document.getElementById('parallax-watermark');
+  const topControls = document.querySelector('.top-controls');
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      if (watermark) {
+        watermark.style.setProperty('--parallax-y', `${(scrollY * 0.14).toFixed(1)}px`);
+      }
+      if (topControls) {
+        topControls.classList.toggle('is-scrolled', scrollY > 36);
+      }
+      // Subtle foil drift as user reads down the paper
+      const foilY = 20 + Math.min(65, (scrollY / 900) * 55);
+      document.documentElement.style.setProperty('--foil-y', `${foilY.toFixed(1)}%`);
+      ticking = false;
+    });
+  }, { passive: true });
+
   const revealEls = document.querySelectorAll('.scroll-reveal');
+  const dividerEls = document.querySelectorAll('.drawn-divider-wrap');
+
   if (!('IntersectionObserver' in window)) {
     revealEls.forEach((el) => el.classList.add('is-inview'));
+    dividerEls.forEach((el) => el.classList.add('is-drawn'));
     return;
   }
 
-  revealObserver = new IntersectionObserver(
+  const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+        if (!entry.isIntersecting) return;
+        if (entry.target.classList.contains('scroll-reveal')) {
           entry.target.classList.add('is-inview');
+        }
+        if (entry.target.classList.contains('drawn-divider-wrap')) {
+          entry.target.classList.add('is-drawn');
         }
       });
     },
-    { threshold: 0.12, rootMargin: '0px 0px -24px 0px' }
+    { threshold: 0.1, rootMargin: '0px 0px -18px 0px' }
   );
 
-  revealEls.forEach((el) => revealObserver.observe(el));
+  revealEls.forEach((el) => observer.observe(el));
+  dividerEls.forEach((el) => observer.observe(el));
 }
 
-function triggerInitialReveals() {
+function triggerInitialManuscriptReveals() {
   const revealEls = document.querySelectorAll('.scroll-reveal');
+  const dividerEls = document.querySelectorAll('.drawn-divider-wrap');
+
   revealEls.forEach((el, idx) => {
     if (idx < 3) {
-      setTimeout(() => {
-        el.classList.add('is-inview');
-      }, idx * 110);
+      setTimeout(() => el.classList.add('is-inview'), 140 + idx * 120);
+    }
+  });
+
+  dividerEls.forEach((el, idx) => {
+    if (idx < 2) {
+      setTimeout(() => el.classList.add('is-drawn'), 240 + idx * 180);
     }
   });
 }
 
 /* ==========================================================================
-   4. DETERMINISTIC 5-LAYER ENVELOPE CHOREOGRAPHY
+   5. CONTINUOUS ENVELOPE-TO-MANUSCRIPT FLIP CHOREOGRAPHY
    ========================================================================== */
-function initEnvelopeChoreography(audioEngine) {
+function initEnvelopeChoreography(audioEngine, tiltController) {
   const sanctuary = document.getElementById('envelope-sanctuary');
   const assembly = document.getElementById('envelope-assembly');
   const openBtn = document.getElementById('open-trigger-btn');
@@ -255,6 +417,7 @@ function initEnvelopeChoreography(audioEngine) {
   const sanctuaryHeader = document.getElementById('sanctuary-header');
   const sanctuaryPrompt = document.getElementById('sanctuary-prompt');
   const waxAuraRing = document.getElementById('wax-aura-ring');
+  const waxWholeIdle = document.getElementById('wax-whole-idle');
   const waxCrackPath = document.getElementById('wax-crack-path');
   const waxHalfLeft = document.getElementById('wax-half-left');
   const waxHalfRight = document.getElementById('wax-half-right');
@@ -267,14 +430,23 @@ function initEnvelopeChoreography(audioEngine) {
 
   let isOpening = false;
   let activeAnimations = [];
+  let timers = [];
 
-  function clearAnimations() {
+  function clearAnimationsAndTimers() {
+    timers.forEach((t) => clearTimeout(t));
+    timers = [];
     activeAnimations.forEach((anim) => {
       try {
         anim.cancel();
       } catch (_) {}
     });
     activeAnimations = [];
+  }
+
+  function schedule(fn, ms) {
+    const id = setTimeout(fn, ms);
+    timers.push(id);
+    return id;
   }
 
   function animateEl(el, keyframes, options) {
@@ -287,71 +459,86 @@ function initEnvelopeChoreography(audioEngine) {
   function openEnvelope() {
     if (isOpening) return;
     isOpening = true;
-    clearAnimations();
+    clearAnimationsAndTimers();
+    tiltController.lockTilt();
 
-    // Hide prompt & header smoothly
+    // Subtle mobile haptic confirmation on supported phones
+    if (navigator.vibrate) {
+      try { navigator.vibrate([10, 28, 8]); } catch (_) {}
+    }
+
+    // Fade header & understated cue gracefully
     if (waxAuraRing) waxAuraRing.style.opacity = '0';
-    animateEl(sanctuaryPrompt, [{ opacity: 1 }, { opacity: 0, transform: 'translateY(10px)' }], {
-      duration: 280,
+    animateEl(sanctuaryPrompt, [{ opacity: 1 }, { opacity: 0, transform: 'translateY(8px)' }], {
+      duration: 240,
       easing: 'ease-out'
     });
     animateEl(sanctuaryHeader, [{ opacity: 1 }, { opacity: 0, transform: 'translateY(-10px)' }], {
-      duration: 320,
+      duration: 280,
       easing: 'ease-out'
     });
 
-    // STAGE 1: Seal fracture (0ms -> 240ms)
+    // STAGE 1: Wax Seal Crack (0ms -> 220ms)
     audioEngine.playSealCrack();
     if (waxCrackPath) {
       waxCrackPath.style.opacity = '1';
       animateEl(
         waxCrackPath,
         [{ strokeDashoffset: 140 }, { strokeDashoffset: 0 }],
-        { duration: 220, easing: 'ease-out' }
+        { duration: 200, easing: 'ease-out' }
       );
     }
 
-    // STAGE 2: Split wax seal halves (200ms -> 580ms)
-    setTimeout(() => {
+    // STAGE 2: Wax Seal Splits Cleanly Apart (190ms -> 550ms)
+    schedule(() => {
+      if (waxWholeIdle) waxWholeIdle.classList.add('hidden');
+      if (waxHalfLeft) waxHalfLeft.classList.remove('is-hidden-split');
+      if (waxHalfRight) waxHalfRight.classList.remove('is-hidden-split');
       if (waxCrackPath) waxCrackPath.style.opacity = '0';
       animateEl(
         waxHalfLeft,
         [
           { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
-          { transform: 'translate(-26px, 14px) rotate(-18deg)', opacity: 0 }
+          { transform: 'translate(-28px, 14px) rotate(-18deg)', opacity: 0 }
         ],
-        { duration: 380, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+        { duration: 360, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
       );
       animateEl(
         waxHalfRight,
         [
           { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
-          { transform: 'translate(26px, 14px) rotate(18deg)', opacity: 0 }
+          { transform: 'translate(28px, 14px) rotate(18deg)', opacity: 0 }
         ],
-        { duration: 380, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+        { duration: 360, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
       );
-    }, 200);
+    }, 190);
 
-    // STAGE 3: Open 3D Top Flap (420ms -> 1120ms)
-    // Switch z-index from 4 to 1 at exact 90deg midpoint (770ms)
-    setTimeout(() => {
+    // STAGE 3: 3D Top Flap Unfolds Backward (360ms -> 1040ms)
+    // On short screens (< 660px), gently lower assembly slightly so flap never clips at top
+    schedule(() => {
       audioEngine.playPaperSlide();
+      if (window.innerHeight < 660 && assembly) {
+        animateEl(
+          assembly,
+          [{ transform: 'translateY(0)' }, { transform: 'translateY(16%)' }],
+          { duration: 540, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' }
+        );
+      }
+
       animateEl(
         topFlap,
-        [
-          { transform: 'rotateX(0deg)' },
-          { transform: 'rotateX(180deg)' }
-        ],
-        { duration: 700, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' }
+        [{ transform: 'rotateX(0deg)' }, { transform: 'rotateX(180deg)' }],
+        { duration: 680, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' }
       );
-    }, 420);
+    }, 360);
 
-    setTimeout(() => {
+    // Swap top-flap z-index at exact 90deg midpoint (700ms) so lining stays behind rising letter
+    schedule(() => {
       if (topFlapWrap) topFlapWrap.style.zIndex = '1';
-    }, 770);
+    }, 700);
 
-    // STAGE 4: Letter rises gently while envelope pocket slides downward (1020ms -> 1780ms)
-    setTimeout(() => {
+    // STAGE 4: Letter Extraction & Envelope Descent (880ms -> 1480ms)
+    schedule(() => {
       audioEngine.playSoftChime();
 
       animateEl(
@@ -360,48 +547,72 @@ function initEnvelopeChoreography(audioEngine) {
           { transform: 'translateY(0) scale(1)' },
           { transform: 'translateY(-18%) scale(1.03)' }
         ],
-        { duration: 720, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+        { duration: 620, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
       );
 
       const pocketSlide = [
         { transform: 'translateY(0)', opacity: 1 },
         { transform: 'translateY(108%)', opacity: 0 }
       ];
-      const slideOpts = { duration: 740, easing: 'cubic-bezier(0.32, 0, 0.2, 1)' };
+      const slideOpts = { duration: 640, easing: 'cubic-bezier(0.32, 0, 0.2, 1)' };
 
       animateEl(envBack, pocketSlide, slideOpts);
       animateEl(envPocket, pocketSlide, slideOpts);
       animateEl(topFlapWrap, pocketSlide, slideOpts);
-      animateEl(envAura, [{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
-    }, 1020);
+      animateEl(envAura, [{ opacity: 1 }, { opacity: 0 }], { duration: 480 });
+    }, 880);
 
-    // STAGE 5: Morph into full mobile-optimized academic invitation card (1650ms)
-    setTimeout(() => {
+    // STAGE 5: Seamless Shared-Element FLIP Morph & Stationery Unfolding (1440ms)
+    schedule(() => {
+      const firstRect = envLetter ? envLetter.getBoundingClientRect() : null;
+
+      window.scrollTo({ top: 0, behavior: 'auto' });
       document.body.classList.remove('is-locked');
-      sanctuary.classList.add('is-dismissed');
 
       royalInvitation.classList.add('is-visible');
       royalInvitation.setAttribute('aria-hidden', 'false');
 
+      const lastRect = manuscriptSheet ? manuscriptSheet.getBoundingClientRect() : null;
+
+      // Dismiss Stage 1 on the exact same paint frame as Stage 2 FLIP invert
+      sanctuary.classList.add('is-dismissed');
       if (replayBtn) replayBtn.classList.remove('hidden');
 
-      if (manuscriptSheet && manuscriptSheet.animate) {
-        manuscriptSheet.animate(
+      if (manuscriptSheet && manuscriptSheet.animate && firstRect && lastRect && lastRect.width > 0) {
+        const dx = (firstRect.left + firstRect.width / 2) - (lastRect.left + lastRect.width / 2);
+        const dy = firstRect.top - lastRect.top;
+        const scale = Math.min(1, Math.max(0.58, firstRect.width / lastRect.width));
+
+        manuscriptSheet.classList.add('is-creasing');
+
+        animateEl(
+          manuscriptSheet,
           [
-            { opacity: 0, transform: 'translateY(24px) scale(0.97)' },
-            { opacity: 1, transform: 'translateY(0) scale(1)' }
+            {
+              transform: `translate3d(${dx.toFixed(1)}px, ${dy.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`,
+              clipPath: 'inset(0 0 60% 0 round 18px)',
+              opacity: 0.96
+            },
+            {
+              transform: 'translate3d(0, 0, 0) scale(1)',
+              clipPath: 'inset(0 0 0% 0 round 22px)',
+              opacity: 1
+            }
           ],
-          { duration: 620, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+          { duration: 760, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
         );
+
+        schedule(() => {
+          manuscriptSheet.classList.remove('is-creasing');
+        }, 780);
       }
 
-      triggerInitialReveals();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 1650);
+      triggerInitialManuscriptReveals();
+    }, 1440);
   }
 
   function resetEnvelope() {
-    clearAnimations();
+    clearAnimationsAndTimers();
     isOpening = false;
 
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -409,12 +620,19 @@ function initEnvelopeChoreography(audioEngine) {
 
     royalInvitation.classList.remove('is-visible');
     royalInvitation.setAttribute('aria-hidden', 'true');
+    if (manuscriptSheet) manuscriptSheet.classList.remove('is-creasing');
+
     sanctuary.classList.remove('is-dismissed');
 
     if (replayBtn) replayBtn.classList.add('hidden');
     if (topFlapWrap) topFlapWrap.style.zIndex = '4';
     if (waxAuraRing) waxAuraRing.style.opacity = '1';
+    if (waxWholeIdle) waxWholeIdle.classList.remove('hidden');
+    if (waxHalfLeft) waxHalfLeft.classList.add('is-hidden-split');
+    if (waxHalfRight) waxHalfRight.classList.add('is-hidden-split');
     if (waxCrackPath) waxCrackPath.style.opacity = '0';
+
+    tiltController.unlockTilt();
   }
 
   if (assembly) {
@@ -440,28 +658,51 @@ function initEnvelopeChoreography(audioEngine) {
 }
 
 /* ==========================================================================
-   5. COUNTDOWN TIMER (Target: Sunday, Nov 29, 2026 - r="35" -> 219.91)
+   6. ROLLING ODOMETER COUNTDOWN (Target: Sunday, Nov 29, 2026 - Mosul UTC+3)
    ========================================================================== */
-function initCountdownTimer() {
+function initOdometerCountdown() {
   const targetDate = new Date('2026-11-29T13:00:00+03:00').getTime();
-  const CIRCUMFERENCE = 2 * Math.PI * 35; // 219.91
 
-  const elDays = document.getElementById('cd-days');
-  const elHours = document.getElementById('cd-hours');
-  const elMinutes = document.getElementById('cd-minutes');
-  const elSeconds = document.getElementById('cd-seconds');
+  const containers = {
+    days: document.getElementById('odo-days'),
+    hours: document.getElementById('odo-hours'),
+    minutes: document.getElementById('odo-minutes'),
+    seconds: document.getElementById('odo-seconds')
+  };
 
-  const ringDays = document.getElementById('ring-days');
-  const ringHours = document.getElementById('ring-hours');
-  const ringMinutes = document.getElementById('ring-minutes');
-  const ringSeconds = document.getElementById('ring-seconds');
+  function createDigitColumn() {
+    const col = document.createElement('span');
+    col.className = 'odo-digit-col';
+    const track = document.createElement('span');
+    track.className = 'odo-digit-track';
+    for (let d = 0; d <= 9; d++) {
+      const numSpan = document.createElement('span');
+      numSpan.textContent = String(d);
+      track.appendChild(numSpan);
+    }
+    col.appendChild(track);
+    col._track = track;
+    return col;
+  }
 
-  function setProgress(circle, fraction) {
-    if (!circle) return;
-    const clamped = Math.max(0, Math.min(1, fraction));
-    const offset = CIRCUMFERENCE * (1 - clamped);
-    circle.style.strokeDasharray = `${CIRCUMFERENCE}`;
-    circle.style.strokeDashoffset = `${offset}`;
+  function renderOdometerValue(container, strValue) {
+    if (!container) return;
+    if (!container._cols || container._cols.length !== strValue.length) {
+      container.innerHTML = '';
+      container._cols = [];
+      for (let i = 0; i < strValue.length; i++) {
+        const col = createDigitColumn();
+        container._cols.push(col);
+        container.appendChild(col);
+      }
+    }
+
+    for (let i = 0; i < strValue.length; i++) {
+      const digit = parseInt(strValue[i], 10);
+      if (!Number.isNaN(digit) && container._cols[i]._track) {
+        container._cols[i]._track.style.transform = `translateY(-${digit * 10}%)`;
+      }
+    }
   }
 
   function update() {
@@ -473,15 +714,10 @@ function initCountdownTimer() {
     const minutes = Math.floor((diff / 1000 / 60) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
 
-    if (elDays) elDays.textContent = String(days).padStart(2, '0');
-    if (elHours) elHours.textContent = String(hours).padStart(2, '0');
-    if (elMinutes) elMinutes.textContent = String(minutes).padStart(2, '0');
-    if (elSeconds) elSeconds.textContent = String(seconds).padStart(2, '0');
-
-    setProgress(ringDays, Math.min(1, days / 365));
-    setProgress(ringHours, hours / 24);
-    setProgress(ringMinutes, minutes / 60);
-    setProgress(ringSeconds, seconds / 60);
+    renderOdometerValue(containers.days, String(days).padStart(2, '0'));
+    renderOdometerValue(containers.hours, String(hours).padStart(2, '0'));
+    renderOdometerValue(containers.minutes, String(minutes).padStart(2, '0'));
+    renderOdometerValue(containers.seconds, String(seconds).padStart(2, '0'));
   }
 
   update();
@@ -489,7 +725,7 @@ function initCountdownTimer() {
 }
 
 /* ==========================================================================
-   6. RSVP CONFIRMATION & CONGRATULATIONS BOARD
+   7. RSVP FORM, 3D KEEPSAKE PASS & OPTIMISTIC WISHES STREAM
    ========================================================================== */
 function initRSVPAndWishes(audioEngine) {
   const form = document.getElementById('rsvp-form');
@@ -505,7 +741,6 @@ function initRSVPAndWishes(audioEngine) {
   const editBtn = document.getElementById('edit-rsvp-btn');
   const blessingsGrid = document.getElementById('blessings-grid');
 
-  // Toggle companions dropdown based on attendance radio
   const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
   attendanceRadios.forEach((radio) => {
     radio.addEventListener('change', () => {
@@ -527,6 +762,9 @@ function initRSVPAndWishes(audioEngine) {
       const wishText = guestWishesInput ? guestWishesInput.value.trim() : '';
 
       audioEngine.playSoftChime();
+      if (navigator.vibrate) {
+        try { navigator.vibrate([12]); } catch (_) {}
+      }
 
       if (passName) passName.textContent = name;
       if (passStatus) {
@@ -536,17 +774,28 @@ function initRSVPAndWishes(audioEngine) {
       }
 
       form.classList.add('hidden');
-      if (passContainer) passContainer.classList.remove('hidden');
+      if (passContainer) {
+        passContainer.classList.remove('hidden');
+        if (passContainer.animate) {
+          passContainer.animate(
+            [
+              { opacity: 0, transform: 'translateY(12px) scale(0.97)' },
+              { opacity: 1, transform: 'translateY(0) scale(1)' }
+            ],
+            { duration: 480, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+          );
+        }
+      }
 
       if (wishText && blessingsGrid) {
-        const card = document.createElement('div');
-        card.className = 'wish-card';
+        const entry = document.createElement('blockquote');
+        entry.className = 'wish-entry is-newly-posted';
 
         const p = document.createElement('p');
         p.className = 'wish-body';
         p.textContent = wishText;
 
-        const footer = document.createElement('div');
+        const footer = document.createElement('footer');
         footer.className = 'wish-footer';
 
         const author = document.createElement('span');
@@ -555,14 +804,14 @@ function initRSVPAndWishes(audioEngine) {
 
         const meta = document.createElement('span');
         meta.className = 'wish-meta';
-        meta.textContent = 'تهنئة مضافة الآن';
+        meta.textContent = 'أُضيفت الآن';
 
         footer.appendChild(author);
         footer.appendChild(meta);
-        card.appendChild(p);
-        card.appendChild(footer);
+        entry.appendChild(p);
+        entry.appendChild(footer);
 
-        blessingsGrid.prepend(card);
+        blessingsGrid.prepend(entry);
       }
     });
   }
@@ -599,7 +848,7 @@ function initRSVPAndWishes(audioEngine) {
 }
 
 /* ==========================================================================
-   7. SHARE TOOLS (Copy Link & Share on WhatsApp)
+   8. SHARE TOOLS
    ========================================================================== */
 function initShareTools(audioEngine) {
   const copyBtn = document.getElementById('copy-invitation-link');
