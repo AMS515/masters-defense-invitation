@@ -106,6 +106,16 @@ body.is-locked {
   opacity: 0.65;
 }
 
+/* Layer order: Envelope(25) < Floating Cap(42) < Balloons & Strings(45) */
+#balloon-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 45;
+}
+
 .bg-soft-aura {
   position: fixed;
   border-radius: 50%;
@@ -475,72 +485,98 @@ body.is-locked {
   overflow: visible;
 }
 
-/* Layer 5: Sculpted Wax-Gold Seal */
-.wax-seal-stage {
+/* Layer 5: Sculpted 3D Graduation Cap Seal & Cast Shadow */
+.cap-ground-shadow {
   position: absolute;
-  top: 54%;
+  top: 59.5%;
   left: 50%;
-  width: clamp(74px, 21vw, 90px);
-  height: clamp(74px, 21vw, 90px);
+  width: clamp(92px, 26vw, 114px);
+  height: clamp(28px, 7.5vw, 34px);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(16, 24, 42, 0.36) 0%, rgba(16, 24, 42, 0.14) 55%, transparent 78%);
+  filter: blur(5px);
+  z-index: 4;
+  pointer-events: none;
+  will-change: transform, opacity, filter;
+}
+
+.cap-seal-stage {
+  position: absolute;
+  top: 52.5%;
+  left: 50%;
+  width: clamp(122px, 34vw, 146px);
+  aspect-ratio: 220 / 170;
   transform: translate(-50%, -50%);
   z-index: 5;
   pointer-events: none;
 }
 
-.wax-aura-ring {
+.cap-halo-ring {
   position: absolute;
-  inset: -7px;
+  inset: -4px;
   border-radius: 50%;
-  border: 1px solid rgba(181, 144, 75, 0.42);
-  animation: sealHalo 3.2s infinite ease-in-out;
+  border: 1px solid rgba(181, 144, 75, 0.36);
+  animation: capHaloPulse 3s infinite ease-in-out;
+  transition: opacity 0.25s ease;
 }
 
-@keyframes sealHalo {
-  0%, 100% {
-    transform: scale(0.95);
-    opacity: 0.25;
-  }
-  50% {
-    transform: scale(1.08);
-    opacity: 0.65;
-  }
-}
-
-.wax-whole-idle,
-.wax-half {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  will-change: transform, opacity;
-}
-
-.wax-whole-idle {
-  z-index: 2;
-}
-
-.wax-half.is-hidden-split {
+.cap-halo-ring.is-gone {
+  animation: none;
   opacity: 0;
 }
 
-.wax-svg,
-.wax-crack-svg {
+@keyframes capHaloPulse {
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.22;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.58;
+  }
+}
+
+.grad-cap-actor {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 19.41%;
+  will-change: transform, opacity;
+  direction: ltr;
+}
+
+.grad-cap-actor.is-flying {
+  position: fixed;
+  z-index: 42;
+  pointer-events: none;
+}
+
+.grad-cap-svg {
   width: 100%;
   height: 100%;
   display: block;
   overflow: visible;
 }
 
-.wax-crack-svg {
+.cap-tassel-pendulum {
   position: absolute;
-  inset: 0;
-  z-index: 6;
+  left: 89.1%;
+  top: 34.1%;
+  width: 14px;
+  height: 30px;
+  margin-left: -7px;
+  margin-top: -2px;
+  transform-origin: 50% 2px;
+  pointer-events: none;
+  will-change: transform;
 }
 
-#wax-crack-path {
-  stroke-dasharray: 140;
-  stroke-dashoffset: 140;
-  opacity: 0;
+.tassel-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
 }
 
 /* Understated Editorial Touch Prompt */
@@ -860,6 +896,30 @@ body.is-locked {
   color: var(--ink-slate);
 }
 
+.thesis-title-block {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.56);
+  border: 1px solid var(--rule-gold-faint);
+}
+
+.thesis-kicker {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--gold-dark);
+  margin-bottom: 2px;
+}
+
+.thesis-title {
+  font-family: var(--font-serif);
+  font-size: clamp(0.96rem, 3.6vw, 1.1rem);
+  font-weight: 700;
+  color: var(--ink-navy);
+  line-height: 1.55;
+}
+
 .lunch-invitation-prose {
   padding-top: 6px;
 }
@@ -1053,20 +1113,8 @@ body.is-locked {
 }
 
 /* ==========================================================================
-   9. COMMITTEE & LOCATION EDITORIAL SECTIONS
+   9. NATIVE MAP LAUNCHER & TEAR DIVIDER
    ========================================================================== */
-.inv-committee-section {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.committee-prose {
-  font-size: 0.85rem;
-  color: var(--ink-secondary);
-  line-height: 1.85;
-  padding: 0 4px;
-}
-
 .inv-map-section {
   text-align: center;
   margin-bottom: 24px;
@@ -1089,6 +1137,79 @@ body.is-locked {
   font-size: 0.81rem;
   color: var(--ink-muted);
   margin-bottom: 4px;
+}
+
+.map-apps-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 340px) {
+  .map-apps-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-map-app {
+  justify-content: flex-start;
+  padding: 10px 12px;
+  gap: 10px;
+  text-align: right;
+  min-height: 54px;
+}
+
+.map-app-icon {
+  flex-shrink: 0;
+  color: var(--gold-dark);
+}
+
+.map-app-label {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.28;
+}
+
+.map-app-label strong {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink-navy);
+}
+
+.map-app-label small {
+  font-size: 0.67rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+.btn-map-app.is-recommended-app {
+  background: var(--ink-navy);
+  border-color: var(--ink-navy);
+  box-shadow: 0 8px 18px -6px rgba(24, 35, 56, 0.3);
+}
+
+.btn-map-app.is-recommended-app:hover {
+  background: #0f172a;
+}
+
+.btn-map-app.is-recommended-app .map-app-icon,
+.btn-map-app.is-recommended-app .map-app-label strong {
+  color: #ffffff;
+}
+
+.btn-map-app.is-recommended-app .map-app-label small {
+  color: var(--gold-bright);
+}
+
+.map-device-note {
+  font-size: 0.75rem;
+  color: var(--gold-dark);
+  background: rgba(181, 144, 75, 0.08);
+  border: 1px solid var(--rule-gold-faint);
+  border-radius: 9px;
+  padding: 7px 12px;
+  margin-top: 4px;
 }
 
 /* Folded Seal Transition Divider */
@@ -1125,7 +1246,7 @@ body.is-locked {
 }
 
 /* ==========================================================================
-   10. STATIONERY RSVP FORM & TILT-RESPONSIVE KEEPSAKE PASS
+   10. STATIONERY PUBLIC WISHES FORM & FEEDBACK
    ========================================================================== */
 .inv-rsvp-section {
   margin-bottom: 28px;
@@ -1204,83 +1325,7 @@ body.is-locked {
 
 .st-textarea {
   resize: vertical;
-  min-height: 70px;
-}
-
-.radio-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-@media (max-width: 340px) {
-  .radio-cards {
-    grid-template-columns: 1fr;
-  }
-}
-
-.radio-card {
-  cursor: pointer;
-}
-
-.radio-card input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.radio-card-inner {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 11px 10px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.58);
-  border: 1px solid rgba(24, 35, 56, 0.12);
-  transition: all 0.25s var(--ease-paper);
-}
-
-.radio-card input:checked + .radio-card-inner {
-  border-color: var(--gold-mid);
-  background: #ffffff;
-  box-shadow: 0 4px 14px rgba(181, 144, 75, 0.12);
-}
-
-.radio-dot {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  border: 1.5px solid var(--ink-muted);
-  margin-top: 2px;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.radio-card input:checked + .radio-card-inner .radio-dot {
-  border-color: var(--gold-dark);
-}
-
-.radio-card input:checked + .radio-card-inner .radio-dot::after {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border-radius: 50%;
-  background: var(--gold-dark);
-}
-
-.radio-txt {
-  display: flex;
-  flex-direction: column;
-}
-
-.radio-txt strong {
-  font-size: 0.79rem;
-  color: var(--ink-navy);
-}
-
-.radio-txt span {
-  font-size: 0.67rem;
-  color: var(--ink-muted);
+  min-height: 76px;
 }
 
 .form-buttons {
@@ -1313,6 +1358,11 @@ body.is-locked {
   transform: scale(0.975);
 }
 
+.btn-action:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
 .btn-primary {
   background: var(--ink-navy);
   color: #ffffff;
@@ -1334,109 +1384,35 @@ body.is-locked {
   border-color: var(--gold-mid);
 }
 
-.btn-whatsapp {
-  background: rgba(240, 253, 244, 0.85);
-  color: #166534;
-  border-color: rgba(22, 101, 52, 0.24);
-}
-
-.btn-whatsapp:hover {
-  background: #dcfce7;
-}
-
 .btn-sm {
   min-height: 40px;
   padding: 9px 12px;
   font-size: 0.79rem;
 }
 
-/* Interactive 3D Tilt-Responsive Keepsake Guest Pass */
-.keepsake-pass-wrap {
-  perspective: 900px;
-  padding: 4px 0;
-}
-
-.keepsake-pass {
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-  padding: 20px 16px 16px;
+.wish-feedback {
   text-align: center;
-  background: linear-gradient(155deg, #ffffff 0%, #faf6ec 65%, #f3ebda 100%);
-  border: 1px solid var(--gold-mid);
-  box-shadow: var(--shadow-pass);
-  will-change: transform;
-  transform-style: preserve-3d;
-}
-
-.keepsake-foil-glint {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    circle 180px at var(--pass-foil-x, 50%) var(--pass-foil-y, 30%),
-    rgba(255, 252, 240, 0.65) 0%,
-    rgba(235, 215, 171, 0.2) 45%,
-    transparent 75%
-  );
-  mix-blend-mode: soft-light;
-}
-
-.keepsake-check {
-  width: 38px;
-  height: 38px;
-  margin: 0 auto 8px;
-  border-radius: 50%;
-  background: var(--gold-pale);
-  border: 1px solid var(--gold-mid);
-  color: var(--gold-dark);
-  font-size: 1.05rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.keepsake-pass h4 {
-  font-family: var(--font-serif);
-  font-size: 1.12rem;
-  color: var(--ink-navy);
-  margin-bottom: 12px;
-}
-
-.keepsake-rows {
-  border-top: 1px solid var(--rule-gold-faint);
-  border-bottom: 1px solid var(--rule-gold-faint);
-  padding: 10px 4px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.k-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.81rem;
-}
-
-.k-row span {
-  color: var(--ink-muted);
-}
-
-.k-row strong {
-  color: var(--ink-navy);
-}
-
-.btn-text-link {
-  background: none;
-  border: none;
-  color: var(--gold-dark);
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  text-decoration: underline;
-  cursor: pointer;
+  color: #166534;
+  background: rgba(240, 253, 244, 0.9);
+  border: 1px solid rgba(22, 101, 52, 0.22);
+  border-radius: 10px;
+  padding: 9px 12px;
+}
+
+.wish-feedback.is-error {
+  color: #991b1b;
+  background: rgba(254, 242, 242, 0.92);
+  border-color: rgba(185, 28, 28, 0.24);
+}
+
+.wishes-loading,
+.wishes-empty-state {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  padding: 14px 8px;
 }
 
 /* ==========================================================================
