@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initOdometerCountdown();
   initNativeMapLinks();
   initSupabaseWishes(audioEngine);
-  initShareTools(audioEngine);
 });
 
 /* ==========================================================================
@@ -1344,48 +1343,4 @@ function initSupabaseWishes(audioEngine) {
   }
 
   loadPublicWishes();
-}
-
-/* ==========================================================================
-   9. SHARE TOOLS
-   ========================================================================== */
-function initShareTools(audioEngine) {
-  const copyBtn = document.getElementById('copy-invitation-link');
-  const copyLabel = document.getElementById('copy-link-label');
-  const shareWaBtn = document.getElementById('share-whatsapp-btn');
-
-  if (copyBtn) {
-    copyBtn.addEventListener('click', async () => {
-      const shareUrl = window.location.href;
-      try {
-        await navigator.clipboard.writeText(shareUrl);
-      } catch (_) {
-        const temp = document.createElement('input');
-        temp.value = shareUrl;
-        document.body.appendChild(temp);
-        temp.select();
-        document.execCommand('copy');
-        document.body.removeChild(temp);
-      }
-
-      audioEngine.playSoftChime();
-      if (copyLabel) {
-        copyLabel.textContent = 'تم نسخ الرابط ✓';
-        setTimeout(() => {
-          copyLabel.textContent = 'نسخ الرابط';
-        }, 2200);
-      }
-    });
-  }
-
-  if (shareWaBtn) {
-    shareWaBtn.addEventListener('click', () => {
-      const shareText =
-        'دعوة لحضور مأدبة الغداء بمناسبة مناقشة رسالة الماجستير للباحثة ابتسام محمود صالح (التخصص الدقيق: إدارة الأعمال - كلية الإدارة والاقتصاد - جامعة الموصل)\n' +
-        'يوم الأحد ٢٩ / ١١ / ٢٠٢٦ — الساعة ١:٠٠ مساءً في مطعم سراي، الموصل:\n' +
-        window.location.href;
-      const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
-    });
-  }
 }

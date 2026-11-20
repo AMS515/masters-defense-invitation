@@ -1124,19 +1124,13 @@ body.is-locked {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 11px;
 }
 
 .location-kicker {
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--gold-dark);
-}
-
-.location-desc {
-  font-size: 0.81rem;
-  color: var(--ink-muted);
-  margin-bottom: 4px;
 }
 
 .map-apps-grid {
@@ -1477,29 +1471,12 @@ body.is-locked {
 }
 
 /* ==========================================================================
-   12. SHARE & FOOTER
+   12. FOOTER SIGN-OFF
    ========================================================================== */
 .inv-footer {
   text-align: center;
   border-top: 1px solid var(--rule-gold-faint);
   padding-top: 22px;
-}
-
-.share-box {
-  margin-bottom: 22px;
-}
-
-.share-label {
-  display: block;
-  font-size: 0.77rem;
-  color: var(--ink-muted);
-  margin-bottom: 10px;
-}
-
-.share-btns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
 }
 
 .footer-signoff {
