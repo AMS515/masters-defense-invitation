@@ -1500,3 +1500,45 @@ body.is-locked {
   font-size: 0.72rem;
   color: var(--ink-muted);
 }
+
+/* Creator Credit (Outside Invitation Paper Frame) */
+.creator-credit {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(181, 144, 75, 0.22);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.creator-credit-line {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--ink-secondary);
+}
+
+.creator-wa-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 5px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-navy);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.creator-wa-link:hover,
+.creator-wa-link:active {
+  color: #16773f;
+  transform: translateY(-1px);
+}
+
+.creator-wa-icon {
+  color: #1f8a4c;
+  flex-shrink: 0;
+}
